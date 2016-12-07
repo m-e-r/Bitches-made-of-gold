@@ -9,6 +9,8 @@ import worldofzuul.iGame;
 import worldofzuul.Game;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.UUID;
 import javafx.collections.FXCollections;
@@ -101,18 +103,21 @@ public class FXMLDocumentController implements Initializable {
     private ArrayList<Button> buttonArray = new ArrayList();
     private ArrayList<ImageView> itemImageViews = new ArrayList();
     private ArrayList<Button> dialogueArray = new ArrayList();
+    private int[] yCoordinates;
+    private int[] xCoordinates;
     
     public void setSolarsystem() {
         titleTA.setText("F.U.T.U.R.A.M.A.");
-        Image solarsystem = new Image("solarsystem.png");
-        sceneImage.setImage(solarsystem);
+        Image solarsystem1 = new Image("solarsystemy.png");
+        sceneImage.setImage(solarsystem1);
         ArrayList<UUID> listOfPlanets = new ArrayList();
-        listOfPlanets = this.game.getListOfPlanets();
-        System.out.println(listOfPlanets.size());
+        listOfPlanets = this.game.getListOfPlanets();            
+        
+        
         for(UUID planet : listOfPlanets){
             Button planetButton = new Button();
             planetButton.setUserData(planet);
-            planetButton.setMaxSize(58, 58);            
+            planetButton.setMaxSize(58, 58);          
             planetButton.setStyle("-fx-background-image: url(planet" + this.game.getPid(planet) +  ".png)");
             planetButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -187,9 +192,9 @@ public class FXMLDocumentController implements Initializable {
         this.npcCB.setItems(npcChoices);
         
         Button npcButton = new Button();
-        sceneGrid.add(npcButton, 1, 4, 0, 0);
-        npcButton.setStyle("-fx-background-image: url("+this.game.getImgPath(
-                ((ListFoo) npcCB.getValue()).getNpc())+")");
+        sceneGrid.add(npcButton, 1, 4);
+        npcButton.setStyle("-fx-background-image: url(data/"+this.game.getImgPath
+        ((((ListFoo) npcCB.getValue()).getNpc()))+"/images/");
         npcButton.setOnAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event) {
@@ -257,6 +262,7 @@ public class FXMLDocumentController implements Initializable {
         this.itemImageViews.add(this.itemIV1);
         this.itemImageViews.add(this.itemIV2);
         this.npcCB.setItems(npcChoices);
+        
         setSolarsystem();
     }
 }
