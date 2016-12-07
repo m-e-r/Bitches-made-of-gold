@@ -1,0 +1,24 @@
+*** Initial conversation ***
+Hello! I'm Iegres Velorok from the Republic of China. I'm thrilled that you could join us here in Alpha Centauri!
+1
+
+thanks
+Alright, let's get you signed up!
+1
+
+____
+Alright, the year is 2077, 72nd Iserto is the date, and... You're now officially a part of our shipping company!
+1
+
+great
+Now you can head to your spaceship and deliver the first package.
+2
+
+_____
+I've already loaded the package, all you have to do is check the commands of the spaceships, and I'm sure the dashboard will explain how your ship works.
+1
+
+thanks
+I know the first is over at Yrucrem, at the coordinates of 20;72.
+-1
+pickupPackage,nextConvoId:1

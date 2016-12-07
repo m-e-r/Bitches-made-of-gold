@@ -1,0 +1,8 @@
+*** Standard "hello and bye" conversation *** (is kinda like the UnSupportedException)
+Hello, and bye! I have no interest in talking with you right now!
+1
+
+okay
+Bye bye!
+-1
+

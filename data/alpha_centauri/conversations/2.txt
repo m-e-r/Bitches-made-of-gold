@@ -1,0 +1,29 @@
+*** Getting papers ***
+Greetings from the Governor ship for Alpha Centauri for the republic of China, I'm secretary Lee.
+1
+
+hello
+If you have any packages without papers, I fill in the paperwork for you.
+1
+
+____ 1:
+This means it will be easier for you to deliver the packages. Do you want me to make sure the paperwork is alright?
+2
+
+yes
+Alright, just a moment.
+2
+getPapers
+
+no
+Alright, well, come back whenever you need papers for your packages!
+2
+
+_____ 2:
+Remember, the Governor ship is flying around all the time, so if you come back for more paper work, we will probably not be here, and our schedule is classified.
+1
+
+alright
+Have a good day, goodbye!
+-1
+
