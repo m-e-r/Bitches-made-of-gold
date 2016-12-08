@@ -111,6 +111,7 @@ public class FXMLDocumentController implements Initializable {
     private ArrayList<Button> dropItemArray = new ArrayList();
     private int[] yCoordinates;
     private int[] xCoordinates;
+    private String availableNpcs;
     
     
     public void setSolarsystem() {
@@ -133,12 +134,19 @@ public class FXMLDocumentController implements Initializable {
                     planetHandle(planet, game.getAvailableNpcs(planet));
                 }
             });
+
+            
             this.sceneGrid.add(planetButton, (int) ((this.game.getPositionCoordinates(planet)[0]/167)+0.5), (int) ((this.game.getPositionCoordinates(planet)[1]/167)+0.5));
             planetButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(MouseEvent event) {                    
-                    planetTA.setText(game.getName(planet)+game.getDescription(planet));
+                public void handle(MouseEvent event) {   
+                    availableNpcs = "";
+                    for (UUID npc : game.getAvailableNpcs(planet)) {
+                        availableNpcs += game.getName(npc) + ", ";
+                    }
+                    planetTA.setText(game.getName(planet)+ "\n" + game.getDescription(planet) + "\nNpcs on this mofo: " + availableNpcs );
                     itemGrid.add(planetTA, 0, 0);
+                    planetTA.setWrapText(true);
                     if(game.getPossiblePlanets().contains(planet)) {
                        planetTA.appendText("\n\n\tThis planet is reachable");
                     } else {
