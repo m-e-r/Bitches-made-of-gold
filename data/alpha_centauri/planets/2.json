@@ -2,7 +2,7 @@
     "pid" : 2,
 	"name" : "Sram",
 	"description" : "A small red planet",
-	"x" : 120,
-	"y" : 35,
+	"x" : 750,
+	"y" : 300,
 	"imagePath" : "planets/moon1.png"
 }

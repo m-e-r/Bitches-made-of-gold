@@ -2,7 +2,7 @@
     "pid" : 0,
 	"name" : "Htrae",
 	"description" : "A planet similiar to the planet Earth in the Solar system",
-	"x" : 120,
-	"y" : 210,
+	"x" : 400,
+	"y" : 400,
 	"imagePath" : "planets/moon1.png"
 }

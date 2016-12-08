@@ -20,7 +20,7 @@ public class Dashboard {
      */
     public void print(String toPrint) {
         this.savedString += toPrint + "\n";
-        System.out.print(this.getSavedString());
+        //System.out.print(this.getSavedString());
     }
 
     /**
@@ -29,7 +29,7 @@ public class Dashboard {
      */
     public void print() {
         this.savedString += "\n";
-        System.out.print(this.getSavedString());
+        //System.out.print(this.getSavedString());
     }
 
     public String getSavedString() {

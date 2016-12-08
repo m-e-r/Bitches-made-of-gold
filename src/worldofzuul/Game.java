@@ -1811,6 +1811,9 @@ public class Game implements iGame {
 
     @Override
     public String[] getAnswers() {
+        if(this.currentConversation == null) {
+            return null;
+        }
         return this.currentConversation.getPossibleAnswers();
     }
 /*
@@ -1825,4 +1828,20 @@ public class Game implements iGame {
     }
    
     */
+
+    @Override
+    public void dropItem(UUID uuid) {
+         for (UUID itemId : this.player.getInventoryUuids()) {
+            if (itemId == uuid) {
+                this.player.removeItem(itemId, this.items.get(itemId).getWeight());
+                this.player.setReputation(this.player.getReputation() - this.items.get(itemId).getReputationWorth());
+                return;
+            }
+        }
+    }
+
+    @Override
+    public void getHelp() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

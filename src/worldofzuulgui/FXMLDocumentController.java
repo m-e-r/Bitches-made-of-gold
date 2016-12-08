@@ -96,15 +96,22 @@ public class FXMLDocumentController implements Initializable {
     private TextArea inGameTimeTA;
     @FXML
     private ChoiceBox npcCB;
+    @FXML
+    private Button dropItem0;
+    @FXML
+    private Button dropItem1;
+    @FXML
+    private Button dropItem2;
     
     TextArea planetTA = new TextArea();
-    
-    private ObservableList<ListFoo> npcChoices = FXCollections.observableArrayList();
+    private ObservableList<CheatList> npcChoices = FXCollections.observableArrayList();
     private ArrayList<Button> buttonArray = new ArrayList();
     private ArrayList<ImageView> itemImageViews = new ArrayList();
     private ArrayList<Button> dialogueArray = new ArrayList();
+    private ArrayList<Button> dropItemArray = new ArrayList();
     private int[] yCoordinates;
     private int[] xCoordinates;
+    
     
     public void setSolarsystem() {
         titleTA.setText("F.U.T.U.R.A.M.A.");
@@ -113,9 +120,9 @@ public class FXMLDocumentController implements Initializable {
         sceneImage.setImage(solarsystem1);
         ArrayList<UUID> listOfPlanets = new ArrayList();
         listOfPlanets = this.game.getListOfPlanets();
+        this.updateStats();
         
         for(UUID planet : listOfPlanets){
-            System.out.println("liste test: " + listOfPlanets.size());
             Button planetButton = new Button();
             planetButton.setUserData(planet);
             planetButton.setMaxSize(30, 30);          
@@ -126,7 +133,7 @@ public class FXMLDocumentController implements Initializable {
                     planetHandle(planet, game.getAvailableNpcs(planet));
                 }
             });
-            this.sceneGrid.add(planetButton, ((this.game.getPositionCoordinates(planet)[0]/1000)*6), ((this.game.getPositionCoordinates(planet)[1]/1000)*6));
+            this.sceneGrid.add(planetButton, (int) ((this.game.getPositionCoordinates(planet)[0]/167)+0.5), (int) ((this.game.getPositionCoordinates(planet)[1]/167)+0.5));
             planetButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {                    
@@ -151,20 +158,13 @@ public class FXMLDocumentController implements Initializable {
             buttonArray.add(planetButton);
         }
         
-        /*
-        sceneGrid.add(buttonArray.get(0), 2, 2);
-        sceneGrid.add(buttonArray.get(1), 3, 0);
-        sceneGrid.add(buttonArray.get(2), 5, 3);
-        sceneGrid.add(buttonArray.get(3), 6, 1);
-        sceneGrid.add(buttonArray.get(4), 1, 3);
-        sceneGrid.add(buttonArray.get(5), 0, 0);
-        sceneGrid.add(buttonArray.get(6), 3, 4);
-        */
+        this.updateInv();
         dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             }
         });
+        npcChoices.clear();
     }
     
     public void sceneClear() {
@@ -186,30 +186,35 @@ public class FXMLDocumentController implements Initializable {
             }    
         });
         this.game.travelToPlanet(planet);
-        this.game.getDashboardUpdate();
+        dialogueTA.setText(this.game.getDashboardUpdate());
 
         for (UUID npc : npcs) {
-            this.npcChoices.add(new ListFoo(npc, this.game.getName(npc)));
+            this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
         }
         this.npcCB.setItems(npcChoices);
-        
+        //game.getImgPath((((ListFoo) npcCB.getValue()).getNpc()))+
         Button npcButton = new Button();
         this.npcCB.setOnAction( new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Button npcButton = new Button();
-                sceneGrid.add(npcButton, 1, 3, 2, 2);
-                npcButton.setStyle("-fx-background-image: url("+game.getImgPath(
-                                  (((ListFoo) npcCB.getValue()).getNpc()))+")");
+                if (npcCB.getValue() == null) {
+                    return;
+                }
+                sceneClear();
+                npcButton.setMaxSize(100, 50);
+                sceneGrid.add(npcButton, 1, 3, 1, 3);
+                npcButton.setStyle("-fx-background-color: transparent;");
+                Image npcImage = new Image(game.getImgPath((((CheatList) npcCB.getValue()).getNpc())));
+                npcButton.setGraphic( new ImageView(npcImage));
                 npcButton.setOnAction(new EventHandler<ActionEvent>(){
                     @Override
                     public void handle(ActionEvent event) {
-                        game.startConversation(((ListFoo) npcCB.getValue()).getNpc());
+                        game.startConversation(((CheatList) npcCB.getValue()).getNpc());
+                        updateConversationText();
                     }
                 });
             }
         });
-        
     }
     
     public void titleHandle() {
@@ -218,50 +223,82 @@ public class FXMLDocumentController implements Initializable {
     
     public void handleAnswerButton(String ans) {
         this.game.processAnswer(ans);
-        updateInv();
-        updateStats();
-        updateConversationText();
+        this.updateInv();
+        this.updateStats();
+        this.updateConversationText();
     }
     
     public void updateStats() {
-        fuelTA.setText(""+this.game.getFuel());
+        fuelTA.setText("Fuel: "+this.game.getFuel());
         if(this.game.canWarp()) {
-            warpTA.setText(""+this.game.getWarpFuel());
+            warpTA.setText("WarpFuel: "+this.game.getWarpFuel());
         }
-        repTA.setText("" +this.game.getReputation());
-        inGameTimeTA.setText("" + this.game.getInGameTime()); //InGameTime
+        repTA.setText("Rep: " +this.game.getReputation());
+        inGameTimeTA.setText("Time: " + this.game.getInGameTime()); //InGameTime
     }
     
     public void updateConversationText() {
-        this.game.getDashboardUpdate();
+        dialogueTA.setText(this.game.getDashboardUpdate());
         for (Button dialogueButton : dialogueArray) {
-            dialogueButton.setUserData(null);
             dialogueButton.setText("");
+            dialogueButton.setOnAction(new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(ActionEvent event) {
+                }
+            });
         }
         
-        for (int i = 0; i == this.game.getAnswers().length; i++) {
-            int n = i;
+        if(this.game.getAnswers() != null) {
+            for (int i = 0; i < this.game.getAnswers().length; i++) {
+            int n= i+1;
+            
             dialogueArray.get(i).setUserData(this.game.getAnswers()[i]);
             dialogueArray.get(i).setText(this.game.getAnswers()[i]);
             dialogueArray.get(i).setOnAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event) {
-                    handleAnswerButton((String) dialogueArray.get(n).getUserData());
+                    handleAnswerButton((String) ((Button) event.getSource()).getUserData());
                 }
             });
+            }
+        } else {
+            dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setSolarsystem();
+            }    
+        });
         }
     }
     
     public void updateInv() {
-        for ( int i = 0; i == this.game.getInventory().size(); i++) {
-            Image itemImg = new Image(this.game.getImgPath(this.game.getInventory().get(i)));
-            this.itemImageViews.get(i).setImage(itemImg);
-        }
+        for (int i = 0; i < this.itemImageViews.size(); i++) {
+            if (i < this.game.getInventory().size()) {
+                Image itemImg = new Image(this.game.getImgPath(this.game.getInventory().get(i)));
+                this.itemImageViews.get(i).setImage(itemImg);
+                this.itemImageViews.get(i).setUserData(this.game.getInventory().get(i));
+                this.dropItemArray.get(i).setUserData(this.game.getInventory().get(i));
+            } else {
+                this.itemImageViews.get(i).setImage(null);
+                this.itemImageViews.get(i).setUserData(null);
+                this.dropItemArray.get(i).setUserData(null);
+            }            
+        }                
+    }
+    
+    public void dropItems(ActionEvent event) {
+        this.game.dropItem((UUID)((Button) event.getSource()).getUserData());
+        this.updateInv();
+        
     }
     
     public void handleWarp() {
         if (this.game.canWarp()) {   
         }
+    }
+    
+    public void getHelp(ActionEvent event) {
+        
     }
     
     @Override
@@ -270,6 +307,12 @@ public class FXMLDocumentController implements Initializable {
         this.itemImageViews.add(this.itemIV0);
         this.itemImageViews.add(this.itemIV1);
         this.itemImageViews.add(this.itemIV2);
+        this.dialogueArray.add(this.dialogueButton1);
+        this.dialogueArray.add(this.dialogueButton2);
+        this.dialogueArray.add(this.dialogueButton3);
+        this.dropItemArray.add(this.dropItem0);
+        this.dropItemArray.add(this.dropItem1);
+        this.dropItemArray.add(this.dropItem2);
         this.npcCB.setItems(npcChoices);
         
         setSolarsystem();

@@ -31,6 +31,9 @@ public interface iGame {
     int getInGameTime(); //
 
     String getDashboardUpdate(); //
+    
+    void dropItem(UUID uuid);
+    void getHelp();
 
     void processAnswer(String userAns); //
     String[] getAnswers(); //
