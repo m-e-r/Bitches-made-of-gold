@@ -35,5 +35,6 @@ public interface interfaceGUI {
     String getDashboardUpdate(); //
     void processAnswer(String userAns); //
     String[] getAnswers();
-    
+    void setScenario(int scenarioNr); 
+    ArrayList<UUID> getPlacementFromStar(); //
 }

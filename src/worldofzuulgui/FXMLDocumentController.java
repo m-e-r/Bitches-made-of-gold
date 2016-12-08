@@ -108,16 +108,17 @@ public class FXMLDocumentController implements Initializable {
     
     public void setSolarsystem() {
         titleTA.setText("F.U.T.U.R.A.M.A.");
+        this.sceneClear();
         Image solarsystem1 = new Image("solarsystemy.png");
         sceneImage.setImage(solarsystem1);
         ArrayList<UUID> listOfPlanets = new ArrayList();
-        listOfPlanets = this.game.getListOfPlanets();            
-        
+        listOfPlanets = this.game.getListOfPlanets();
         
         for(UUID planet : listOfPlanets){
+            System.out.println("liste test: " + listOfPlanets.size());
             Button planetButton = new Button();
             planetButton.setUserData(planet);
-            planetButton.setMaxSize(58, 58);          
+            planetButton.setMaxSize(30, 30);          
             planetButton.setStyle("-fx-background-image: url(planet" + this.game.getPid(planet) +  ".png)");
             planetButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -125,7 +126,7 @@ public class FXMLDocumentController implements Initializable {
                     planetHandle(planet, game.getAvailableNpcs(planet));
                 }
             });
-            
+            this.sceneGrid.add(planetButton, ((this.game.getPositionCoordinates(planet)[0]/1000)*6), ((this.game.getPositionCoordinates(planet)[1]/1000)*6));
             planetButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {                    
@@ -146,10 +147,11 @@ public class FXMLDocumentController implements Initializable {
                     itemGrid.getChildren().remove(planetTA);
                 }
             });
-            System.out.println("buttonArray");
+            
             buttonArray.add(planetButton);
         }
         
+        /*
         sceneGrid.add(buttonArray.get(0), 2, 2);
         sceneGrid.add(buttonArray.get(1), 3, 0);
         sceneGrid.add(buttonArray.get(2), 5, 3);
@@ -157,7 +159,7 @@ public class FXMLDocumentController implements Initializable {
         sceneGrid.add(buttonArray.get(4), 1, 3);
         sceneGrid.add(buttonArray.get(5), 0, 0);
         sceneGrid.add(buttonArray.get(6), 3, 4);
-        
+        */
         dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -185,22 +187,29 @@ public class FXMLDocumentController implements Initializable {
         });
         this.game.travelToPlanet(planet);
         this.game.getDashboardUpdate();
-        
+
         for (UUID npc : npcs) {
             this.npcChoices.add(new ListFoo(npc, this.game.getName(npc)));
         }
         this.npcCB.setItems(npcChoices);
         
         Button npcButton = new Button();
-        sceneGrid.add(npcButton, 1, 4);
-        npcButton.setStyle("-fx-background-image: url(data/"+this.game.getImgPath
-        ((((ListFoo) npcCB.getValue()).getNpc()))+"/images/");
-        npcButton.setOnAction(new EventHandler<ActionEvent>(){
-                @Override
-                public void handle(ActionEvent event) {
-                    game.startConversation(((ListFoo) npcCB.getValue()).getNpc());
-                }
-            });
+        this.npcCB.setOnAction( new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Button npcButton = new Button();
+                sceneGrid.add(npcButton, 1, 3, 2, 2);
+                npcButton.setStyle("-fx-background-image: url("+game.getImgPath(
+                                  (((ListFoo) npcCB.getValue()).getNpc()))+")");
+                npcButton.setOnAction(new EventHandler<ActionEvent>(){
+                    @Override
+                    public void handle(ActionEvent event) {
+                        game.startConversation(((ListFoo) npcCB.getValue()).getNpc());
+                    }
+                });
+            }
+        });
+        
     }
     
     public void titleHandle() {

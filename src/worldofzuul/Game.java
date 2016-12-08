@@ -1669,7 +1669,6 @@ public class Game implements iGame {
         } else {
             return null;
         }
-        
         return printAble.getName();
     }
     
@@ -1794,7 +1793,7 @@ public class Game implements iGame {
         NPCHolder npcHolder = this.getNPCHolderFromUuid(uuid);
         ArrayList<UUID> returnArray = new ArrayList<>();
         for(UUID npcUuid : npcHolder.getNpcIds()) {
-            returnArray.add(uuid);
+            returnArray.add(npcUuid);
         }
         return returnArray;
     }
@@ -1814,6 +1813,16 @@ public class Game implements iGame {
     public String[] getAnswers() {
         return this.currentConversation.getPossibleAnswers();
     }
-    
-    
+/*
+    @Override
+    public void setScenario(int scenarioNr) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<UUID> getPlacementFromStar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+   
+    */
 }

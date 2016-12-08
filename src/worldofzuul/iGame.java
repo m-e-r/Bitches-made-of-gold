@@ -34,4 +34,7 @@ public interface iGame {
 
     void processAnswer(String userAns); //
     String[] getAnswers(); //
+    //void setScenario(int scenarioNr); 
+    
+    int[] getPositionCoordinates(UUID uuid); //
 }
