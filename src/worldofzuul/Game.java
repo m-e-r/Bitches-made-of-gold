@@ -116,7 +116,7 @@ public class Game implements iGame {
             System.out.println("To play " + scenario.getName() + " write: " + scenario.getPath());
             System.out.println(" - is described as " + scenario.getDescription());
         }
-        
+        /*
         while(true) {
             this.dashboard.print();
             Command command = parser.getCommand(); //Returns a new object, holding the information, regarding the line typed by the user
@@ -132,7 +132,8 @@ public class Game implements iGame {
                 System.out.println("To play " + scenario.getName() + " write: " + scenario.getPath());
                 System.out.println(" - is described as " + scenario.getDescription());
             }
-        }
+        }*/
+        this.scenario = new Scenario("Alpha Centauri", "Chinese stuff", "alpha_centauri");
         
         this.startingPlanet = this.createPlanets();
         this.createNpcs();
@@ -1816,18 +1817,6 @@ public class Game implements iGame {
         }
         return this.currentConversation.getPossibleAnswers();
     }
-/*
-    @Override
-    public void setScenario(int scenarioNr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList<UUID> getPlacementFromStar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-   
-    */
 
     @Override
     public void dropItem(UUID uuid) {
@@ -1845,19 +1834,24 @@ public class Game implements iGame {
         this.printHelp();
     }
 
-    @Override
-    public void setName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setScenario(String scenario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     @Override
     public void processWarp(UUID nextPosition) {
         this.processWarp(this.player, nextPosition);
+    }
+    
+    @Override
+    public UUID getPlayerPosition() {
+        return this.player.getPlanetId();
+    }
+    
+    @Override
+    public UUID getMoonId(UUID uuid) {
+        if (this.planets.get(uuid).hasMoon()) {
+            return this.planets.get(uuid).getMoonUuid();
+        } else {
+            return null;
+        }
     }
 
 }

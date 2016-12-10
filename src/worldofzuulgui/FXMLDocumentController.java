@@ -21,12 +21,15 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,8 +46,7 @@ import javax.swing.JOptionPane;
  */
 public class FXMLDocumentController implements Initializable {
     
-    iGame game;
-    
+    //Defines controllers
     @FXML
     private AnchorPane sceneAnchor;
     @FXML
@@ -59,8 +61,6 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane repAnchor;
     @FXML
     private AnchorPane timeAnchor;
-    @FXML
-    private AnchorPane quitAnchor;
     @FXML
     private AnchorPane mainAnchor;
     @FXML
@@ -117,27 +117,28 @@ public class FXMLDocumentController implements Initializable {
     private Button quitButton;
     @FXML
     private RadioButton warpRB;
-    @FXML
-    private TextArea helpTA;
-    @FXML
-    private FlowPane helpPane;
-    @FXML
-    private Scene helpScene;
     
     
-    
-    
+    //Defines instance variables
+    iGame game;
     TextArea planetTA = new TextArea();
     private ObservableList<CheatList> npcChoices = FXCollections.observableArrayList();
     private ArrayList<Button> buttonArray = new ArrayList();
     private ArrayList<ImageView> itemImageViews = new ArrayList();
     private ArrayList<Button> dialogueArray = new ArrayList();
     private ArrayList<Button> dropItemArray = new ArrayList();
-    private int[] yCoordinates;
-    private int[] xCoordinates;
     private String availableNpcs;
+    @FXML
+    private SplitPane startSP;
+    @FXML
+    private Button scenarioButton;
+    @FXML
+    private TextField nameTF;
     
-    
+    /**
+     * Sets the scene as the solar system. 
+     * This is the default scene.
+     */
     @FXML
     public void setSolarsystem() {
         titleTA.setText("F.U.T.U.R.A.M.A.");
@@ -147,12 +148,17 @@ public class FXMLDocumentController implements Initializable {
         ArrayList<UUID> listOfPlanets = new ArrayList();
         listOfPlanets = this.game.getListOfPlanets();
         this.updateStats();
+        this.dialogueButton2.setText(null);
+        this.dialogueButton2.setOnAction(null);
         
         for(UUID planet : listOfPlanets){
             Button planetButton = new Button();
             planetButton.setUserData(planet);
             planetButton.setMaxSize(30, 30);          
             planetButton.setStyle("-fx-background-image: url(planet" + this.game.getPid(planet) +  ".png)");
+            if (planet == this.game.getPlayerPosition()) {
+                planetButton.setDisable(true);
+            }
             planetButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -202,38 +208,61 @@ public class FXMLDocumentController implements Initializable {
         this.canWarp();
     }
     
+    /**
+     * Clears the scene grid from all nodes.
+     * This is called before every new scene is loaded.
+     */
     public void sceneClear() {
         sceneGrid.getChildren().clear();
     }
     
+    /**
+     * Not finished?.
+     */
     public void itemClear() {
         itemGrid.getChildren().clear();
     }
     
+    /**
+     * Loads the scene of the new planet and moves the player to it.
+     * @param planet UUID of the planet which is travlled to
+     * @param npcs UUIDs of the npcs on that planet
+     */
     public void planetHandle(UUID planet, ArrayList<UUID> npcs) {
         Image planetImg = new Image(this.game.getImgPath(planet));
         sceneImage.setImage(planetImg);
         sceneClear();
+        if (this.game.getMoonId(planet) != null) {
+            dialogueButton2.setText("To the moon!");
+            dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    dialogueButton2.setText(null);
+                    game.travelToPlanet(game.getMoonId(planet));
+                }            
+            });
+        }
+        dialogueButton3.setText("Display Planets");
         dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 setSolarsystem();
             }    
         });
-        this.game.travelToPlanet(planet);
         dialogueTA.setText(this.game.getDashboardUpdate());
         
+            
         if (warpRB.isSelected()) {
             this.game.processWarp(planet);
         } else {
-        this.game.travelToPlanet(planet);
-        }
+            this.game.travelToPlanet(planet);
+        }   
+        
 
         for (UUID npc : npcs) {
             this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
         }
         this.npcCB.setItems(npcChoices);
-        //game.getImgPath((((ListFoo) npcCB.getValue()).getNpc()))+
         Button npcButton = new Button();
         this.npcCB.setOnAction( new EventHandler<ActionEvent>() {
             @Override
@@ -258,11 +287,23 @@ public class FXMLDocumentController implements Initializable {
         });
     }
     
+    /**
+     * Malte?.
+     */
     @FXML
     public void titleHandle() {
         mainAnchor.getChildren().remove(titleTA);
     }
     
+    @FXML
+    public void handleStart(ActionEvent event) {
+        mainAnchor.getChildren().remove(startSP);
+    }
+    
+    /**
+     * Sends the selected answer to Game and updates stuff.
+     * @param ans The selected answer from user
+     */
     public void handleAnswerButton(String ans) {
         this.game.processAnswer(ans);
         this.updateInv();
@@ -270,6 +311,9 @@ public class FXMLDocumentController implements Initializable {
         this.updateConversationText();
     }
     
+    /**
+     * Updates stats.
+     */
     public void updateStats() {
         fuelTA.setText("Fuel: "+this.game.getFuel());
         if(this.game.canWarp()) {
@@ -279,6 +323,9 @@ public class FXMLDocumentController implements Initializable {
         inGameTimeTA.setText("Time: " + this.game.getInGameTime()); //InGameTime
     }
     
+    /**
+     * Updates the dialogue text area and possible answers.
+     */
     public void updateConversationText() {
         dialogueTA.setText(this.game.getDashboardUpdate());
         for (Button dialogueButton : dialogueArray) {
@@ -304,15 +351,30 @@ public class FXMLDocumentController implements Initializable {
             });
             }
         } else {
+            if (this.game.getMoonId(this.game.getPlayerPosition()) != null) {
+                this.dialogueButton2.setText("To the moon!");
+                dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    dialogueButton2.setText(null);
+                    game.travelToPlanet(game.getMoonId(game.getPlayerPosition()));
+                }            
+            });
+            }
+            dialogueButton3.setText("Display Planets");
             dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                dialogueButton3.setText(null);
                 setSolarsystem();
             }    
         });
         }
     }
     
+    /**
+     * Updates the inventory.
+     */
     public void updateInv() {
         for (int i = 0; i < this.itemImageViews.size(); i++) {
             if (i < this.game.getInventory().size()) {
@@ -328,19 +390,29 @@ public class FXMLDocumentController implements Initializable {
         }                
     }
     
+    /**
+     * Checks which button is pressed and drops the corresponding item.
+     * @param ansButton One of the three drop buttons
+     */
     @FXML
-    public void dropItems(ActionEvent event) {
-        this.game.dropItem((UUID)((Button) event.getSource()).getUserData());
-        this.updateInv();
-        
+    public void dropItems(ActionEvent ansButton) {
+        this.game.dropItem((UUID)((Button) ansButton.getSource()).getUserData());
+        this.updateInv();        
     }
     
+    /**
+     * Checks if warp is available.
+     */
     public void canWarp() {
         if (this.game.canWarp()) {
             warpRB.setDisable(false);
         }
     }
     
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleHelp(ActionEvent event) {
 
@@ -362,4 +434,5 @@ public class FXMLDocumentController implements Initializable {
         
         setSolarsystem();
     }
+
 }

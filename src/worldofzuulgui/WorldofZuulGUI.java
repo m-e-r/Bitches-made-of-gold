@@ -26,11 +26,12 @@ public class WorldofZuulGUI extends Application {
         
         Scene scene = new Scene(root);
         
-        
         stage.setTitle("F.U.T.U.R.A.M.A.");
         stage.setScene(scene);
         stage.show();
     }
+    
+    
 
     /**
      * @param args the command line arguments

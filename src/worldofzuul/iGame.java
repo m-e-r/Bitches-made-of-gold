@@ -21,6 +21,7 @@ public interface iGame {
     ArrayList<UUID> getInventory(); //
     void startConversation(UUID uuid); //
     ArrayList<UUID> getAvailableNpcs(UUID uuid); //
+    UUID getPlayerPosition(); //
 
     ArrayList<UUID> getPossiblePlanets(); //
     void travelToPlanet(UUID planet); //
@@ -29,9 +30,7 @@ public interface iGame {
     boolean canWarp(); //
     int getReputation(); //
     int getInGameTime(); //
-    
-    void setName(String name); //
-    void setScenario(String scenario);
+    UUID getMoonId(UUID uuid);
     String getDashboardUpdate(); //
     
     void dropItem(UUID uuid);
