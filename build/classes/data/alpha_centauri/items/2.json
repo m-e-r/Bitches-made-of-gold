@@ -1,0 +1,8 @@
+{
+    "rid": 3,
+    "weight": 5,
+    "description": "The orb of water",
+	"iid" : 3,
+	"reputationWorth" : 2,
+	"imagePath" : "items/orbWater.png"
+}

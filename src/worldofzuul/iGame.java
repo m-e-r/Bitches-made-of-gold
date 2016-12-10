@@ -29,12 +29,15 @@ public interface iGame {
     boolean canWarp(); //
     int getReputation(); //
     int getInGameTime(); //
-
+    
+    void setName(String name); //
+    void setScenario(String scenario);
     String getDashboardUpdate(); //
     
     void dropItem(UUID uuid);
     void getHelp();
-
+    
+    void processWarp(UUID nextPosition);
     void processAnswer(String userAns); //
     String[] getAnswers(); //
     //void setScenario(int scenarioNr); 

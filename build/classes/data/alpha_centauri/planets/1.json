@@ -1,0 +1,8 @@
+{
+    "pid" : 1,
+	"name" : "Yrucrem",
+	"description" : "A rocky planet tidal locked to the Alpha Centauri B star",
+	"x" : 500,
+	"y" : 700,
+	"imagePath" : "planets/moon1.png"
+}

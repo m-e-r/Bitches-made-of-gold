@@ -1,0 +1,69 @@
+*** Initial with Elon Musk conversation ***
+Hello! I'm Nole Ksum.
+1
+
+hello
+
+1
+checkPackage:1|2
+____ 1:
+I hear from Renhrew that you have a package for me.
+1
+
+yes
+Thank you for the package!
+3
+deliverPackage,nextConvoId:16
+_____ 2:
+Renhrew told me you would have a package for me, but that you took off before picking it up. So, you should probably go back to him and then get back here, then I can tell you a bit about how humans got of Earth back in the solar system.
+1
+
+alright
+Renhrew should be at Yrucrem at 20;70
+-1
+
+_____ 3:
+Now, humans landed for the first time on Mars in 2036, and frankly, it was quite easy compared to what we thought. SpaceX back on Earth managed to cut the cost dramatically after moving to China after NASA got disbanded.
+1
+
+interesting
+Yes, very! SpaceX were the first company to arrive after the Chinese space agency landed, and already in 2040, a total of 117 persons were living permanently on Mars, SpaceX started to earn billions on transporting people to Mars.
+4
+
+_____ 4:
+With those money, they supported the Chinese space agency, and together they created a warp drive, that made it possible to travel to Alpha Centauri.
+1
+
+awesome
+They also saved the climate back on Earth with the money. SpaceX and the Chinese space agency were the first to arrive at Alpha Centauri.
+5
+
+_____ 5:
+SpaceX didn't want to become political other than regarding the environment, so when the Chinese banned other humans, but Chinese people to go to Alpha Centauri, SpaceX didn't care.
+1
+
+wow
+But there are other residents than chinese people here in Alpha Centauri, but these people live on the moons, because China only cared about the planets, but the people on the moons are still seen as refugees, because they're basically not allowed to travel within the system.
+6
+checkPickup:6|7
+_____ 6:
+But, I have a package for one of these refugees at the moon of this planet called Sobohp, he is called Divad W. Nospmoht. Do you want to deliver it for me?
+2
+
+yes
+Great! Here you go!
+7
+pickupPackage
+
+no
+Alright, well, come back when you want to!
+7
+
+_____ 7:
+That is all for me now.
+1
+
+bye
+Bye bye!
+-1
+

@@ -1,0 +1,74 @@
+*** Initial with Werhner von Braun conversation ***
+Hello! I'm Renhrew nov Nuarb from the Republic of China.
+1
+
+hello
+
+1
+checkPackage:1|2
+____ 1:
+I hear from Renhrew that you have a package for me.
+1
+
+yes
+Thank you for the package!
+3
+deliverPackage,nextConvoId:13
+_____ 2:
+Renhrew told me you would have a package for me, but that you took off before picking it up. So, you should probably go back to him and then get back here, then I can tell you a bit about this star system.
+1
+
+alright
+Iegres should be at Htrae at 120;210
+-1
+
+_____ 3:
+Now, you're probably wondering why we, the Republic of China are in this star system. I can give you the whole story if you want to.
+1
+
+yes
+Great, we, the Republic of China, claimed Alpha Centauri simply because we were the first to arrive, and for many years we were the only ones here.
+4
+
+_____ 4:
+After the fall of USA as a superpower back on Earth, the Republic of China took over. Would you like to hear more about the powershift back on earth?
+2
+
+yes
+It all started back in 2017 when Donald Trump became president, shortly after the USA left the climage agreements and as a result, in 2018 they got sanctioned for doing so.
+5
+
+
+no
+Alright, well, you can always come back and see me for the whole story.
+-1
+nextConvoId:14
+_____ 5:
+The USA economy kept on going downwards, and eventually some of the states got independendt, NASA scientists left the contry for other space agencies, like the European, Russian and ours.
+1
+
+interesting
+Yes, very, and that is the story in very short. You will have to go see Nole Ksum at Sram at 250;70, the engineer behind all of this, for an explanation about how we got here.
+-1
+checkPickup:6|7
+_____ 6:
+Maybe you could bring Nole Ksum a package for me?
+2
+
+yes
+Great!
+7
+pickupPackage
+
+no
+Alright, well, come back whenever you're ready to deliver the package!
+-1
+
+_____ 7:
+That is all for me at the moment, but I'll probably see you around again!
+1
+
+bye
+Bye bye!
+-1
+nextConvoId:1

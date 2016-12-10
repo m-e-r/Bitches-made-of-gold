@@ -1842,6 +1842,22 @@ public class Game implements iGame {
 
     @Override
     public void getHelp() {
+        this.printHelp();
+    }
+
+    @Override
+    public void setName(String name) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setScenario(String scenario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void processWarp(UUID nextPosition) {
+        this.processWarp(this.player, nextPosition);
+    }
+
 }

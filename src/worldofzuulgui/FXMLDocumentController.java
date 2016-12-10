@@ -5,6 +5,7 @@
  */
 package worldofzuulgui;
 
+import java.io.IOException;
 import worldofzuul.iGame;
 import worldofzuul.Game;
 import java.net.URL;
@@ -18,15 +19,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -102,6 +111,21 @@ public class FXMLDocumentController implements Initializable {
     private Button dropItem1;
     @FXML
     private Button dropItem2;
+    @FXML
+    private Button helpButton;
+    @FXML
+    private Button quitButton;
+    @FXML
+    private RadioButton warpRB;
+    @FXML
+    private TextArea helpTA;
+    @FXML
+    private FlowPane helpPane;
+    @FXML
+    private Scene helpScene;
+    
+    
+    
     
     TextArea planetTA = new TextArea();
     private ObservableList<CheatList> npcChoices = FXCollections.observableArrayList();
@@ -114,6 +138,7 @@ public class FXMLDocumentController implements Initializable {
     private String availableNpcs;
     
     
+    @FXML
     public void setSolarsystem() {
         titleTA.setText("F.U.T.U.R.A.M.A.");
         this.sceneClear();
@@ -173,6 +198,8 @@ public class FXMLDocumentController implements Initializable {
             }
         });
         npcChoices.clear();
+        
+        this.canWarp();
     }
     
     public void sceneClear() {
@@ -195,6 +222,12 @@ public class FXMLDocumentController implements Initializable {
         });
         this.game.travelToPlanet(planet);
         dialogueTA.setText(this.game.getDashboardUpdate());
+        
+        if (warpRB.isSelected()) {
+            this.game.processWarp(planet);
+        } else {
+        this.game.travelToPlanet(planet);
+        }
 
         for (UUID npc : npcs) {
             this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
@@ -225,6 +258,7 @@ public class FXMLDocumentController implements Initializable {
         });
     }
     
+    @FXML
     public void titleHandle() {
         mainAnchor.getChildren().remove(titleTA);
     }
@@ -294,19 +328,22 @@ public class FXMLDocumentController implements Initializable {
         }                
     }
     
+    @FXML
     public void dropItems(ActionEvent event) {
         this.game.dropItem((UUID)((Button) event.getSource()).getUserData());
         this.updateInv();
         
     }
     
-    public void handleWarp() {
-        if (this.game.canWarp()) {   
+    public void canWarp() {
+        if (this.game.canWarp()) {
+            warpRB.setDisable(false);
         }
     }
     
-    public void getHelp(ActionEvent event) {
-        
+    @FXML
+    public void handleHelp(ActionEvent event) {
+
     }
     
     @Override

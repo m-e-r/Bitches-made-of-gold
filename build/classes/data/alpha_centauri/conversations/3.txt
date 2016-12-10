@@ -1,0 +1,42 @@
+*** Buying warp fuel ***
+Hello, are interested in buying some warp fuel?
+2
+
+yes
+Alright, hold on!
+-1
+checkBuyWarpFuel:1|3
+
+no
+Alright, come back when you want to!
+-1
+
+____ 1:
+Due to paperwork, I can only sell you one package of warp fuel at a time.
+1
+
+alright
+It contains 50 warp fuel and you'll be disrespected for buying it. (A loss of 5 reputation)
+2
+
+____ 2:
+Are you interested?
+2
+
+yes
+Alright, here you go!
+1
+buyWarpFuel
+
+no
+Alright, come back when you want to!
+-1
+
+_____ 3:
+Sorry, I can't sell you any warp fuel!
+1
+
+alright
+Bye!
+-1
+
