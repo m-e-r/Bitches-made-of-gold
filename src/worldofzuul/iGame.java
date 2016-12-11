@@ -42,4 +42,14 @@ public interface iGame {
     //void setScenario(int scenarioNr); 
     
     int[] getPositionCoordinates(UUID uuid); //
+    
+    public abstract ArrayList<UUID> getPossibleScenarios();
+    public abstract void setScenario(UUID uuid);
+    
+    //NOTE: Nedenstående eksempel skal fjernes fra game.getPlayedMillis();
+    //For at skrive tiden ud siden man har startet, skriv da disse linjer:
+    //Calendar playedTime = new GregorianCalendar();
+    //playedTime.setTimeInMillis(this.game.getPlayedMillis());
+    //System.out.println("Hour: " + playedTime.get(Calendar.HOUR) + " minutes: " + playedTime.get(Calendar.MINUTE) + " seconds: " + playedTime.get(Calendar.SECOND));
+    public abstract long getPlayedMillis();
 }
