@@ -238,7 +238,9 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     dialogueButton2.setText(null);
-                    game.travelToPlanet(game.getMoonId(planet));
+                    //game.travelToPlanet(game.getMoonId(planet));
+                    UUID moonUuid = game.getMoonId(planet);
+                    planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
                 }            
             });
         }

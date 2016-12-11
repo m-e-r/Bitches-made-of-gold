@@ -1847,6 +1847,9 @@ public class Game implements iGame {
     
     @Override
     public UUID getMoonId(UUID uuid) {
+        if(this.moons.containsKey(uuid)) {
+            return null;
+        }
         if (this.planets.get(uuid).hasMoon()) {
             return this.planets.get(uuid).getMoonUuid();
         } else {
