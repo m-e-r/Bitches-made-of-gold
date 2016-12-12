@@ -95,7 +95,7 @@ public class Game implements iGame {
         //createPlanets(); 
         //createNpcs();
         
-        this.play();
+        //this.play();
     }
 
     /**
@@ -106,7 +106,7 @@ public class Game implements iGame {
     public void play() {
         printWelcome(); //Prints a welcome message
 
-        System.out.println("Please enter your name using the syntax \"name [your name]\":");
+       /* System.out.println("Please enter your name using the syntax \"name [your name]\":");
         while(true) {
             this.dashboard.print();
             Command command = parser.getCommand(); //Returns a new object, holding the information, regarding the line typed by the user
@@ -123,7 +123,7 @@ public class Game implements iGame {
         for(Scenario scenario : this.possibleScenarios.values()) {
             System.out.println("To play " + scenario.getName() + " write: " + scenario.getPath());
             System.out.println(" - is described as " + scenario.getDescription());
-        }
+        }*/
         /*
         while(true) {
             this.dashboard.print();
@@ -141,7 +141,7 @@ public class Game implements iGame {
                 System.out.println(" - is described as " + scenario.getDescription());
             }
         }*/
-        this.scenario = new Scenario("Alpha Centauri", "Chinese stuff", "alpha_centauri");
+        //this.scenario = new Scenario("Alpha Centauri", "Chinese stuff", "alpha_centauri");
         
         this.startingPlanet = this.createPlanets();
         this.createNpcs();
@@ -1413,7 +1413,7 @@ public class Game implements iGame {
                     continue;
                 }
 
-                item.setNpcId(npc.getId());
+                //item.setNpcId(npc.getId());
                 npc.addItem(item.getId(), item.getWeight());
                 itemsHaveNoPickup.remove(item);
                 break;
@@ -1645,9 +1645,10 @@ public class Game implements iGame {
         }
         
         for(String scenarioLine : this.fileHandler.getText("data/scenarios.txt")) {
+            System.out.println("wow1");
             String[] splittedScenarioLine = scenarioLine.split(";");
             Scenario scenario = new Scenario(splittedScenarioLine[0], splittedScenarioLine[2], splittedScenarioLine[1]);
-            
+            System.out.println(scenario.getId());
             this.possibleScenarios.put(scenario.getId(), scenario);
         }
     }
@@ -1675,6 +1676,9 @@ public class Game implements iGame {
             printAble = this.items.get(uuid);
         } else if(this.planets.containsKey(uuid) || this.moons.containsKey(uuid)) {
             printAble = this.getNPCHolderFromUuid(uuid);
+        } else if(this.possibleScenarios.containsKey(uuid)) {
+            printAble = this.possibleScenarios.get(uuid);   
+                    
         } else {
             return null;
         }
@@ -1871,6 +1875,7 @@ public class Game implements iGame {
      */
     @Override
     public ArrayList<UUID> getPossibleScenarios() {
+        System.out.println(this.possibleScenarios.size());
         ArrayList<UUID> returnArray = new ArrayList<>();
         for(Scenario posScenario : this.possibleScenarios.values()) {
             returnArray.add(posScenario.getId());
@@ -1895,9 +1900,41 @@ public class Game implements iGame {
     public long getPlayedMillis() {
         Calendar playedTime = new GregorianCalendar();
         playedTime.setTimeInMillis(System.currentTimeMillis() - this.startTime.getTimeInMillis());
-        System.out.println("Hour: " + playedTime.get(Calendar.HOUR) + " minutes: " + playedTime.get(Calendar.MINUTE) + " seconds: " + playedTime.get(Calendar.SECOND));
         
         return (System.currentTimeMillis() - this.startTime.getTimeInMillis());  
+    }
+
+    @Override
+    public void startGame(UUID scenario, String playerName) {
+        this.scenario = this.possibleScenarios.get(scenario);
+        this.player = new Player(playerName, 10000, 10);
+        this.play();
+    }
+
+    @Override
+    public String getDeliveryPlanet(UUID uuid) {
+        Items item = this.items.get(uuid);
+        NPC deliveryNpc = this.npcs.get(item.getNpcId());
+        UUID deliveryNpcHolderUuid = deliveryNpc.getPlanetId();
+        if(this.planets.containsKey(deliveryNpcHolderUuid)) {
+            return "Location: " + this.planets.get(deliveryNpcHolderUuid).getName();
+        } else {
+            return "Location: " + this.moons.get(deliveryNpcHolderUuid).getName();
+        }
+    }
+
+    @Override
+    public String getDeliveryNpc(UUID uuid) {
+        return "Deliver to: " + this.npcs.get(this.items.get(uuid).getNpcId()).getName();
+    }
+
+    @Override
+    public boolean isWar(UUID uuid) {
+       if ( this.getNPCHolderFromUuid(uuid).getWarTimer() > this.time) {
+           return true;
+       } else {
+           return false;
+       }
     }
     
 

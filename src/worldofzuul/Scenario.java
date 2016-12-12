@@ -17,6 +17,7 @@ class Scenario implements PrintAble {
     private UUID id;
 
     public Scenario(String name, String description, String path) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.path = path;

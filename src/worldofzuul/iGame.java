@@ -52,4 +52,9 @@ public interface iGame {
     //playedTime.setTimeInMillis(this.game.getPlayedMillis());
     //System.out.println("Hour: " + playedTime.get(Calendar.HOUR) + " minutes: " + playedTime.get(Calendar.MINUTE) + " seconds: " + playedTime.get(Calendar.SECOND));
     public abstract long getPlayedMillis();   
+    
+    void startGame(UUID scenario, String playerName);
+    String getDeliveryPlanet(UUID uuid);
+    String getDeliveryNpc(UUID uuid);
+    boolean isWar(UUID uuid);
 }

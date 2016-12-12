@@ -60,7 +60,7 @@ public class Inventory { // Initializing the class Inventory
      */
     public Inventory() {
         this.maxAllowedItems = 3;
-        this.maxAllowedWeight = 12;
+        this.maxAllowedWeight = 100;
         uuid = UUID.randomUUID();
         this.inventoryList = new ArrayList<>();
     }

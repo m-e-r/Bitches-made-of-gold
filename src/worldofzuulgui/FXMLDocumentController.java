@@ -11,10 +11,13 @@ import worldofzuul.iGame;
 import worldofzuul.Game;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -122,19 +125,29 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private SplitPane startSP;
     @FXML
-    private Button scenarioButton;
-    @FXML
     private TextField nameTF;
     
     //Defines instance variables
     iGame game;
     TextArea planetTA = new TextArea();
     private ObservableList<CheatList> npcChoices = FXCollections.observableArrayList();
+    private ObservableList<CheatList> scenarios = FXCollections.observableArrayList();
     private ArrayList<Button> buttonArray = new ArrayList();
     private ArrayList<ImageView> itemImageViews = new ArrayList();
     private ArrayList<Button> dialogueArray = new ArrayList();
     private ArrayList<Button> dropItemArray = new ArrayList();
     private String availableNpcs;
+    @FXML
+    private ChoiceBox<CheatList> scenariosCB;
+    @FXML
+    private Button startButton;
+    @FXML
+    private TextArea item0TA;
+    @FXML
+    private TextArea item1TA;
+    @FXML
+    private TextArea item2TA;
+    private ArrayList<TextArea> itemInfo = new ArrayList();
     
     
     
@@ -181,6 +194,9 @@ public class FXMLDocumentController implements Initializable {
                     planetTA.setText(game.getName(planet)+ "\n" + game.getDescription(planet) + "\nNpcs on this mofo: " + availableNpcs );
                     itemGrid.add(planetTA, 0, 0);
                     planetTA.setWrapText(true);
+                    if (game.isWar(planet)) {
+                        planetTA.appendText("\n War is war");
+                    }
                     if(game.getPossiblePlanets().contains(planet)) {
                        planetTA.appendText("\n\n\tThis planet is reachable");
                     } else {
@@ -240,6 +256,7 @@ public class FXMLDocumentController implements Initializable {
             dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    npcChoices.clear();
                     dialogueButton2.setText(null);
                     //game.travelToPlanet(game.getMoonId(planet));
                     UUID moonUuid = game.getMoonId(planet);
@@ -263,7 +280,6 @@ public class FXMLDocumentController implements Initializable {
             this.game.travelToPlanet(planet);
         }   
         
-
         for (UUID npc : npcs) {
             this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
         }
@@ -302,7 +318,10 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     public void handleStart(ActionEvent event) {
+        this.game.setScenario(this.scenariosCB.getValue().getNpc());
         mainAnchor.getChildren().remove(startSP);
+        this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
+        this.timeTimer();
     }
     
     /**
@@ -326,6 +345,7 @@ public class FXMLDocumentController implements Initializable {
         }
         repTA.setText("Rep: " +this.game.getReputation());
         inGameTimeTA.setText("Time: " + this.game.getInGameTime()); //InGameTime
+        this.getItemDist();
     }
     
     /**
@@ -422,6 +442,28 @@ public class FXMLDocumentController implements Initializable {
     public void handleHelp(ActionEvent event) {
 
     }
+    
+    public void timeTimer() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Calendar playedTime = new GregorianCalendar();
+                playedTime.setTimeInMillis(game.getPlayedMillis());
+                timeTA.setText("" + (playedTime.get(Calendar.HOUR) - 1) + ":" + playedTime.get(Calendar.MINUTE) + ":" + playedTime.get(Calendar.SECOND));
+                
+            }
+        }, 1000, 1000);
+    }
+    
+    public void getItemDist() {
+        int i = 0;
+        for (UUID item : this.game.getInventory()) {
+            this.itemInfo.get(i).setText(this.game.getDeliveryPlanet(item) + "\n" +
+                                        this.game.getDeliveryNpc(item));
+            i++;
+        }
+    }
         
     
             
@@ -438,7 +480,21 @@ public class FXMLDocumentController implements Initializable {
         this.dropItemArray.add(this.dropItem1);
         this.dropItemArray.add(this.dropItem2);
         this.npcCB.setItems(npcChoices);
+        this.itemInfo.add(this.item0TA);
+        this.itemInfo.add(this.item1TA);
+        this.itemInfo.add(this.item2TA);
         
+        System.out.println(this.game.getPossibleScenarios().size());
+        
+        for (UUID scenario : this.game.getPossibleScenarios()) {
+            this.scenarios.add(new CheatList(scenario, this.game.getName(scenario)));
+        }
+        
+        System.out.println(this.scenarios.size());
+
+        
+        this.scenariosCB.setItems(scenarios);
+
     }
 
 }
