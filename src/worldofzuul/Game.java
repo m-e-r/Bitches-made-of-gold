@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -142,6 +144,17 @@ public class Game implements iGame {
             }
         }*/
         this.scenario = new Scenario("Alpha Centauri", "Chinese stuff", "alpha_centauri");
+        
+        
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Calendar playedTime = new GregorianCalendar();
+                playedTime.setTimeInMillis(getPlayedMillis());
+                System.out.println("Hour: " + playedTime.get(Calendar.HOUR) + " minutes: " + playedTime.get(Calendar.MINUTE) + " seconds: " + playedTime.get(Calendar.SECOND));
+            }
+        }, 1000, 1000);
         
         this.startingPlanet = this.createPlanets();
         this.createNpcs();
@@ -1893,13 +1906,7 @@ public class Game implements iGame {
      */
     @Override
     public long getPlayedMillis() {
-        Calendar playedTime = new GregorianCalendar();
-        playedTime.setTimeInMillis(System.currentTimeMillis() - this.startTime.getTimeInMillis());
-        System.out.println("Hour: " + playedTime.get(Calendar.HOUR) + " minutes: " + playedTime.get(Calendar.MINUTE) + " seconds: " + playedTime.get(Calendar.SECOND));
-        
         return (System.currentTimeMillis() - this.startTime.getTimeInMillis());
-        
-        
     }
 
 }
