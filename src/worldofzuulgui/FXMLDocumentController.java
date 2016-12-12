@@ -5,6 +5,7 @@
  */
 package worldofzuulgui;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import worldofzuul.iGame;
 import worldofzuul.Game;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,7 +119,12 @@ public class FXMLDocumentController implements Initializable {
     private Button quitButton;
     @FXML
     private RadioButton warpRB;
-    
+    @FXML
+    private SplitPane startSP;
+    @FXML
+    private Button scenarioButton;
+    @FXML
+    private TextField nameTF;
     
     //Defines instance variables
     iGame game;
@@ -128,12 +135,8 @@ public class FXMLDocumentController implements Initializable {
     private ArrayList<Button> dialogueArray = new ArrayList();
     private ArrayList<Button> dropItemArray = new ArrayList();
     private String availableNpcs;
-    @FXML
-    private SplitPane startSP;
-    @FXML
-    private Button scenarioButton;
-    @FXML
-    private TextField nameTF;
+    
+    
     
     /**
      * Sets the scene as the solar system. 
@@ -238,7 +241,9 @@ public class FXMLDocumentController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     dialogueButton2.setText(null);
-                    game.travelToPlanet(game.getMoonId(planet));
+                    //game.travelToPlanet(game.getMoonId(planet));
+                    UUID moonUuid = game.getMoonId(planet);
+                    planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
                 }            
             });
         }
@@ -417,7 +422,9 @@ public class FXMLDocumentController implements Initializable {
     public void handleHelp(ActionEvent event) {
 
     }
+        
     
+            
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.game = new Game();
@@ -432,7 +439,6 @@ public class FXMLDocumentController implements Initializable {
         this.dropItemArray.add(this.dropItem2);
         this.npcCB.setItems(npcChoices);
         
-        setSolarsystem();
     }
 
 }

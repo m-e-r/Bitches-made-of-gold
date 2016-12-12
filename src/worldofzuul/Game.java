@@ -2,11 +2,16 @@ package worldofzuul;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Timer;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class controls the flow of the game, it contains the while loop that
@@ -26,7 +31,9 @@ public class Game implements iGame {
 
     //Defines instance variables
     private Scenario scenario;
-    private HashMap<String,Scenario> possibleScenarios;
+    private HashMap<UUID,Scenario> possibleScenarios;
+    private Calendar startTime; 
+
     
     private Parser parser;
     private Dashboard dashboard;
@@ -65,7 +72,8 @@ public class Game implements iGame {
      */
     public Game() {
         this.possibleScenarios = new HashMap<>();
-        
+        this.startTime = new GregorianCalendar();
+        this.startTime.setTimeInMillis(System.currentTimeMillis());
         this.planets = new HashMap<>();
         this.moons = new HashMap<>();
         this.npcs = new HashMap<>();
@@ -1640,7 +1648,7 @@ public class Game implements iGame {
             String[] splittedScenarioLine = scenarioLine.split(";");
             Scenario scenario = new Scenario(splittedScenarioLine[0], splittedScenarioLine[2], splittedScenarioLine[1]);
             
-            this.possibleScenarios.put(scenario.getPath(), scenario);
+            this.possibleScenarios.put(scenario.getId(), scenario);
         }
     }
     
@@ -1847,11 +1855,50 @@ public class Game implements iGame {
     
     @Override
     public UUID getMoonId(UUID uuid) {
+        if(this.moons.containsKey(uuid)) {
+            return null;
+        }
         if (this.planets.get(uuid).hasMoon()) {
             return this.planets.get(uuid).getMoonUuid();
         } else {
             return null;
         }
     }
+
+        /**
+     * Gets the possible scenarios for the game as a list of UUIDs.
+     * @return an arraylist of UUIDs
+     */
+    @Override
+    public ArrayList<UUID> getPossibleScenarios() {
+        ArrayList<UUID> returnArray = new ArrayList<>();
+        for(Scenario posScenario : this.possibleScenarios.values()) {
+            returnArray.add(posScenario.getId());
+        }
+        return returnArray;
+    }
+
+    /**
+     * Sets the game scenario to the UUID passed in through the parameter.
+     * @param uuid the UUID corresponding to the scenario.
+     */
+    @Override
+    public void setScenario(UUID uuid) {
+        this.scenario = this.possibleScenarios.get(uuid);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    @Override
+    public long getPlayedMillis() {
+        Calendar playedTime = new GregorianCalendar();
+        playedTime.setTimeInMillis(System.currentTimeMillis() - this.startTime.getTimeInMillis());
+        System.out.println("Hour: " + playedTime.get(Calendar.HOUR) + " minutes: " + playedTime.get(Calendar.MINUTE) + " seconds: " + playedTime.get(Calendar.SECOND));
+        
+        return (System.currentTimeMillis() - this.startTime.getTimeInMillis());  
+    }
+    
 
 }

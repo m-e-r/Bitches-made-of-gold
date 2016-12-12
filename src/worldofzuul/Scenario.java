@@ -5,6 +5,8 @@
  */
 package worldofzuul;
 
+import java.util.UUID;
+
 /**
  *
  * @author DanielToft
@@ -12,6 +14,7 @@ package worldofzuul;
 class Scenario implements PrintAble {
 
     private String name, description, path;
+    private UUID id;
 
     public Scenario(String name, String description, String path) {
         this.name = name;
@@ -32,6 +35,9 @@ class Scenario implements PrintAble {
 
     public String getPath() {
         return this.path;
+    }
+    public UUID getId() {
+        return this.id;
     }
     // ***** GETTERS END *****
 }
