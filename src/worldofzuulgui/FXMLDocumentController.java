@@ -400,6 +400,16 @@ public class FXMLDocumentController implements Initializable {
     public void dropItems(ActionEvent ansButton) {
         this.game.dropItem((UUID)((Button) ansButton.getSource()).getUserData());
         this.updateInv();        
+        
+        Stage stage = (Stage) sceneAnchor.getScene().getWindow();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("endScene.fxml"));
+        } catch (IOException ex) {
+            System.out.println("WOWOOW");
+        }
+        stage.setScene(new Scene(root));
+        
     }
     
     /**
