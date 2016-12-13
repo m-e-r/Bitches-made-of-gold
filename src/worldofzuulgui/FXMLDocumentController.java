@@ -170,8 +170,13 @@ public class FXMLDocumentController implements Initializable {
         for(UUID planet : listOfPlanets){
             Button planetButton = new Button();
             planetButton.setUserData(planet);
+<<<<<<< Updated upstream
             planetButton.setMaxSize(30, 30);          
             planetButton.setStyle("-fx-background-image: url(planet" + this.game.getPid(planet) +  ".png)");
+=======
+            planetButton.setMaxSize(30, 30);
+            planetButton.setStyle("-fx-background-image: url("+ this.game.getImgPath(planet, true) +")");
+>>>>>>> Stashed changes
             if (planet == this.game.getPlayerPosition()) {
                 planetButton.setDisable(true);
             }
