@@ -1129,7 +1129,7 @@ public class Game implements iGame {
         for (Planet planet : this.planets.values()) {
             npcHolders.add(planet);
         }
-
+        System.out.println(npcHolders.size());
         placeNpcs(this.civilians.values(), npcHolders);
 
         createRebels();

@@ -193,7 +193,6 @@ public class FXMLDocumentController implements Initializable {
             Button planetButton = new Button();
             planetButton.setUserData(planet);
             planetButton.setMaxSize(30, 30);
-//            planetButton.
             planetButton.setStyle("-fx-background-image: url("+ this.game.getImgPath(planet, true) +")");
             if (planet == this.game.getPlayerPosition()) {
                 planetButton.setDisable(true);
