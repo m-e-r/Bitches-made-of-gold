@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" fx:id="sceneAnchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="832.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="worldofzuulgui.FXMLDocumentController">
+   <children>
+      <SplitPane fx:id="startSP" dividerPositions="0.5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="492.0" prefWidth="832.0">
+         <items>
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TextArea fx:id="titleTA" editable="false" layoutX="-3.0" layoutY="-51.0" onMouseClicked="#titleHandle" prefHeight="153.0" prefWidth="841.0" text="F.U.T.U.R.A.M.A.">
+                     <font>
+                        <Font name="Papyrus" size="86.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </AnchorPane>
+            <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="388.0" prefWidth="830.0">
+               <children>
+                  <TextField fx:id="nameTF" layoutX="332.0" layoutY="130.0" />
+                  <ChoiceBox fx:id="scenariosCB" layoutX="341.0" layoutY="230.0" prefWidth="150.0" />
+                  <Button fx:id="startButton" layoutX="386.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleStart" text="Start" />
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
