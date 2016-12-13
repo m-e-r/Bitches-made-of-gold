@@ -318,7 +318,6 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     public void handleStart(ActionEvent event) {
-        this.toGame();
         this.game.setScenario(this.scenariosCB.getValue().getNpc());
         mainAnchor.getChildren().remove(startSP);
         this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
@@ -465,30 +464,8 @@ public class FXMLDocumentController implements Initializable {
             i++;
         }
     }
-    
         
-    public void helpScreen() {        
-        Stage stage = (Stage) sceneAnchor.getScene().getWindow();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("HelpScreen.fxml"));
-        } catch (IOException ex) {
-            System.out.println("WOWOOW");
-        }
-        stage.setScene(new Scene(root));
-    }
     
-    public void toGame() {
-        Stage stage = (Stage) sceneAnchor.getScene().getWindow();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("GameGUI.fxml"));
-        } catch (IOException ex) {
-            System.out.println("WOWOOW");
-            System.out.println(ex);
-        }
-        stage.setScene(new Scene(root));
-    }
             
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -502,7 +479,7 @@ public class FXMLDocumentController implements Initializable {
         this.dropItemArray.add(this.dropItem0);
         this.dropItemArray.add(this.dropItem1);
         this.dropItemArray.add(this.dropItem2);
-        //this.npcCB.setItems(npcChoices);
+        this.npcCB.setItems(npcChoices);
         this.itemInfo.add(this.item0TA);
         this.itemInfo.add(this.item1TA);
         this.itemInfo.add(this.item2TA);
