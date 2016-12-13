@@ -15,9 +15,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.TreeMap;
 import java.util.UUID;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -159,11 +161,17 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList<CheatList> npcChoices = FXCollections.observableArrayList();
     private ObservableList<CheatList> scenarios = FXCollections.observableArrayList();
     private ObservableList<String> hs = FXCollections.observableArrayList();
+    private ObservableList<String> helpTopics = FXCollections.observableArrayList();
     private ArrayList<Button> buttonArray = new ArrayList();
     private ArrayList<ImageView> itemImageViews = new ArrayList();
     private ArrayList<Button> dialogueArray = new ArrayList();
     private ArrayList<Button> dropItemArray = new ArrayList();
     private String availableNpcs;
+    private TreeMap<String, String> helps = new TreeMap();
+    @FXML
+    private ListView<String> helpLV;
+    @FXML
+    private TextArea helpTA;
     
     /**
      * Sets the scene as the solar system. 
@@ -450,12 +458,18 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void handleHelp(ActionEvent event) {
         this.mainAnchor.getChildren().add(helpAnchor);
+        this.helpLV.setItems(helpTopics);
+        this.helpLV.getSelectionModel().selectedItemProperty().addListener(
+        (observableValue, oldValue, newValue) ->
+        helpTA.setText(helps.get(newValue)));
+        
         this.backtoGameButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 mainAnchor.getChildren().remove(helpAnchor);
             }
         });
+        
     }
     
     public void timeTimer() {
@@ -499,6 +513,58 @@ public class FXMLDocumentController implements Initializable {
         Stage stage = (Stage) qqButton.getScene().getWindow();
         stage.close();
     }
+    
+    public void readyHelpText() {
+        helps.put("1. Help info", "Hello, and welcome to the help screen. "
+                + "Please use the menu to the left in order to recieve help "
+                + "on a specific problem. Or use the random help generator "
+                + "(also on the left) to recieve some random "
+                + "help for those cold days.");
+        helps.put("2. How do you travel to a planet?", "Well by using your spaceship "
+                + "of course!\n" + "The spaceship in this universe is "
+                + "mouse-driven*, which means that you just click on the planet "
+                + "you want to travel to after clicking the \"Display Planets\" "
+                + "button (cannot be used while in a conversation).\n" +"An "
+                + "easy way to travel is by using warp fuel for your ITD. "
+                + "When warping, it doesn't matter if you have papers on your "
+                + "packages, even if there is a war!\n" +
+                "*some in-game fuel may be used.");
+        helps.put("3. Conversating with NPCs", "If you are playing this game, "
+                + "you might find yourself to be the kind of person who has "
+                + "trouble conversating irl. Don't worry. Here you just choose "
+                + "an NPC from the list in the top right corner of a planet "
+                + "scene and click on them, as they appear on the screen. "
+                + "Whatever the NPC has to say, will appear as text in the "
+                + "dialogue box below the scene. Afraid you will mess up the "
+                + "conversation by being too awkward? Again there is no worry; "
+                + "we have limited your answers to no more than three options, "
+                + "which will appear on the buttons to the right "
+                + "of the dialogue box." );
+        helps.put("4. Understanding the stats", "In this game you really only need"
+                + " to care about three stats, so forget about your real life "
+                + "hunger, financial problems and (non-existing) love life.\n" +
+                "\n" +"1: Time. Time progresses as you do stuff; travel around, "
+                + "talk to people and so on. Sometimes you don't want to let to "
+                + "much time go by before you deliver a package, or else you "
+                + "might lose some of your reputation, which is the second stat."
+                + "\n" +"\n" +"2: Reputation. This is what you need to impress "
+                + "people and the girl of your dreams. As you deliver more and "
+                + "more packages on time, your reputation (rep for short) "
+                + "increases. This is the key to get to the top of the highscore "
+                + "list. But if you ever fall down to 0 rep, you will die of "
+                + "discomfort and the game will end.\n" +"\n" +"3: Fuel. Fuel "
+                + "is used when traveling between planets. You shipping company "
+                + "pays for your full refueling at every planet you visit, so "
+                + "it really only limits your route-planning.");
+        helps.put("5. Packages and your inventory", "Your inventory is displayed "
+                + "to the right. Whenever you pick up a package, you will be "
+                + "able to see it over there along with some information about "
+                + "where to deliver it.\n" +"Important information: If you "
+                + "don't have papers on your packages and you travel to a "
+                + "planet (not using warp) where there is a war, you will die. "
+                + "And the game will end. You can always get papers on your "
+                + "starting planet at your company.");
+    }
         
     
             
@@ -518,6 +584,8 @@ public class FXMLDocumentController implements Initializable {
         this.itemInfo.add(this.item0TA);
         this.itemInfo.add(this.item1TA);
         this.itemInfo.add(this.item2TA);
+        this.readyHelpText();
+        this.helpTopics.addAll(helps.keySet());
         
         System.out.println(this.game.getPossibleScenarios().size());
         

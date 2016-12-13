@@ -14,12 +14,17 @@
     <children>
       <AnchorPane fx:id="helpAnchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="832.0" style="-fx-background-color: white;">
          <children>
-            <TextArea fx:id="helpTA" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="430.0" prefWidth="832.0" wrapText="true" />
             <Button fx:id="backtoGameButton" layoutX="379.0" layoutY="434.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="75.0" text="OK">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
+            <HBox fx:id="helpHBox" prefHeight="400.0" prefWidth="830.0">
+               <children>
+                  <ListView fx:id="helpLV" prefHeight="400.0" prefWidth="602.0" />
+                  <TextArea fx:id="helpTA" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="430.0" prefWidth="832.0" wrapText="true" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="hsAnchor" layoutX="170.0" layoutY="50.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0">
