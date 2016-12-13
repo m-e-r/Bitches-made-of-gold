@@ -34,6 +34,8 @@ public class Game implements iGame {
     private HashMap<UUID,Scenario> possibleScenarios;
     private Calendar startTime; 
 
+    private HighScore currentPlayerScore;
+    private ArrayList<HighScore> highScores;
     
     private Parser parser;
     private Dashboard dashboard;
@@ -84,6 +86,7 @@ public class Game implements iGame {
         this.fileHandler = new FileHandler();
         this.timerCounts = new HashMap<>();
         this.timerCounts.put("warTimer", 50);
+        this.highScores = new ArrayList<>();
 
         //this.hasWars = new ArrayList<>();
 
@@ -147,6 +150,8 @@ public class Game implements iGame {
         this.createNpcs();
         this.createItems();
         this.time = 0;
+        
+        this.createHighscores();
         
         System.out.println(this.getImgPath(this.startingPlanet));
         
@@ -1529,36 +1534,26 @@ public class Game implements iGame {
      * highscore as the highest.
      */
     public void saveHighScore() {
-        //Creates a new highsore object based on the current player's stats
-        HighScore playerScore = new HighScore(this.player.getReputation(), this.time, this.player.getName());  // tid : 2 og name :  matias er blot place holders. 
-
-        //Read the highscore JSON file, if it exists!
-        if (!this.fileHandler.doesFileExist("highscore.json")) {
-            this.fileHandler.writeToFile("highscore.json", playerScore.toJsonString());
-        } else {
-            HighScore currentHighScore = this.fileHandler.getJSON("highscore.json", HighScore.class);
-            if (playerScore.getRep() == currentHighScore.getRep()) {
-                if (playerScore.getTime() > currentHighScore.getTime()) {
-                    //Save the highscore!
-                    this.fileHandler.writeToFile("highscore.json", playerScore.toJsonString());
-                } else if (playerScore.getTime() < currentHighScore.getTime()) {
-                    this.dashboard.print("Sorry, the current highscore managed to get the same score, with a better time");
-                    this.dashboard.print("Your score was: " + playerScore.getRep());
-                } else if (playerScore.getTime() == playerScore.getTime()) { //Trolling, should possibly be removed.
-                    this.dashboard.print("You managed to get exactly the same score and time, as the previous highscore player");
-                    this.dashboard.print("As programmers we didnt think this was possible, therefor we have no other option, to declare Matias Marek as the ruler and all time HighScore champion");
-
-                }
-
-            } else if (playerScore.getRep() > currentHighScore.getRep()) {
-                //Save high score!
-                this.fileHandler.writeToFile("highscore.json", playerScore.toJsonString());
-            } else {
-                this.dashboard.print("Sorry, you didn't beat the highscore! Cunt");
-                this.dashboard.print("Your score was: " + playerScore.getRep());
-            }
-
+        this.currentPlayerScore.setRep(this.player.getReputation());
+        this.currentPlayerScore.setTime(this.time);
+        Collections.sort(this.highScores);
+        for(int i = 0; i < 10; i++) {
+            this.fileHandler.writeToFile("data/" + this.scenario.getPath() + "/highscores/" + i + ".json", this.highScores.get(i).toJsonString());
         }
+    }
+    
+    public void createHighscores() {
+        for(int i = 0; i < 10; i++) {
+            if(!this.fileHandler.doesFileExist("data/" + this.scenario.getPath() + "/highscores/" + i + ".json")) {
+                break;
+            }
+            
+            HighScore newHighScore = this.fileHandler.getJSON("data/" + this.scenario.getPath() + "/highscores/" + i + ".json", HighScore.class);
+            this.highScores.add(newHighScore);
+        }
+        this.currentPlayerScore = new HighScore(this.player.getReputation(), this.time, this.player.getName());
+        this.highScores.add(currentPlayerScore);
+        Collections.sort(this.highScores);
     }
 
     /**
@@ -1722,7 +1717,7 @@ public class Game implements iGame {
      * @return an image
      */
     @Override
-    public String getImgPath(UUID uuid) {
+    public String getImgPath(UUID uuid, boolean bool) {
         PicturizeAble picturizeAble;
         if(this.npcs.containsKey(uuid)) {
             picturizeAble = this.npcs.get(uuid);
@@ -1734,8 +1729,19 @@ public class Game implements iGame {
             return null;
         }
         
-        String returnString = "data/" + this.scenario.getPath() + "/images/" + picturizeAble.getImagePath();
+        String folder = "images";
+        if(bool) {
+            folder = "icons";
+        }
+        
+        String returnString = "data/" + this.scenario.getPath() + "/" + folder + "/" + picturizeAble.getImagePath();
         return returnString;
+    }
+    
+    
+    @Override
+    public String getImgPath(UUID uuid) {
+        return this.getImgPath(uuid, false);
     }
     
     /**
@@ -1907,7 +1913,7 @@ public class Game implements iGame {
     @Override
     public void startGame(UUID scenario, String playerName) {
         this.scenario = this.possibleScenarios.get(scenario);
-        this.player = new Player(playerName, 10000, 10);
+        this.player = new Player(playerName, 10000, 220);
         this.play();
     }
 
@@ -1935,6 +1941,16 @@ public class Game implements iGame {
        } else {
            return false;
        }
+    }
+
+    @Override
+    public ArrayList<String> quitGame() {
+        this.saveHighScore();
+        ArrayList<String> returnArray = new ArrayList();
+        for(HighScore hs : this.highScores) {
+            returnArray.add(hs.toString());            
+        }
+        return returnArray;
     }
     
 

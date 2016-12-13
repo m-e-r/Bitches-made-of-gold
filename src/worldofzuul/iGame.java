@@ -18,6 +18,7 @@ public interface iGame {
     String getDescription(UUID uuid); //
     int getPid(UUID uuid); //
     String getImgPath(UUID uuid); //
+    String getImgPath(UUID uuid, boolean bool);
     ArrayList<UUID> getInventory(); //
     void startConversation(UUID uuid); //
     ArrayList<UUID> getAvailableNpcs(UUID uuid); //
@@ -57,4 +58,6 @@ public interface iGame {
     String getDeliveryPlanet(UUID uuid);
     String getDeliveryNpc(UUID uuid);
     boolean isWar(UUID uuid);
+    
+    ArrayList<String> quitGame ();
 }

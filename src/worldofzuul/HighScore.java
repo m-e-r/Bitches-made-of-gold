@@ -8,7 +8,7 @@ package worldofzuul;
 /**
  * A class to hold information regarding highscores.
  */
-public class HighScore {
+public class HighScore implements Comparable<HighScore> {
 
     //Attributes
     private String name;   // the name from the player
@@ -72,4 +72,30 @@ public class HighScore {
         return this.name;
     }
     // ***** GETTERS END *****
+
+    // ***** SETTERS *****
+    public void setRep(int rep) {
+        this.rep = rep;
+    }
+    
+    public void setTime(int time) {
+        this.time = time;
+    }
+    // ***** SETTERS END *****
+    
+    @Override
+    public int compareTo(HighScore o) {
+        if(this.rep > o.getRep()) {
+            return -1;
+        } else if(this.rep < o.getRep()) {
+            return 1;
+        } else {
+            if(this.time > o.getTime()) {
+                return -1;
+            } else if(this.time < o.getTime()) {
+                return 1;
+            }
+            return 0;
+        }
+    }
 }

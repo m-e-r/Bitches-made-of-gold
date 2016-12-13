@@ -31,6 +31,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
@@ -126,17 +127,6 @@ public class FXMLDocumentController implements Initializable {
     private SplitPane startSP;
     @FXML
     private TextField nameTF;
-    
-    //Defines instance variables
-    iGame game;
-    TextArea planetTA = new TextArea();
-    private ObservableList<CheatList> npcChoices = FXCollections.observableArrayList();
-    private ObservableList<CheatList> scenarios = FXCollections.observableArrayList();
-    private ArrayList<Button> buttonArray = new ArrayList();
-    private ArrayList<ImageView> itemImageViews = new ArrayList();
-    private ArrayList<Button> dialogueArray = new ArrayList();
-    private ArrayList<Button> dropItemArray = new ArrayList();
-    private String availableNpcs;
     @FXML
     private ChoiceBox<CheatList> scenariosCB;
     @FXML
@@ -148,8 +138,32 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextArea item2TA;
     private ArrayList<TextArea> itemInfo = new ArrayList();
+    @FXML
+    private ListView<String> hsList;
+    @FXML
+    private TextArea hsTA;
+    @FXML
+    private AnchorPane hsAnchor;
+    @FXML
+    private Button qqButton;
+    @FXML
+    private AnchorPane gameAnchor;
+    @FXML
+    private AnchorPane helpAnchor;
+    @FXML
+    private Button backtoGameButton;
     
-    
+    //Defines instance variables
+    iGame game;
+    TextArea planetTA = new TextArea();
+    private ObservableList<CheatList> npcChoices = FXCollections.observableArrayList();
+    private ObservableList<CheatList> scenarios = FXCollections.observableArrayList();
+    private ObservableList<String> hs = FXCollections.observableArrayList();
+    private ArrayList<Button> buttonArray = new ArrayList();
+    private ArrayList<ImageView> itemImageViews = new ArrayList();
+    private ArrayList<Button> dialogueArray = new ArrayList();
+    private ArrayList<Button> dropItemArray = new ArrayList();
+    private String availableNpcs;
     
     /**
      * Sets the scene as the solar system. 
@@ -170,8 +184,9 @@ public class FXMLDocumentController implements Initializable {
         for(UUID planet : listOfPlanets){
             Button planetButton = new Button();
             planetButton.setUserData(planet);
-            planetButton.setMaxSize(30, 30);          
-            planetButton.setStyle("-fx-background-image: url(planet" + this.game.getPid(planet) +  ".png)");
+            planetButton.setMaxSize(30, 30);
+//            planetButton.
+            planetButton.setStyle("-fx-background-image: url("+ this.game.getImgPath(planet, true) +")");
             if (planet == this.game.getPlayerPosition()) {
                 planetButton.setDisable(true);
             }
@@ -308,18 +323,12 @@ public class FXMLDocumentController implements Initializable {
         });
     }
     
-    /**
-     * Malte?.
-     */
-    @FXML
-    public void titleHandle() {
-        mainAnchor.getChildren().remove(titleTA);
-    }
-    
     @FXML
     public void handleStart(ActionEvent event) {
         this.game.setScenario(this.scenariosCB.getValue().getNpc());
         mainAnchor.getChildren().remove(startSP);
+        mainAnchor.getChildren().remove(helpAnchor);
+        mainAnchor.getChildren().remove(hsAnchor);
         this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
         this.timeTimer();
     }
@@ -440,7 +449,13 @@ public class FXMLDocumentController implements Initializable {
      */
     @FXML
     public void handleHelp(ActionEvent event) {
-
+        this.mainAnchor.getChildren().add(helpAnchor);
+        this.backtoGameButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                mainAnchor.getChildren().remove(helpAnchor);
+            }
+        });
     }
     
     public void timeTimer() {
@@ -463,6 +478,26 @@ public class FXMLDocumentController implements Initializable {
                                         this.game.getDeliveryNpc(item));
             i++;
         }
+    }
+    
+    public void clearAll(){
+        this.mainAnchor.getChildren().clear();
+    }
+    
+    @FXML
+    public void showHighscore() {
+        this.mainAnchor.getChildren().remove(gameAnchor);
+        this.mainAnchor.getChildren().add(hsAnchor);
+        hsAnchor.toFront();
+        this.hs.addAll(this.game.quitGame());
+        this.hsList.setItems(hs);
+
+    }
+    
+    @FXML
+    public void qqButtonAction(ActionEvent event) {
+        Stage stage = (Stage) qqButton.getScene().getWindow();
+        stage.close();
     }
         
     
@@ -488,13 +523,17 @@ public class FXMLDocumentController implements Initializable {
         
         for (UUID scenario : this.game.getPossibleScenarios()) {
             this.scenarios.add(new CheatList(scenario, this.game.getName(scenario)));
-        }
+        }              
         
         System.out.println(this.scenarios.size());
 
         
         this.scenariosCB.setItems(scenarios);
 
+    }
+
+    @FXML
+    private void titleHandle(MouseEvent event) {
     }
 
 }
