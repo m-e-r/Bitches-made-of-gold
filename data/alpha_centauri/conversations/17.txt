@@ -5,7 +5,7 @@ Hello, I am Divad W. Nospmoht. I was not allowed immigration to this system.
 wow
 But I came here anyways, and now they probably aren't going to through me away in the near future.
 -1
-checkPackage:1|4
+checkPackage:1;4
 _____ 1:
 Now, I see you have a package for me.
 1

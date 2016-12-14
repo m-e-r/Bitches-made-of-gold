@@ -1,19 +1,16 @@
-package worldofzuul; // HUSK
+package worldofzuul;
 
 import java.util.UUID;
 
 /**
- * The class Items is based on that there is several different items that the
- * player can get. These Items must be delivered from one NPC to another through
+ * The class Item is based on that there is several different items that the
+ * player can get. These Item must be delivered from one NPC to another through
  * a receiver id (RID). Each item has a unique id and description & the item has
  * a weight. There is a limit of how much weight and how many items the player
  * can have. The paperwork on each item can have an effect of the difficulty to
  * deliver the pakage.
  */
-public class Items implements Comparable<Items>, PrintAble, PicturizeAble {
-
-    //The number which the user references this item during runtime
-    public static int referenceCounter = 0;
+public class Item implements PrintAble, PicturizeAble {
 
     //Initializing variables
     private UUID id; //Every item have an ID
@@ -23,8 +20,7 @@ public class Items implements Comparable<Items>, PrintAble, PicturizeAble {
     private String imagePath;
     private int rid;  // The RID for the destination
     private int iid;
-    private UUID npcId;
-    private int referenceNumber;
+    private UUID npcId; // The UUID for the npc it has to be delivered to
     private int deliverytime; // Each item have a delivery time
     private boolean papers; // Does the user have papers on the item
 
@@ -36,30 +32,25 @@ public class Items implements Comparable<Items>, PrintAble, PicturizeAble {
      * @param desciption of the item
      * @param rid identifies which NPC has to recieve the item at the start of
      * the game
-     * @param pid identifies where the item should "spawn" at the start of the
+     * @param iid identifies where the item should "spawn" at the start of the
      * game
      */
-    public Items(int weight, int reputationWorth, String desciption, int rid, int iid) {
+    public Item(int weight, int reputationWorth, String desciption, int rid, int iid) {
         this.id = UUID.randomUUID();
         this.weight = weight;
         this.reputationWorth = reputationWorth;
         this.description = desciption;
         this.rid = rid;
         this.iid = iid;
-        this.referenceNumber = Items.referenceCounter;
-        Items.referenceCounter++;
         this.deliverytime = 0;
         this.papers = false;
-
     }
 
     /**
      * Constructor, this is needed to create the json files?
      */
-    public Items() {
+    public Item() {
         this.id = UUID.randomUUID();
-        this.referenceNumber = Items.referenceCounter;
-        Items.referenceCounter++;
         this.deliverytime = 0;
     }
 
@@ -68,9 +59,9 @@ public class Items implements Comparable<Items>, PrintAble, PicturizeAble {
     public String getName() {
         return this.description;
     }
-    
+
     @Override
-    public String getDescription() {        //Method for getting the description of the item.
+    public String getDescription() {
         return this.description;
     }
 
@@ -79,11 +70,11 @@ public class Items implements Comparable<Items>, PrintAble, PicturizeAble {
         return this.imagePath;
     }
 
-    public int getRid() {        //Method for returning  destination RID
+    public int getRid() {
         return this.rid;
     }
 
-    public int getIid() {        //Method for returning  destination RID
+    public int getIid() {
         return this.iid;
     }
 
@@ -91,7 +82,7 @@ public class Items implements Comparable<Items>, PrintAble, PicturizeAble {
         return this.npcId;
     }
 
-    public int getWeight() {         //Method for getting the weight of the item.
+    public int getWeight() {
         return this.weight;
     }
 
@@ -99,44 +90,34 @@ public class Items implements Comparable<Items>, PrintAble, PicturizeAble {
         return this.reputationWorth;
     }
 
-    public UUID getId() {        // //Method for getting the ID of the item.
+    public UUID getId() {
         return this.id;
     }
 
-    public int getReferenceNumber() {       //Method for getting the Referencenumber
-        return this.referenceNumber;
-    }
-
-    public int getDeliveryTime() {          // Method for getting the deliverty time
-
+    public int getDeliveryTime() {
         return this.deliverytime;
     }
 
-    public boolean getPapers() {            // Method for getting the papers
+    public boolean getPapers() {
         return this.papers;
     }
     // ***** GETTERS END *****
 
     // ***** SETTERS *****
-    public void setNpcId(UUID npcId) {          // Method for setting the npc id
+    public void setNpcId(UUID npcId) {
         this.npcId = npcId;
     }
 
-    public void setDeliveryTime(int deliverytime) {         // Method for setting the delivery time.
+    public void setDeliveryTime(int deliverytime) {
         this.deliverytime = deliverytime;
     }
 
-    public boolean setPapersFalse() {           //method for setting the papers to false
+    public boolean setPapersFalse() {
         return this.papers = false;
     }
 
-    public boolean setPapersTrue() {            //method for setting the papers to true
+    public boolean setPapersTrue() {
         return this.papers = true;
     }
     // ***** SETTERS END *****
-
-    @Override
-    public int compareTo(Items t) {
-        return (this.referenceNumber - t.referenceNumber);
-    }
 }

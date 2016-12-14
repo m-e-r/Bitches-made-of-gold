@@ -5,7 +5,7 @@ Hello, are interested in buying some warp fuel?
 yes
 Alright, hold on!
 -1
-checkBuyWarpFuel:1|3
+checkBuyWarpFuel:1;3
 
 no
 Alright, come back when you want to!

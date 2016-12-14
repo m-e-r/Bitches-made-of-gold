@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
 import java.util.UUID;
@@ -10,19 +5,13 @@ import java.util.UUID;
 /**
  * Holds all of the information regarding NPCs. It has methods for handling its
  * inventory, both deleting and adding items
- *
- * @author emildaniel
  */
-public class NPC implements Comparable<NPC>, PrintAble, PicturizeAble {
-
-    //The number used by the user to reference the NPC during runtime
-    public static int referenceCounter = 0;
+public class NPC implements PrintAble, PicturizeAble {
 
     private String name;
     private String description;
     private String imagePath;
     private UUID id;
-    private int referenceNumber; //The number used by the user to reference the NPC during runtime
     private int rid; //Identifies which Item the NPC has to receive by the start of the game
     private int pid; //Identifies where the NPC should be placed at the start of the game
     private int iid;
@@ -59,27 +48,20 @@ public class NPC implements Comparable<NPC>, PrintAble, PicturizeAble {
         this.nextConversationId = -1;
         this.id = UUID.randomUUID();
         this.inventory = new Inventory();
-
-        this.referenceNumber = NPC.referenceCounter;
-        NPC.referenceCounter++;
     }
 
+    /**
+     * Empty constructor JSON reading.
+     */
     public NPC() {
         this.nextConversationId = -1;
         this.id = UUID.randomUUID();
         this.inventory = new Inventory();
-
-        this.referenceNumber = NPC.referenceCounter;
-        NPC.referenceCounter++;
     }
 
     // ***** GETTERS *****
     public UUID getId() {
         return this.id;
-    }
-
-    public int getReferenceNumber() {
-        return this.referenceNumber;
     }
 
     public UUID getPlanetId() {
@@ -115,7 +97,7 @@ public class NPC implements Comparable<NPC>, PrintAble, PicturizeAble {
     public String getDescription() {
         return this.description;
     }
-    
+
     @Override
     public String getImagePath() {
         return this.imagePath;
@@ -127,6 +109,10 @@ public class NPC implements Comparable<NPC>, PrintAble, PicturizeAble {
 
     public int getNextConversationId() {
         return this.nextConversationId;
+    }
+
+    public boolean hasNextConversationId() {
+        return this.nextConversationId != -1;
     }
     // ***** GETTERS END *****
 
@@ -151,10 +137,6 @@ public class NPC implements Comparable<NPC>, PrintAble, PicturizeAble {
         this.packageId = uuid;
     }
     // ***** SETTERS END *****
-
-    public boolean hasNextConversationId() {
-        return this.nextConversationId != -1;
-    }
 
     // ***** GETTERS REGARDING INVENTORY *****
     public UUID[] getInventoryUuids() {
@@ -182,10 +164,4 @@ public class NPC implements Comparable<NPC>, PrintAble, PicturizeAble {
     public void removeItem(UUID itemId, int weight) {
         this.inventory.remItem(itemId, weight);
     }
-
-    @Override
-    public int compareTo(NPC t) {
-        return (this.referenceNumber - t.referenceNumber);
-    }
-
 }

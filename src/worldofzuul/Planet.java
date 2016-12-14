@@ -1,23 +1,17 @@
 package worldofzuul;
 
-import java.util.ArrayList;
 import java.util.UUID;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Holds all of the information regarding planets, except from NPC handling,
  * which is handled by the super class NPCHolder
  */
-public class Planet extends NPCHolder implements Comparable<Planet> {
+public class Planet extends NPCHolder {
 
     //Initializing variables
     private UUID moonUuid;
     private int x;          //x-coordinate of the planet
     private int y;          //y-coordinate of the planet
-    private int referenceNum;   //unique referencenumber for the planet
-
-    //static counter for creating new referencenumbers, it starts at one, because the moon always has the number 0
-    public static int referenceNumCounter = 1;
 
     /**
      * Constructor
@@ -33,13 +27,13 @@ public class Planet extends NPCHolder implements Comparable<Planet> {
         super(name, description, pid);
         this.x = x;
         this.y = y;
-        this.referenceNum = Planet.referenceNumCounter;
-        Planet.referenceNumCounter++;
     }
 
+    /**
+     * Empty constructor for JSON reading.
+     */
     public Planet() {
-        this.referenceNum = Planet.referenceNumCounter;
-        Planet.referenceNumCounter++;
+
     }
 
     // ***** GETTERS *****
@@ -58,10 +52,6 @@ public class Planet extends NPCHolder implements Comparable<Planet> {
     public int gety() {
         return this.y;
     }
-
-    public int getReferenceNum() {
-        return this.referenceNum;
-    }
     // ***** GETTERS END *****
 
     // ***** SETTERS *****
@@ -69,9 +59,4 @@ public class Planet extends NPCHolder implements Comparable<Planet> {
         this.moonUuid = moonId;
     }
     // ***** SETTERS END *****
-
-    @Override
-    public int compareTo(Planet t) {
-        return (this.referenceNum - t.referenceNum);
-    }
 }

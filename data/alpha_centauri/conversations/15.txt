@@ -5,7 +5,7 @@ Hello! I'm Nole Ksum.
 hello
 
 1
-checkPackage:1|2
+checkPackage:1;2
 ____ 1:
 I hear from Renhrew that you have a package for me.
 1
@@ -45,7 +45,7 @@ SpaceX didn't want to become political other than regarding the environment, so 
 wow
 But there are other residents than chinese people here in Alpha Centauri, but these people live on the moons, because China only cared about the planets, but the people on the moons are still seen as refugees, because they're basically not allowed to travel within the system.
 6
-checkPickup:6|7
+checkPickup:6;7
 _____ 6:
 But, I have a package for one of these refugees at the moon of this planet called Sobohp, he is called Divad W. Nospmoht. Do you want to deliver it for me?
 2

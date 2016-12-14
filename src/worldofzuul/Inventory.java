@@ -1,15 +1,13 @@
-package worldofzuul; // HUSK
+package worldofzuul;
 
-import java.util.ArrayList; //Imports the utility for the Arraylist
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
  * Handles inventory and handles items. Contains the limits on how big an
  * inventory is.
- *
- * @author emil
  */
-public class Inventory { // Initializing the class Inventory
+public class Inventory {
 
     /**
      * Next is the declaration of the ArrayList witch will be the structure for
@@ -22,7 +20,7 @@ public class Inventory { // Initializing the class Inventory
      * constructed. But if the class is constructed without them being set, it
      * will fall back to these predefined values:
      *
-     * maxAllowedItems with default 3 maxAllowedWeight with default 12
+     * maxAllowedItems with default 3, maxAllowedWeight with default 12
      *
      */
     private int maxAllowedItems;
@@ -35,7 +33,6 @@ public class Inventory { // Initializing the class Inventory
      */
     private int sumItems;
     private int sumWeight;
-    private UUID uuid;
 
     /**
      * Inventory constructs a inventory with the possibility to set maximum
@@ -47,10 +44,8 @@ public class Inventory { // Initializing the class Inventory
      *
      */
     public Inventory(int maxItems, int maxWeight) {
-
         this.maxAllowedItems = maxItems;
         this.maxAllowedWeight = maxWeight;
-        uuid = UUID.randomUUID();
         this.inventoryList = new ArrayList<>();
     }
 
@@ -61,7 +56,6 @@ public class Inventory { // Initializing the class Inventory
     public Inventory() {
         this.maxAllowedItems = 3;
         this.maxAllowedWeight = 100;
-        uuid = UUID.randomUUID();
         this.inventoryList = new ArrayList<>();
     }
 
@@ -102,13 +96,10 @@ public class Inventory { // Initializing the class Inventory
     }
 
     /**
-     * addItem adds a item, of type Item, to the inventory.
+     * addItem adds an item's UUID to the inventory.
      *
-     * TODO: There needs a destination too.. The uniqID could be implemented
-     * better in regards of how to remove items again.
-     *
-     * @param uuid
-     * @param weight Set the weight of the item (int).
+     * @param uuid the UUID of the item
+     * @param weight the weight of the item
      * @return returns the UUID number for the added item.
      */
     public boolean addItem(UUID uuid, int weight) {
@@ -120,20 +111,17 @@ public class Inventory { // Initializing the class Inventory
             return true;
         }
 
+        //If it makes it this far, it means that there were not enough space for the item
         this.sumWeight -= weight;
         this.sumItems--;
         return false;
     }
 
     /**
-     * remItem removes a given item from the inventory, based upon the unique ID
-     * returned from the addItem method.
-     *
-     * TODO: better implementation in regards to uniqID and idendifying items.
+     * remItem removes a given item from the inventory, based on the item's UUID
      *
      * @param uuid UUID of item to be deleted.
-     * @param weight
-     *
+     * @param weight the weight of the item has to be removed again
      */
     public void remItem(UUID uuid, int weight) {
         if (this.inventoryList.contains(uuid)) {
@@ -144,6 +132,11 @@ public class Inventory { // Initializing the class Inventory
 
     }
 
+    /**
+     * Returns the UUIDs held by this inventory object
+     *
+     * @return an array of the UUIDs
+     */
     public UUID[] getInventoryUuids() {
         UUID[] returnArray = new UUID[this.inventoryList.size()];
         int count = 0;
@@ -154,6 +147,12 @@ public class Inventory { // Initializing the class Inventory
         return returnArray;
     }
 
+    /**
+     * Checks whether there is space for the item
+     *
+     * @param weight the weight of the item that is being tested
+     * @return whether or not there is space for it
+     */
     public boolean hasSpaceFor(int weight) {
         if (maxAllowedItems > sumItems && maxAllowedWeight > (sumWeight + weight)) {
             return true;

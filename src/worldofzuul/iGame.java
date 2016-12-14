@@ -1,63 +1,75 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- *
- * @author DanielToft
+ * An interface that holds all of the methods that GUI will use to fetch
+ * information from the Game class.
  */
 public interface iGame {
-    ArrayList<UUID> getListOfPlanets(); //
-    String getName(UUID uuid); //
-    String getDescription(UUID uuid); //
-    int getPid(UUID uuid); //
-    String getImgPath(UUID uuid); //
-    String getImgPath(UUID uuid, boolean bool);
-    ArrayList<UUID> getInventory(); //
-    void startConversation(UUID uuid); //
-    ArrayList<UUID> getAvailableNpcs(UUID uuid); //
-    UUID getPlayerPosition(); //
 
-    ArrayList<UUID> getPossiblePlanets(); //
-    void travelToPlanet(UUID planet); //
-    int getFuel(); //
-    int getWarpFuel(); //
-    boolean canWarp(); //
-    int getReputation(); //
-    int getInGameTime(); //
-    UUID getMoonId(UUID uuid);
-    String getDashboardUpdate(); //
-    
-    void dropItem(UUID uuid);
-    void getHelp();
-    
-    void processWarp(UUID nextPosition);
-    void processAnswer(String userAns); //
-    String[] getAnswers(); //
-    //void setScenario(int scenarioNr); 
-    
-    int[] getPositionCoordinates(UUID uuid); //
-    
+    public abstract ArrayList<UUID> getListOfPlanets();
+
+    public abstract String getName(UUID uuid);
+
+    public abstract String getDescription(UUID uuid);
+
+    public abstract int getPid(UUID uuid);
+
+    public abstract String getImgPath(UUID uuid);
+
+    public abstract String getImgPath(UUID uuid, boolean bool);
+
+    public abstract ArrayList<UUID> getInventory();
+
+    public abstract void startConversation(UUID uuid);
+
+    public abstract ArrayList<UUID> getAvailableNpcs(UUID uuid);
+
+    public abstract UUID getPlayerPosition();
+
+    public abstract ArrayList<UUID> getPossiblePlanets();
+
+    public abstract void travelToPlanet(UUID planet);
+
+    public abstract int getFuel();
+
+    public abstract int getWarpFuel();
+
+    public abstract boolean canWarp();
+
+    public abstract int getReputation();
+
+    public abstract int getInGameTime();
+
+    public abstract UUID getMoonId(UUID uuid);
+
+    public abstract String getDashboardUpdate();
+
+    public abstract void dropItem(UUID uuid);
+
+    public abstract void processWarp(UUID nextPosition);
+
+    public abstract void processAnswer(String userAns);
+
+    public abstract String[] getAnswers();
+
+    public abstract int[] getPositionCoordinates(UUID uuid);
+
     public abstract ArrayList<UUID> getPossibleScenarios();
+
     public abstract void setScenario(UUID uuid);
-    
-    //NOTE: Nedenstående eksempel skal fjernes fra game.getPlayedMillis();
-    //For at skrive tiden ud siden man har startet, skriv da disse linjer:
-    //Calendar playedTime = new GregorianCalendar();
-    //playedTime.setTimeInMillis(this.game.getPlayedMillis());
-    //System.out.println("Hour: " + playedTime.get(Calendar.HOUR) + " minutes: " + playedTime.get(Calendar.MINUTE) + " seconds: " + playedTime.get(Calendar.SECOND));
-    public abstract long getPlayedMillis();   
-    
-    void startGame(UUID scenario, String playerName);
-    String getDeliveryPlanet(UUID uuid);
-    String getDeliveryNpc(UUID uuid);
-    boolean isWar(UUID uuid);
-    
-    ArrayList<String> quitGame ();
+
+    public abstract long getPlayedMillis();
+
+    public abstract void startGame(UUID scenario, String playerName);
+
+    public abstract String getDeliveryPlanet(UUID uuid);
+
+    public abstract String getDeliveryNpc(UUID uuid);
+
+    public abstract boolean isWar(UUID uuid);
+
+    public abstract ArrayList<String> quitGame();
 }
