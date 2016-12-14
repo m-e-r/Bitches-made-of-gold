@@ -1,0 +1,10 @@
+{
+	"name": "True Council Guy",
+	"description": "He helps the true council with all their dirty work",
+	"rid": 5,
+	"pid": 1,
+	"iid": 6,
+	"chanceToMove": 0,
+	"conversationId": 90601,
+	"imagePath" : "npcs/NPC5.png"
+}

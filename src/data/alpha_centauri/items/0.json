@@ -1,8 +1,0 @@
-{
-    "rid": 1,
-    "weight": 5,
-    "description": "The orb of grass",
-	"iid" : 1,
-	"reputationWorth" : 2,
-	"imagePath" : "items/orbGrass.png"
-}

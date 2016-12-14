@@ -1,0 +1,33 @@
+Greetings. My name is... Well you know my name already, don't you?
+2
+
+yes
+I thought so.
+1
+checkPackage:1;-1
+
+no
+Hmm.. Let's just say I could be your good friend, or your worst enemy, depending on the choices you make going forward.
+1
+checkPackage:1;-1
+------------------------1
+If you try to interfere with our plans, I want you to know, that you will not be succesfull. We have every bit as much power as people say we have. And we will use it. Capiche?
+1
+
+Capiche
+Capiche
+2
+deliverPackage
+------------------------2
+Now deliver this package for me.
+2
+
+Okay
+Good.
+-1
+pickupPackage
+
+I’d rather not
+You have no choice in this matter.
+-1
+pickupPackage

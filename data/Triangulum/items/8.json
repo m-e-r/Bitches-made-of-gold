@@ -1,0 +1,8 @@
+{
+    "rid": 2,
+    "weight": 4,
+    "description": "Chewbaccas gun",
+	"iid" : 2,
+	"reputationWorth" : 2,
+	"imagePath" : "items/.png"
+}

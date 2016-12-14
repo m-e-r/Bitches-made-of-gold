@@ -1,8 +1,0 @@
-{
-    "pid" : 0,
-	"name" : "Htrae",
-	"description" : "A planet similiar to the planet Earth in the Solar system",
-	"x" : 400,
-	"y" : 400,
-	"imagePath" : "planets/planet1.png"
-}

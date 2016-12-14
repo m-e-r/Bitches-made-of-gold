@@ -1,0 +1,10 @@
+{
+	"name": "Leela The True Leader Of Our Solar System",
+	"description": "I think her name says it all",
+	"rid": 1,
+	"pid": 1,
+	"iid": 2,
+	"chanceToMove": 0,
+	"conversationId": 90201,
+	"imagePath" : "npcs/NPC3.png"
+}

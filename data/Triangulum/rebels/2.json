@@ -1,0 +1,10 @@
+{
+	"name": "Random Rebel",
+	"description": "Really, this person doesn't matter",
+	"rid": 4,
+	"pid": 1,
+	"iid": 5,
+	"chanceToMove": 0,
+	"conversationId": 90501,
+	"imagePath" : "npcs/NPC5.png"
+}

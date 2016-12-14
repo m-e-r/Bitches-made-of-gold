@@ -1,0 +1,8 @@
+{
+    "pid": 6,
+    "description" : "This is a small planet, consisting only of water and inhabited only by fish. Not some intelligent-alien-mutated-super-creature-fish. Just fish.",
+    "name" : "Poison",
+    "x" : 200,
+    "y" : 800,
+    "imagePath" : "planets/planet7.png"
+}

@@ -1,8 +1,0 @@
-{
-    "pid" : 2,
-	"name" : "Sram",
-	"description" : "A small red planet",
-	"x" : 750,
-	"y" : 300,
-	"imagePath" : "planets/planet3.png"
-}

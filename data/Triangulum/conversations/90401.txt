@@ -1,0 +1,29 @@
+
+Hello, Handsome. What do you want?
+1
+
+I have orders from Leela The True Leader Of Our Solar System, to collect something from your camp?
+Right...
+1
+[]
+________________
+I don't know if i can trust you, do you have a message from her?
+2
+
+Yes
+Great, let me check.
+2
+checkPackage:3;-1
+
+No
+Then i can't hand it to you.
+-1
+[]
+––––––––––––––––
+Go ahead and pickup "Leelas WMD - Weapons of Mass Distraction ;-)"
+1
+
+Sure
+Be careful, Handsome.
+-1
+pickupPackage

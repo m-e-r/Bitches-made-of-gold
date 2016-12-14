@@ -1,0 +1,56 @@
+
+Greetings! I believe I've seen you around here before. Have you come to chat with me?
+2
+
+yes
+I thought so..
+1
+[]
+
+no
+Not much of a chatter huh..
+27000
+checkPackage:2;-1,nextConvoId:91303
+
+------------------2
+Things aren't as they used to be around here. We all like to pretend you know, but that is all it is: A pretend. Would you like to know more about the old days?
+2
+
+sure
+You should go and visit Reggy on Meilleur then. I shouldn't really tell you more.
+270000
+checkPackage:2;-1
+
+
+nah
+Hmm.. Not the nosey type are you?
+270000
+checkPackage:2;-1
+
+---------------------3
+Maybe you would like to give that package?
+2
+
+of course
+Thank you very much.
+3
+deliverPackage
+
+not really no
+You are a strange man..
+-1
+[]
+
+-----------------4
+Why don't you go and deliver this for me also?
+2
+
+sure
+Farewell for now
+-1
+pickupPackage
+
+I think I'll pass
+You are a strange man..
+-1
+[]

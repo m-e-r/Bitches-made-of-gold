@@ -1,0 +1,10 @@
+{
+	"name": "Rebel Agent",
+	"description": "An agent who used to work for the rebels, now he don't",
+	"rid": 2,
+	"pid": 6,
+	"iid": 3,
+	"chanceToMove": 0,
+	"conversationId": 90301,
+	"imagePath" : "npcs/NPC8.png"
+}

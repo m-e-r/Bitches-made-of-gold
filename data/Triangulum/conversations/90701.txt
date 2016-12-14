@@ -1,0 +1,50 @@
+
+Hi man, was uuuuuuuuuuuuuuuuuuuup!
+1
+
+Uh, not much...
+Cool, Cool, Cool, Cool, Cool, Cool. Noice…
+1
+checkPackage:1;-1
+–––––––––––––––– 1
+U got a P for me?
+1
+
+Sure...
+Nice
+2
+deliverPackage
+–––––––––––––––– 3
+You know the "True" Council, they're f***ing cool, man!
+2
+
+Dude, they suck...
+Uh...
+3
+[]
+
+They're the coolest, man!
+Uh...
+3
+[]
+––––––––––––––––4
+Are you sure about that?
+2
+
+Dude, they really suck...
+Guards! You better run 4 your life. Go hide with the other rebels on our moon.
+-1
+pickupPackage
+
+Dude, they're f***ing NOISE, man!
+Yea' man.
+4
+[]
+––––––––––––––––5
+I have a task for you. You need to deliver this package to President Préservatif on Caoutchouc.
+1
+
+Cool, i will get the job done.
+I know you will.
+-1
+pickupPackage

@@ -1,0 +1,55 @@
+
+Hey, do you have a package for me?
+2
+
+Yes
+Okay
+-1
+checkPackage:1;-1
+
+No
+Okay
+-1
+checkPackage:1;-1
+––––––––––––––––
+Can i help you with anything else?
+1
+
+Have you seen a Rebel Agent?
+A Rebel?
+2
+deliverPackage
+––––––––––––––––
+I haven't heard about any rebels...
+1
+
+But why is there a spaceship parked, that says The Rebellion?
+What spaceship? I see no spaceship...
+3
+[]
+––––––––––––––––
+Oh, that spaceship? Okay, you got me it's mine. But i can't do this mission for the rebellion, somebody threatened my family.
+2
+
+Who was it?
+I don't know, but i will not help the rebellion anymore.
+4
+[]
+
+So what, just do it.
+I can't, i need to protect my family.
+4
+[]
+––––––––––––––––
+HEY! You can finish my mission, since you have nothing to lose, they can't hurt you, Handsome guy.
+2
+
+Never
+Well, do it anyway.
+-1
+pickupPackage,nextConvoId
+
+Sure
+Then take this note from Leela The True Leader Of Our Solar System, it will help you get to the rebellion camp on Meilleur's moon.
+-1
+pickupPackage,nextConvoId

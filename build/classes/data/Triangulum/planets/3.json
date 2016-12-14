@@ -1,0 +1,9 @@
+{
+    "pid" : 3,
+    "description" : "Home planet of the lobster creatures.",
+    "name" : "Decapod 10",
+    "x" : 250,
+    "y" : 250,
+    "imagePath" : "planets/planet4.png"
+}
+

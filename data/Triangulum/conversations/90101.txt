@@ -1,0 +1,26 @@
+
+Hi, im Embêtant, do you have a package for me? 
+2
+
+yes
+Nice, hand it over.
+1
+deliverPackage
+
+no
+I can see it right there..
+1
+deliverPackage
+________________
+(Embêtant opens his package) Wow, School supplies… Now i can get an education, you changed my life… Have you heard about the rebellion? I've got some information from my agents, that a rebellion camp has been formed on Caoutchouc's moon. Can you smuggle this package to Leela The True Leader Of Our Solar System.
+2
+
+No, i don't want to.
+Thank you so much, you will be rewarded for your services.
+-1
+pickupPackage,nextConvoId:0102
+
+Sure, i can do that.
+Maybe you should discover our solar system a little more, before you travel there… But hey, it's your choice.
+-1
+pickupPackage

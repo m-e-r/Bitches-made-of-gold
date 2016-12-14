@@ -1,0 +1,8 @@
+{
+    "pid": 5,
+    "description" : "This planet is the best planet of all the planets in the solar system. Ask anyone who lives there, if it is not the best planet! Seriously, just ask them. But don’t ask them why. Never ask them why.",
+    "name" : "Meilleur",
+    "x" : 800,
+    "y" : 800,
+    "imagePath" : "planets/planet6.png"
+}

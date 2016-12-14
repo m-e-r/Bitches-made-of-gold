@@ -1,0 +1,34 @@
+
+Hi, im Leela, The True Leader Of Our Solar System. Do you have a package for me?
+2
+
+Yes
+Really?!
+27000
+checkPackage:1;-1
+
+No
+Really?!
+27000
+checkPackage:1;-1
+––––––––––––––––
+That is a big package you have for me there! ;-)
+1
+
+Well
+(Leela opens her package, it appears to be a package within a package, labelled "Leelas Mystery") This will help us defeat the "True" Council, thanks Handsome ;-)
+2
+deliverPackage
+––––––––––––––––
+Our fellow rebel camp on Meilleur's moon has an important item that will help us win our quest to conquer Caoutchouc, and once again be in charge of our solar system. We sent an agent there nearly a month ago, but he hasn't returned. Please, will you help us?
+2
+
+yes
+Great! Please take this package with you to Meilleur's moon and get the object, only you can save us now, Handsome ;-)
+-1
+pickupPackage
+
+no
+Well then we will just have to force you to go!
+-1
+pickupPackage

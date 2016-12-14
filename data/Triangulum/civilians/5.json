@@ -1,0 +1,10 @@
+{
+	"name": "True Council Leader",
+	"description": "He leads the true council with a firm hand. He used to be an alcoholic, some might say he still is...",
+	"rid": 7,
+	"pid": 1,
+	"iid": -1,
+	"chanceToMove": 0,
+	"conversationId": 90801,
+	"imagePath" : "npcs/NPC2.png"
+}

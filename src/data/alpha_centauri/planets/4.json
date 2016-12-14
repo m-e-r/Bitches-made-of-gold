@@ -1,8 +1,0 @@
-{
-    "pid" : 4,
-	"name" : "planet4",
-	"description" : "planet1",
-	"x" : 500,
-	"y" : 100,
-	"imagePath" : "planets/planet5.png"
-}

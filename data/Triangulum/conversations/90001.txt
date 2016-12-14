@@ -1,0 +1,8 @@
+
+Hey, welcome to my delivery company. Your job is to collect and deliver packages from planet to planet, in our solarsystem. Here is your first package, you need to deliver it to Embêtant on Planet 5.
+1
+
+Cool!
+Good luck, Handsome.
+-1
+pickupPackage

@@ -1,0 +1,10 @@
+{
+	"name": "The Last Rebel",
+	"description": "Maybe the last living Rebel. At least in these regions",
+	"rid": 8,
+	"pid": 1,
+	"iid": -1,
+	"chanceToMove": 0,
+	"conversationId": 91001,
+	"imagePath" : "npcs/NPC3.png"
+}

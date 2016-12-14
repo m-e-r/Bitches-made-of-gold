@@ -1,0 +1,8 @@
+{
+    "rid": 7,
+    "weight": 10,
+    "description": "The crown of the kings",
+	"iid" : 7,
+	"reputationWorth" : 2,
+	"imagePath" : "items/crown.png"
+}

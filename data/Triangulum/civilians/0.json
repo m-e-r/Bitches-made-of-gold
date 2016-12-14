@@ -1,0 +1,10 @@
+{
+	"name": "Boss",
+	"description": "The Boss of the delivering company, located on Decapod 10",
+	"rid": -1,
+	"pid": 5,
+	"iid": 0,
+	"chanceToMove": 0,
+	"conversationId": 90001,
+	"imagePath" : "npcs/NPC1.png"
+}
