@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
-
-import java.util.ArrayList;
 
 /**
  * A class that holds the calculations methods for moving around the world.
@@ -49,27 +42,6 @@ public class MovementCalculator {
         }
     }
 
-    /**
-     * Returns all of the reachable planets from a coordinate and a fuel amount
-     * from a list of planets.
-     *
-     * @param startX a coordinate in the first coordinate set
-     * @param startY a coordinate in the first coordinate set
-     * @param currentFuel the amount of fuel to calculate with
-     * @param allPlanets the list of planets to try
-     * @return the arraylist of planets that are reachable
-     */
-    /*
-    public ArrayList<Planet> getPossiblePlanets(int startX, int startY, int currentFuel, ArrayList<Planet> allPlanets) {
-        ArrayList<Planet> reachablePlanets = new ArrayList<>();
-        for(Planet planet : allPlanets) {
-            if(this.isReachable(startX, startY, planet.getx(), planet.gety(), currentFuel)) {
-                reachablePlanets.add(planet);
-            }
-        }
-        return reachablePlanets;
-    }
-     */
     /**
      * Is it possible to reach a coordinate set from a coordinate set using the
      * warp.

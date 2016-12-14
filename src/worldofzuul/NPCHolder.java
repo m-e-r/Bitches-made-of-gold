@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
 import java.util.ArrayList;
@@ -10,10 +5,8 @@ import java.util.UUID;
 
 /**
  * A super class for Moons and Planets, as they have holding an NPC in common.
- * This class holds the information about which NPC is at what planet. Along
- * with other common attributes, as id, name, pid and description.
- *
- * @author DanielToft
+ * This class holds the information about which NPC is at what planet or moon.
+ * Along with other common attributes, as id, name, pid and description.
  */
 public abstract class NPCHolder implements PrintAble, PicturizeAble {
 
@@ -42,6 +35,9 @@ public abstract class NPCHolder implements PrintAble, PicturizeAble {
         this.warTimer = -1;
     }
 
+    /**
+     * Empty constructor for JSON reading.
+     */
     public NPCHolder() {
         this.npcIds = new ArrayList<>();
         this.id = UUID.randomUUID();
@@ -71,6 +67,7 @@ public abstract class NPCHolder implements PrintAble, PicturizeAble {
     public String getImagePath() {
         return this.imagePath;
     }
+
     /**
      * Gets all of the NPC ids that is currently at the planet / moon.
      *

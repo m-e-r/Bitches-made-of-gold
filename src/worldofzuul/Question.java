@@ -47,21 +47,15 @@ public class Question {
     }
 
     /**
-     * Gets a string with the possible answers.
+     * Returns a String array with the possible answers.
      *
-     * @return a string that contains the possible answers formatted correctly
+     * @return a string array that contains the possible answers
      */
     public String[] getPossibleAnswers() {
         String[] returnStrings = new String[this.answers.size()];
-        for(int i = 0; i < this.answers.size(); i++) {
+        for (int i = 0; i < this.answers.size(); i++) {
             returnStrings[i] = this.answers.get(i).getReferenceWord();
         }
-        /*
-        String returnString = "";
-        for (Answer answer : this.answers) {
-            returnString += answer.getReferenceWord() + ", ";
-        }
-        */
         return returnStrings;
     }
 

@@ -5,12 +5,12 @@ Hello, are you here to pickup or deliver a package?
 pickup
 Alright, I'll see if I can find a package for you.
 -1
-checkPickup:1|2
+checkPickup:1;2
 
 deliver
 Alright, hand me the package infomation.
 -1
-checkPackage:3|4
+checkPackage:3;4
 ____
 I found a package for you to deliver!
 1

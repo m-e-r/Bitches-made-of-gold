@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package worldofzuul;
 
 import java.util.UUID;
 
 /**
  * Holds all of the information regarding the player. Contains methods for
- * accessing the players inventory
- *
- * @author DanielToft
+ * accessing the players inventory.
  */
 public class Player {
 
@@ -26,6 +19,13 @@ public class Player {
     private boolean canWarp;
     private String name;
 
+    /**
+     * Constructor.
+     *
+     * @param name the players name that will be associated with the highscore
+     * @param maxFuel the maximum amount of fuel
+     * @param startingReputation the starting reputation amount
+     */
     public Player(String name, int maxFuel, int startingReputation) {
         this.name = name;
         this.maxFuel = maxFuel;
@@ -77,7 +77,7 @@ public class Player {
     public String getName() {
         return this.name;
     }
-    
+
     public UUID getPlanetId() {
         return this.currentPlanetId;
     }
@@ -113,11 +113,11 @@ public class Player {
     }
 
     /**
-     * Creates an item using the method in inventory
+     * Adds an item to the player's inventory
      *
-     * @param uuid
-     * @param weight
-     * @return the UUID of the newly created item
+     * @param uuid of the item being added
+     * @param weight of the item being added
+     * @return whether or not there was space for it
      */
     public boolean addItem(UUID uuid, int weight) {
         return this.inventory.addItem(uuid, weight);
@@ -127,7 +127,7 @@ public class Player {
      * Removes an item based on the UUID of that item
      *
      * @param itemId the UUID if the item
-     * @param weight
+     * @param weight the weight of the item being removed
      */
     public void removeItem(UUID itemId, int weight) {
         this.inventory.remItem(itemId, weight);
@@ -138,7 +138,6 @@ public class Player {
     }
     // ***** HANDLING INVENTORY END *****
 
-    // ***** HANDLING WARPFUEL *****
     /**
      * Adds new warpfuel to the existing value of warpFuel
      *

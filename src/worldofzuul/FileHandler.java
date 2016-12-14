@@ -18,7 +18,7 @@ public class FileHandler {
      * method reads a file, line by line, and puts each line into the returned
      * list.
      *
-     * @param id identifies which file that should be read
+     * @param path identifies the path to which file that should be read
      * @return the list of strings
      */
     public List<String> getText(String path) {
@@ -76,7 +76,7 @@ public class FileHandler {
             fileWriter.write(toWrite);
             fileWriter.flush();
             fileWriter.close();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
 
         }
     }

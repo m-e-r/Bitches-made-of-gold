@@ -68,9 +68,9 @@ public class Conversation {
     }
 
     /**
-     * Gets all of the possible answers as a probably formatted string
+     * Gets all of the possible answers as a String array
      *
-     * @return a string
+     * @return a String array
      */
     public String[] getPossibleAnswers() {
         return this.currentQuestion.getPossibleAnswers();

@@ -26,7 +26,7 @@ The USA economy kept on going downwards, and eventually some of the states got i
 interesting
 Yes, very, and that is the story in very short. You will have to go see Nole Ksum at Sram at 250;70, the engineer behind all of this, for an explanation about how we got here.
 -1
-checkPickup:3|4
+checkPickup:3;4
 _____ 3:
 Maybe you could bring Nole Ksum a package for me?
 2
