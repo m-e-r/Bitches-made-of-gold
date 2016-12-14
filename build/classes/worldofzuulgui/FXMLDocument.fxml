@@ -123,7 +123,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="fuelAnchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="119.0">
                      <children>
-                        <TextArea fx:id="repTA" editable="false" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" />
+                        <TextArea fx:id="repTA" editable="false" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" wrapText="true" />
                      </children>
                      <GridPane.margin>
                         <Insets top="1.0" />
@@ -131,7 +131,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="warpFuelAnchor" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextArea fx:id="timeTA" editable="false" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" />
+                        <TextArea fx:id="timeTA" editable="false" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" wrapText="true" />
                      </children>
                      <GridPane.margin>
                         <Insets top="1.0" />
@@ -139,7 +139,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="repAnchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                      <children>
-                        <TextArea fx:id="fuelTA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" />
+                        <TextArea fx:id="fuelTA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" wrapText="true" />
                      </children>
                      <GridPane.margin>
                         <Insets top="1.0" />
@@ -147,7 +147,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="timeAnchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                      <children>
-                        <TextArea fx:id="warpTA" editable="false" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0">
+                        <TextArea fx:id="warpTA" editable="false" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" wrapText="true">
                            <rotationAxis>
                               <Point3D />
                            </rotationAxis>
@@ -177,7 +177,7 @@
                               <Button fx:id="dropItem2" mnemonicParsing="false" onAction="#dropItems" prefHeight="31.0" prefWidth="69.0" text="Drop" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                               <TextArea fx:id="item0TA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="130.0" wrapText="true" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="9.0" />
+                                    <Font size="7.0" />
                                  </font>
                               </TextArea>
                               <TextArea fx:id="item1TA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="130.0" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
@@ -196,7 +196,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="warpAnchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                      <children>
-                        <TextArea fx:id="inGameTimeTA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" />
+                        <TextArea fx:id="inGameTimeTA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="107.0" wrapText="true" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">

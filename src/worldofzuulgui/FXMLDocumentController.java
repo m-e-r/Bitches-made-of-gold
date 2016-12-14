@@ -280,6 +280,7 @@ public class FXMLDocumentController implements Initializable {
                 public void handle(ActionEvent event) {
                     npcChoices.clear();
                     dialogueButton2.setText(null);
+                    
                     //game.travelToPlanet(game.getMoonId(planet));
                     UUID moonUuid = game.getMoonId(planet);
                     planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
@@ -301,7 +302,7 @@ public class FXMLDocumentController implements Initializable {
         } else {
             this.game.travelToPlanet(planet);
         }   
-        
+        this.npcChoices.clear();
         for (UUID npc : npcs) {
             this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
         }
@@ -338,6 +339,8 @@ public class FXMLDocumentController implements Initializable {
         mainAnchor.getChildren().remove(hsAnchor);
         this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
         this.timeTimer();
+        this.updateStats();
+        this.planetHandle(this.game.getPlayerPosition(), this.game.getAvailableNpcs(this.game.getPlayerPosition()));
     }
     
     /**
@@ -368,6 +371,7 @@ public class FXMLDocumentController implements Initializable {
      * Updates the dialogue text area and possible answers.
      */
     public void updateConversationText() {
+        this.npcCB.setDisable(true);
         dialogueTA.setText(this.game.getDashboardUpdate());
         for (Button dialogueButton : dialogueArray) {
             dialogueButton.setText("");
@@ -397,8 +401,13 @@ public class FXMLDocumentController implements Initializable {
                 dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
+                    UUID currentPlanetUuid = game.getPlayerPosition();
+                    UUID moonUuid = game.getMoonId(currentPlanetUuid);
+                    npcChoices.clear();
                     dialogueButton2.setText(null);
-                    game.travelToPlanet(game.getMoonId(game.getPlayerPosition()));
+                    
+                    //game.travelToPlanet(game.getMoonId(planet));
+                    planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
                 }            
             });
             }
@@ -410,6 +419,10 @@ public class FXMLDocumentController implements Initializable {
                 setSolarsystem();
             }    
         });
+            this.sceneClear();
+            this.npcCB.setDisable(false);
+            this.npcCB.setValue(null);
+            this.npcCB.setItems(npcChoices);
         }
     }
     
@@ -420,15 +433,19 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < this.itemImageViews.size(); i++) {
             if (i < this.game.getInventory().size()) {
                 Image itemImg = new Image(this.game.getImgPath(this.game.getInventory().get(i)));
+                
                 this.itemImageViews.get(i).setImage(itemImg);
                 this.itemImageViews.get(i).setUserData(this.game.getInventory().get(i));
                 this.dropItemArray.get(i).setUserData(this.game.getInventory().get(i));
+                
             } else {
                 this.itemImageViews.get(i).setImage(null);
                 this.itemImageViews.get(i).setUserData(null);
                 this.dropItemArray.get(i).setUserData(null);
-            }            
-        }                
+                this.itemInfo.get(i).setText(null);
+            }
+        }
+        this.getItemDist();
     }
     
     /**
@@ -438,7 +455,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void dropItems(ActionEvent ansButton) {
         this.game.dropItem((UUID)((Button) ansButton.getSource()).getUserData());
-        this.updateInv();        
+        this.updateInv();
     }
     
     /**
@@ -587,15 +604,12 @@ public class FXMLDocumentController implements Initializable {
         this.helpTopics.addAll(helps.keySet());
         
         System.out.println(this.game.getPossibleScenarios().size());
-        
         for (UUID scenario : this.game.getPossibleScenarios()) {
             this.scenarios.add(new CheatList(scenario, this.game.getName(scenario)));
         }              
-        
         System.out.println(this.scenarios.size());
-
-        
         this.scenariosCB.setItems(scenarios);
+        
 
     }
 
