@@ -496,6 +496,7 @@ public class FXMLDocumentController implements Initializable {
                 Calendar playedTime = new GregorianCalendar();
                 playedTime.setTimeInMillis(game.getPlayedMillis());
                 timeTA.setText("" + (playedTime.get(Calendar.HOUR) - 1) + ":" + playedTime.get(Calendar.MINUTE) + ":" + playedTime.get(Calendar.SECOND));
+            
             }
         }, 1000, 1000);
     }
@@ -520,6 +521,7 @@ public class FXMLDocumentController implements Initializable {
         hsAnchor.toFront();
         this.hs.addAll(this.game.quitGame());
         this.hsList.setItems(hs);
+        
     }
     
     @FXML

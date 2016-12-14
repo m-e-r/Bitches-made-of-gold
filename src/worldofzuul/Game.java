@@ -667,7 +667,7 @@ public class Game implements iGame {
             return;
         }
 
-        this.currentConversation.processAnswer(answer);
+        this.currentConversation.processAnswer(answer.toLowerCase());
         if (this.currentConversation.hasCurrentAnswer()) {
             this.dashboard.print(this.npcs.get(this.currentConversation.getNpcId()).getName() + ": " + this.currentConversation.getReactText());
             if (!this.processExecution(this.currentConversation.getExecutionLine(), this.currentConversation.getNpcId())) {
@@ -678,12 +678,6 @@ public class Game implements iGame {
                 }
                 this.currentConversation.setNextQuestion(this.currentConversation.getNextLineNumber());
             }
-            if(this.currentConversation.getCurrentQuestionNumber() < 1) {
-                this.currentConversation = null;
-                this.dashboard.print("Conversation has been terminated");
-                return;
-            }
-            
             this.dashboard.print(this.npcs.get(this.currentConversation.getNpcId()).getName() + ": " + this.currentConversation.getQText());
             this.dashboard.print("You can answer: " + this.currentConversation.getPossibleAnswers());
         } else {
@@ -836,14 +830,14 @@ public class Game implements iGame {
      * you have to proceed to
      */
     public void checkPackage(UUID npcId, String executionSplit) {
-        String[] whichQuestion = executionSplit.split(";");
+        String[] whichQuestion = executionSplit.split("|");
         int[] questionNumbers = new int[2];
         try {
             //Note, the split command somehow splits "1|2" into three array indexes: "1", "|" and "2"
             questionNumbers[0] = Integer.parseInt(whichQuestion[0]);
-            questionNumbers[1] = Integer.parseInt(whichQuestion[1]);
+            questionNumbers[1] = Integer.parseInt(whichQuestion[2]);
         } catch (NumberFormatException e) {
-            System.out.println("wowoowow Runtime error?");
+            System.out.println("Runtime error?");
         }
 
         for (UUID itemUuid : this.player.getInventoryUuids()) {
@@ -866,7 +860,7 @@ public class Game implements iGame {
      * @param executionSplit used to extract which question to head to next
      */
     public void checkPickup(UUID npcId, String executionSplit) {
-        String[] whichQuestion = executionSplit.split(";");
+        String[] whichQuestion = executionSplit.split("|");
         int[] questionNumbers = new int[2];
         try {
             questionNumbers[0] = Integer.parseInt(whichQuestion[0]);
@@ -915,7 +909,7 @@ public class Game implements iGame {
      * questions
      */
     public void checkBuyWarpFuel(String executionSplit) {
-        String[] whichQuestion = executionSplit.split(";");
+        String[] whichQuestion = executionSplit.split("|");
         int[] questionNumbers = new int[2];
         try {
             //Note, the split command somehow splits "1|2" into three array indexes: "1", "|" and "2"

@@ -82,14 +82,7 @@ public class Conversation {
      * @param questionNumber the number of the question
      */
     public void setNextQuestion(int questionNumber) {
-        System.out.println(this.questionList.size());
-        for(Question question : this.questionList) {
-            System.out.println(question.getQText());
-        }
         this.currentQuestionNumber = questionNumber;
-        if(questionNumber < 1) {
-            return;
-        }
         this.currentQuestion = this.questionList.get(this.currentQuestionNumber);
     }
 
@@ -104,10 +97,6 @@ public class Conversation {
 
     public String getQText() {
         return this.currentQuestion.getQText();
-    }
-    
-    public int getCurrentQuestionNumber() {
-        return this.currentQuestionNumber;
     }
     // ***** GETTERS END *****
 
