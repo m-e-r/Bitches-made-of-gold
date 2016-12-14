@@ -1,0 +1,10 @@
+{
+    "name": "Secretary Lee",
+    "description": "A secretary for the goverment for the Republic of China for Alpha Centauri",
+    "rid": -1,
+	"pid" : 2,
+	"iid" : -1,
+	"chanceToMove" : 5,
+	"conversationId" : 90000,
+	"imagePath" : "npcs/NPC5.png"
+}

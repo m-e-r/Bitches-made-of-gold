@@ -1,0 +1,10 @@
+{
+	"name": "The Cool Rebel",
+	"description": "He has won The Cool Contest the last five years, but he has to wear a disguise, because he is a rebel.",
+	"rid": 8,
+	"pid": 3,
+	"iid": 9,
+	"chanceToMove": 0,
+	"conversationId": 90901,
+	"imagePath" : "npcs/NPC7.png"
+}

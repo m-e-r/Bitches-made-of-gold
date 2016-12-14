@@ -1,0 +1,42 @@
+
+Glad to see you changed your mind.
+2
+
+I was forced to..
+Still
+1
+checkPackage:1;-1
+
+Sure, I want to help!
+Good to hear!
+1
+checkPackage:1;-1
+------------------------2
+From now on, we need you to deliver as many packages to us as you can.
+2
+
+Well I still have a job to do
+Your job is to help us win the war.
+2
+deliverPackage
+
+I can do that!
+Great!
+3
+deliverPackage
+-------------------------3
+Look, if you don't help us, the Council will win and Leela will die.
+1
+
+Okay, I'll help..
+Good.
+3
+[]
+-------------------------4
+Start by delivering this to Meilleurs Moon.
+1
+
+Sure
+Great
+-1
+pickUpPackage

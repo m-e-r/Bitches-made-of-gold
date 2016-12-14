@@ -1,0 +1,10 @@
+{
+    "name": "Divad W. Nospmoht",
+    "description": "A refugee",
+    "rid": -1,
+	"pid" : 0,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 90000,
+	"imagePath" : "npcs/NPC8.png"
+}

@@ -1,0 +1,10 @@
+{
+    "name": "Nole Ksum",
+    "description": "A crazy entrepreneur that has been changing the lifes of the residents of Alpha Centauri",
+    "rid": -1,
+	"pid" : 4,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 90000,
+	"imagePath" : "npcs/NPC8.png"
+}

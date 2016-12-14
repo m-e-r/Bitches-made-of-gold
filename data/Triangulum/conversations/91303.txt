@@ -1,0 +1,29 @@
+
+If it isn't you again.
+1
+
+hello
+Yeah, greetings
+1
+
+----------------------3
+I don't think we have much more to talk about..
+1
+
+okay
+*old man sound*
+2
+[]
+-----------------------4
+Do you want to deliver something?
+2
+
+sure
+Too bad, farewell for now
+-1
+nextConvoId:90000
+
+I think I'll pass
+You are a strange man..
+-1
+nextConvoId:90000

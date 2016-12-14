@@ -1,0 +1,10 @@
+{
+    "name": "Iegres Velorok",
+    "description": "A rocket-scientist from the Republic of China",
+    "rid": -1,
+	"pid" : 6,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 90000,
+	"imagePath" : "npcs/NPC3.png"
+}

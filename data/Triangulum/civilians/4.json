@@ -1,0 +1,10 @@
+{
+	"name": "Cool Guy",
+	"description": "The coolest guy on the coolest planet in the solar system, some might say that makes him the coolest guy in the solar system...",
+	"rid": 6,
+	"pid": 3,
+	"iid": 7,
+	"chanceToMove": 0,
+	"conversationId": 90701,
+	"imagePath" : "npcs/NPC6.png"
+}

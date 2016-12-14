@@ -1,0 +1,39 @@
+
+Greetings! I believe I've seen you around here before. Have you come to chat with me?
+2
+
+yes
+I thought so..
+1
+[]
+
+no
+Not much of a chatter huh..
+-1
+
+------------------2
+Things aren't as they used to be around here. We all like to pretend you know, but that is all it is: A pretend. Would you like to know more about the old days?
+2
+
+sure
+You should go and visit Reggy on Meilleur then. I shouldn't really tell you more.
+2
+
+
+nah
+Hmm.. Not the nosey type are you?
+-1
+
+-----------------4
+Why don't you go and deliver this for me?
+2
+
+sure
+Farewell for now
+-1
+pickupPackage,nextConvoId:91303
+
+I think I'll pass
+You are a strange man..
+-1
+

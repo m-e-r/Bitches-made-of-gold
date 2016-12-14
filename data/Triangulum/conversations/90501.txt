@@ -1,0 +1,39 @@
+
+Looking for a package?
+2
+
+Yes
+Well, i dont have one.
+-1
+checkPackage:1;-1
+
+No
+Well, i don't have one anyway.
+-1
+checkPackage:1;-1
+––––––––––––––––
+I can see that you've got Leelas WMD - Weapons of Mass Distraction, but Leela The True Leader Of Our Solar System has been taken prisoner on Caoutchouc!
+2
+
+Oh no!
+What do we do?
+2
+deliverPackage
+
+She is too bossy anyway...
+EXCUSE ME!?
+2
+deliverPackage
+––––––––––––––––
+You need to go rescue her from prison on Caoutchouc!
+2
+
+I can't
+You have to! You need this to succeed.
+-1
+pickupPackage
+
+I will do what i can.
+You have to! You need this to succeed.
+-1
+pickupPackage

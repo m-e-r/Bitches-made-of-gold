@@ -1,0 +1,37 @@
+
+HELLO!
+1
+
+HELLO!
+Package?
+1
+checkPackage:1;-1
+––––––––––––––––
+I hear that you want to help the "True" Council?
+1
+
+YES
+You must prove your loyalty.
+2
+deliverPackage
+––––––––––––––––2
+You must prove your loyalty. You will have to execute Leela!
+1
+
+I really didn't sign up for this...
+Well, i guess she can live, then.
+3
+[]
+––––––––––––––––3
+But you will have to promise to only deliver packages to the "True" Council.
+2
+
+Okay, we're good?
+Yea' we're good.
+-1
+pickupPackage
+
+I can't make that promise.
+Well then,
+2
+[]
