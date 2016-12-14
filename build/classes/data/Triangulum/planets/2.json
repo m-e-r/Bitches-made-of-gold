@@ -1,8 +1,0 @@
-{
-    "pid": 2,
-    "description" : "This planet is a some-what geologically uninteresting place. Really nothing special going on here, just plains and oceans. Nothing special. Nothing.",
-    "name" : "Planet 5",
-    "x" : 750,
-    "y" : 300,
-    "imagePath" : "planets/planet3.png"
-}

@@ -672,11 +672,9 @@ public class FXMLDocumentController implements Initializable {
         this.readyHelpText();
         this.helpTopics.addAll(helps.keySet());
         
-        System.out.println(this.game.getPossibleScenarios().size());
         for (UUID scenario : this.game.getPossibleScenarios()) {
             this.scenarios.add(new CheatList(scenario, this.game.getName(scenario)));
-        }              
-        System.out.println(this.scenarios.size());
+        }
         this.scenariosCB.setItems(scenarios);
     }
 

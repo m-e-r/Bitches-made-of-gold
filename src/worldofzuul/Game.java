@@ -244,6 +244,11 @@ public class Game implements iGame {
                 }
                 this.currentConversation.setNextQuestion(this.currentConversation.getNextLineNumber());
             }
+            if(this.currentConversation.getQuestionNumber() < 1) {
+                this.currentConversation = null;
+                this.dashboard.print("Conversation has been terminated");
+                return;
+            }
             this.dashboard.print(this.npcs.get(this.currentConversation.getNpcId()).getName() + ": " + this.currentConversation.getQText());
         } else {
             this.dashboard.print(this.npcs.get(this.currentConversation.getNpcId()).getName() + ": Sorry, I don't know how to respond to that answer.");
