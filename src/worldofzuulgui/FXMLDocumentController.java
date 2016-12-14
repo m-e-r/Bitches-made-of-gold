@@ -5,17 +5,12 @@
  */
 package worldofzuulgui;
 
-import java.awt.event.ActionListener;
-import java.io.IOException;
 import worldofzuul.iGame;
 import worldofzuul.Game;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,11 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
@@ -42,11 +33,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -138,8 +126,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextArea item1TA;
     @FXML
-    private TextArea item2TA;
-    private ArrayList<TextArea> itemInfo = new ArrayList();
+    private TextArea item2TA;    
     @FXML
     private ListView<String> hsList;
     @FXML
@@ -154,6 +141,8 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane helpAnchor;
     @FXML
     private Button backtoGameButton;
+    @FXML
+    private ArrayList<TextArea> itemInfo = new ArrayList();
     
     //Defines instance variables
     iGame game;
@@ -162,10 +151,10 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList<CheatList> scenarios = FXCollections.observableArrayList();
     private ObservableList<String> hs = FXCollections.observableArrayList();
     private ObservableList<String> helpTopics = FXCollections.observableArrayList();
-    private ArrayList<Button> buttonArray = new ArrayList();
     private ArrayList<ImageView> itemImageViews = new ArrayList();
     private ArrayList<Button> dialogueArray = new ArrayList();
     private ArrayList<Button> dropItemArray = new ArrayList();
+    private ArrayList<UUID> listOfPlanets;
     private String availableNpcs;
     private TreeMap<String, String> helps = new TreeMap();
     @FXML
@@ -175,51 +164,75 @@ public class FXMLDocumentController implements Initializable {
     
     /**
      * Sets the scene as the solar system. 
-     * This is the default scene.
+     * This includes creating and placing buttons for each planet and
+     * adding style and functionality to these.
      */
-    @FXML
-    public void setSolarsystem() {
-        titleTA.setText("F.U.T.U.R.A.M.A.");
-        this.sceneClear();
+    public void setSolarsystem() {        
+        this.sceneClear(); //Removes all nodes from the scene gridpane
+        
+        //Loads background image
         Image solarsystem1 = new Image("solarsystemy.png");
-        sceneImage.setImage(solarsystem1);
-        ArrayList<UUID> listOfPlanets = new ArrayList();
-        listOfPlanets = this.game.getListOfPlanets();
-        this.updateStats();
+        sceneImage.setImage(solarsystem1);          
+        
+        //Removes function and text from second and third dialogue buttons
         this.dialogueButton2.setText(null);
         this.dialogueButton2.setOnAction(null);
+        this.dialogueButton3.setText(null);
+        this.dialogueButton3.setOnAction(null);
         
-        for(UUID planet : listOfPlanets){
+        //Creates buttons for each planet and sets their style
+        listOfPlanets = this.game.getListOfPlanets();
+        for(UUID planetUuid : listOfPlanets){
             Button planetButton = new Button();
-            planetButton.setUserData(planet);
+            planetButton.setUserData(planetUuid); //Sets the button's userdata as the planet's UUID
             planetButton.setMaxSize(30, 30);
-            planetButton.setStyle("-fx-background-image: url("+ this.game.getImgPath(planet, true) +")");
-            if (planet == this.game.getPlayerPosition()) {
+            planetButton.setStyle("-fx-background-image: url("+ this.game.getImgPath(planetUuid, true) +")");
+            
+            //If the button being placed corresponds to player's position,
+            //it will be disabled
+            if (planetUuid == this.game.getPlayerPosition()) {
                 planetButton.setDisable(true);
             }
+            
+            //Sets the action for the button, so when clicked, player
+            //travel to the corresponding planet
             planetButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    planetHandle(planet, game.getAvailableNpcs(planet));
+                    planetHandle(planetUuid, game.getAvailableNpcs(planetUuid));
                 }
             });
 
+            //Places the buttons around the scene gridpane based on their
+            //in-game coordinates
+            this.sceneGrid.add(planetButton, 
+                    (int) ((this.game.getPositionCoordinates(planetUuid)[0]/167)+0.5), 
+                    (int) ((this.game.getPositionCoordinates(planetUuid)[1]/167)+0.5));
             
-            this.sceneGrid.add(planetButton, (int) ((this.game.getPositionCoordinates(planet)[0]/167)+0.5), (int) ((this.game.getPositionCoordinates(planet)[1]/167)+0.5));
+            //Sets the action for holding the mouse over the button
             planetButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
-                public void handle(MouseEvent event) {   
+                public void handle(MouseEvent event) {
+                    //Finds NPCs on the planet
                     availableNpcs = "";
-                    for (UUID npc : game.getAvailableNpcs(planet)) {
+                    for (UUID npc : game.getAvailableNpcs(planetUuid)) {
                         availableNpcs += game.getName(npc) + ", ";
                     }
-                    planetTA.setText(game.getName(planet)+ "\n" + game.getDescription(planet) + "\nNpcs on this mofo: " + availableNpcs );
-                    itemGrid.add(planetTA, 0, 0);
+                    
+                    //Sets the information text in the textarea
+                    planetTA.setText(game.getName(planetUuid)+ "\n" + 
+                            game.getDescription(planetUuid) + 
+                            "\nNpcs on this mofo: " + availableNpcs );
                     planetTA.setWrapText(true);
-                    if (game.isWar(planet)) {
+                    
+                    //Places the textarea
+                    itemGrid.add(planetTA, 0, 0);
+                    
+                    //Adds information about war and and reachability                   
+                    if (game.isWar(planetUuid)) {
                         planetTA.appendText("\n War is war");
                     }
-                    if(game.getPossiblePlanets().contains(planet)) {
+                    if(game.getPossiblePlanets().contains(planetUuid)) {
                        planetTA.appendText("\n\n\tThis planet is reachable");
                     } else {
                         planetTA.appendText("\n\n\tThis planet is out of reach");
@@ -228,29 +241,23 @@ public class FXMLDocumentController implements Initializable {
                 }
             });
             
+            //Sets the action for removing the mouse from the button
             planetButton.setOnMouseExited(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
+                    //Removes the textarea..
                     itemGrid.getChildren().remove(planetTA);
                 }
             });
-            
-            buttonArray.add(planetButton);
         }
-        
-        this.updateInv();
-        dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            }
-        });
-        npcChoices.clear();
-        
-        this.canWarp();
+        this.updateStats(); //Updates player's stats
+        this.updateInv();   //Updates player's inventory
+        npcChoices.clear(); //Removes all NPC's from the list        
+        this.canWarp();     //Checks if warp is available
     }
     
     /**
-     * Clears the scene grid from all nodes.
+     * Clears all nodes from the scene gridpane.
      * This is called before every new scene is loaded.
      */
     public void sceneClear() {
@@ -265,14 +272,17 @@ public class FXMLDocumentController implements Initializable {
     }
     
     /**
-     * Loads the scene of the new planet and moves the player to it.
+     * Sets the scene of the new planet and moves player to it.
+     * Also updates the NPC choicebox and loads selected NPC to the scene.
      * @param planet UUID of the planet which is travlled to
      * @param npcs UUIDs of the npcs on that planet
      */
     public void planetHandle(UUID planet, ArrayList<UUID> npcs) {
         Image planetImg = new Image(this.game.getImgPath(planet));
         sceneImage.setImage(planetImg);
-        sceneClear();
+        this.sceneClear(); //Clears all nodes in front of the background
+        
+        //Ables the second button to travel to the moon if the planet has one
         if (this.game.getMoonId(planet) != null) {
             dialogueButton2.setText("To the moon!");
             dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
@@ -280,13 +290,14 @@ public class FXMLDocumentController implements Initializable {
                 public void handle(ActionEvent event) {
                     npcChoices.clear();
                     dialogueButton2.setText(null);
-                    
-                    //game.travelToPlanet(game.getMoonId(planet));
+
                     UUID moonUuid = game.getMoonId(planet);
                     planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
                 }            
             });
         }
+        
+        //Ables the third button to display the solar system
         dialogueButton3.setText("Display Planets");
         dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -294,19 +305,22 @@ public class FXMLDocumentController implements Initializable {
                 setSolarsystem();
             }    
         });
-        dialogueTA.setText(this.game.getDashboardUpdate());
         
-            
+        //Uses warpfuel if warp is activated
         if (warpRB.isSelected()) {
             this.game.processWarp(planet);
         } else {
             this.game.travelToPlanet(planet);
-        }   
+        } 
+        
+        //Updates the NPC choicebox for the planet
         this.npcChoices.clear();
         for (UUID npc : npcs) {
             this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
-        }
+        }        
         this.npcCB.setItems(npcChoices);
+        
+        //Sets the selected NPC on screen and ready for conversation
         Button npcButton = new Button();
         this.npcCB.setOnAction( new EventHandler<ActionEvent>() {
             @Override
@@ -331,21 +345,28 @@ public class FXMLDocumentController implements Initializable {
         });
     }
     
+    /**
+     * Removes all anchors, except the one holding the game graphics, and starts
+     * the game using the selected scenario and typed name.
+     * Also starts the real-time timer and sets the player's stats and 
+     * starting planet.
+     * @param event
+     */
     @FXML
     public void handleStart(ActionEvent event) {
-        this.game.setScenario(this.scenariosCB.getValue().getNpc());
+       // this.game.setScenario(this.scenariosCB.getValue().getNpc());
         mainAnchor.getChildren().remove(startSP);
         mainAnchor.getChildren().remove(helpAnchor);
         mainAnchor.getChildren().remove(hsAnchor);
         this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
-        this.timeTimer();
+        this.realTimeTimer();
         this.updateStats();
         this.planetHandle(this.game.getPlayerPosition(), this.game.getAvailableNpcs(this.game.getPlayerPosition()));
     }
     
     /**
-     * Sends the selected answer to Game and updates stuff.
-     * @param ans The selected answer from user
+     * Sends the selected answer to Game and updates stuff accordingly.
+     * @param ans The selected answer from player
      */
     public void handleAnswerButton(String ans) {
         this.game.processAnswer(ans);
@@ -355,7 +376,7 @@ public class FXMLDocumentController implements Initializable {
     }
     
     /**
-     * Updates stats.
+     * Updates player's stats: Fuel, warpfuel, reputation and ingame time.
      */
     public void updateStats() {
         fuelTA.setText("Fuel: "+this.game.getFuel());
@@ -364,15 +385,21 @@ public class FXMLDocumentController implements Initializable {
         }
         repTA.setText("Rep: " +this.game.getReputation());
         inGameTimeTA.setText("Time: " + this.game.getInGameTime()); //InGameTime
-        this.getItemDist();
+        this.updateItemInfo();
     }
     
     /**
-     * Updates the dialogue text area and possible answers.
+     * Updates the dialogue text area and answer buttons while a conversation 
+     * is ongoing.
+     * When conversation ends, the NPC button (and image) gets removed from
+     * screen, and the buttons let player see the solar system or travel to
+     * the moon, if the planet has one.
      */
     public void updateConversationText() {
-        this.npcCB.setDisable(true);
+        this.npcCB.setDisable(true); 
         dialogueTA.setText(this.game.getDashboardUpdate());
+        
+        //Clearing the answer buttons
         for (Button dialogueButton : dialogueArray) {
             dialogueButton.setText("");
             dialogueButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -382,36 +409,46 @@ public class FXMLDocumentController implements Initializable {
             });
         }
         
+        //If answers exist, place their userdata, text and action 
+        //on the buttons starting from the top
         if(this.game.getAnswers() != null) {
             for (int i = 0; i < this.game.getAnswers().length; i++) {
             int n= i+1;
             
             dialogueArray.get(i).setUserData(this.game.getAnswers()[i]);
             dialogueArray.get(i).setText(this.game.getAnswers()[i]);
+            
             dialogueArray.get(i).setOnAction(new EventHandler<ActionEvent>(){
                 @Override
                 public void handle(ActionEvent event) {
                     handleAnswerButton((String) ((Button) event.getSource()).getUserData());
                 }
             });
+            
             }
+            
+        //If no answers exist, conversation has ended
         } else {
+            //If planet has a moon, able the second button to travel to that moon
             if (this.game.getMoonId(this.game.getPlayerPosition()) != null) {
                 this.dialogueButton2.setText("To the moon!");
+                
                 dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     UUID currentPlanetUuid = game.getPlayerPosition();
+                    
                     UUID moonUuid = game.getMoonId(currentPlanetUuid);
                     npcChoices.clear();
-                    dialogueButton2.setText(null);
-                    
-                    //game.travelToPlanet(game.getMoonId(planet));
+                    dialogueButton2.setText(null);                    
                     planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
                 }            
             });
             }
+            
+            //Able the third button to display the solar system
             dialogueButton3.setText("Display Planets");
+            
             dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -419,6 +456,8 @@ public class FXMLDocumentController implements Initializable {
                 setSolarsystem();
             }    
         });
+            //Removes the NPC from the scene and readies the choicebox 
+            //for a new conversation
             this.sceneClear();
             this.npcCB.setDisable(false);
             this.npcCB.setValue(null);
@@ -427,7 +466,8 @@ public class FXMLDocumentController implements Initializable {
     }
     
     /**
-     * Updates the inventory.
+     * Updates each inventory slot only if necessary by checking the size
+     * of player's inventory.
      */
     public void updateInv() {
         for (int i = 0; i < this.itemImageViews.size(); i++) {
@@ -445,21 +485,22 @@ public class FXMLDocumentController implements Initializable {
                 this.itemInfo.get(i).setText(null);
             }
         }
-        this.getItemDist();
+        this.updateItemInfo();
     }
     
     /**
-     * Checks which button is pressed and drops the corresponding item.
-     * @param ansButton One of the three drop buttons
+     * Checks which button is pressed and drops the corresponding package
+     * from player's inventory.
+     * @param dropButton One of the three drop buttons.
      */
     @FXML
-    public void dropItems(ActionEvent ansButton) {
-        this.game.dropItem((UUID)((Button) ansButton.getSource()).getUserData());
+    public void dropItems(ActionEvent dropButton) {
+        this.game.dropItem((UUID)((Button) dropButton.getSource()).getUserData());
         this.updateInv();
     }
     
     /**
-     * Checks if warp is available.
+     * Checks if warp is available and ables the warp button if so.
      */
     public void canWarp() {
         if (this.game.canWarp()) {
@@ -468,13 +509,15 @@ public class FXMLDocumentController implements Initializable {
     }
     
     /**
-     *
+     * Places a new anchorpane, infront of the game screen, displaying the
+     * help menu and a button to remove the anchorpane again.
      * @param event
      */
     @FXML
     public void handleHelp(ActionEvent event) {
         this.mainAnchor.getChildren().add(helpAnchor);
         this.helpLV.setItems(helpTopics);
+        
         this.helpLV.getSelectionModel().selectedItemProperty().addListener(
         (observableValue, oldValue, newValue) ->
         helpTA.setText(helps.get(newValue)));
@@ -484,36 +527,55 @@ public class FXMLDocumentController implements Initializable {
             public void handle(ActionEvent event) {
                 mainAnchor.getChildren().remove(helpAnchor);
             }
-        });
-        
+        });        
     }
     
-    public void timeTimer() {
+    /**
+     * Initializes a Timer object which updates the textfield, displaying the
+     * real-time passed since the game was started, at a fixed interval.
+     */
+    public void realTimeTimer() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+            
             @Override
             public void run() {
                 Calendar playedTime = new GregorianCalendar();
                 playedTime.setTimeInMillis(game.getPlayedMillis());
-                timeTA.setText("" + (playedTime.get(Calendar.HOUR) - 1) + ":" + playedTime.get(Calendar.MINUTE) + ":" + playedTime.get(Calendar.SECOND));
-            
+                
+                timeTA.setText("" + (
+                    playedTime.get(Calendar.HOUR) - 1) + ":" + 
+                    playedTime.get(Calendar.MINUTE) + ":" + 
+                    playedTime.get(Calendar.SECOND)
+                );
             }
+            
         }, 1000, 1000);
     }
     
-    public void getItemDist() {
+    /**
+     * Sets the delivery information for each package in player's inventory.
+     */
+    public void updateItemInfo() {
         int i = 0;
         for (UUID item : this.game.getInventory()) {
-            this.itemInfo.get(i).setText(this.game.getDeliveryPlanet(item) + "\n" +
-                                        this.game.getDeliveryNpc(item));
+            this.itemInfo.get(i).setText(
+                    this.game.getDeliveryPlanet(item) + 
+                    "\n" + this.game.getDeliveryNpc(item));
             i++;
         }
     }
     
+    /**
+     * Clears all nodes from the most back anchorpane.
+     */
     public void clearAll(){
         this.mainAnchor.getChildren().clear();
     }
     
+    /**
+     * Brings the highscore screen to the front and practically ends the game. 
+     */
     @FXML
     public void showHighscore() {
         this.mainAnchor.getChildren().remove(gameAnchor);
@@ -521,15 +583,22 @@ public class FXMLDocumentController implements Initializable {
         hsAnchor.toFront();
         this.hs.addAll(this.game.quitGame());
         this.hsList.setItems(hs);
-        
     }
     
+    /**
+     * Closes the stage and quits the game.
+     * @param event 
+     */
     @FXML
     public void qqButtonAction(ActionEvent event) {
         Stage stage = (Stage) qqButton.getScene().getWindow();
         stage.close();
     }
-    
+
+    /**
+     * Loads the help text into a hashmap used for displaying the text
+     * on the help screen.
+     */
     public void readyHelpText() {
         helps.put("1. Help info", "Hello, and welcome to the help screen. "
                 + "Please use the menu to the left in order to recieve help "
@@ -582,10 +651,10 @@ public class FXMLDocumentController implements Initializable {
                 + "starting planet at your company.");
     }
         
-    
-            
+                
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        titleTA.setText("F.U.T.U.R.A.M.A.");
         this.game = new Game();
         this.itemImageViews.add(this.itemIV0);
         this.itemImageViews.add(this.itemIV1);
@@ -609,8 +678,6 @@ public class FXMLDocumentController implements Initializable {
         }              
         System.out.println(this.scenarios.size());
         this.scenariosCB.setItems(scenarios);
-        
-
     }
 
     @FXML
