@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="WorldofZuulGUI.jnlp">
+  <information>
+    <title>WorldofZuulGUI</title>
+    <vendor>MER</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="WorldofZuulGUI.jar" size="17412019" download="eager" />
+    <jar href="lib\jackson-all-1.9.0.jar" size="1105958" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="WorldofZuulGUI" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="worldofzuulgui.WorldofZuulGUI"  name="WorldofZuulGUI" />
+  <update check="always"/>
+</jnlp>

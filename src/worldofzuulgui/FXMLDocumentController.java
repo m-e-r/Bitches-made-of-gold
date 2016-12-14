@@ -199,7 +199,7 @@ public class FXMLDocumentController implements Initializable {
             planetButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    planetHandle(planetUuid, game.getAvailableNpcs(planetUuid));
+                    planetHandle(planetUuid);
                 }
             });
 
@@ -226,7 +226,7 @@ public class FXMLDocumentController implements Initializable {
                     planetTA.setWrapText(true);
                     
                     //Places the textarea
-                    itemGrid.add(planetTA, 0, 0);
+                    itemGrid.add(planetTA, 0, 0, 1, 2);
                     
                     //Adds information about war and and reachability                   
                     if (game.isWar(planetUuid)) {
@@ -274,16 +274,15 @@ public class FXMLDocumentController implements Initializable {
     /**
      * Sets the scene of the new planet and moves player to it.
      * Also updates the NPC choicebox and loads selected NPC to the scene.
-     * @param planet UUID of the planet which is travlled to
-     * @param npcs UUIDs of the npcs on that planet
+     * @param planetUuid UUID of the planet which is travlled to
      */
-    public void planetHandle(UUID planet, ArrayList<UUID> npcs) {
-        Image planetImg = new Image(this.game.getImgPath(planet));
+    public void planetHandle(UUID planetUuid) {
+        Image planetImg = new Image(this.game.getImgPath(planetUuid));
         sceneImage.setImage(planetImg);
         this.sceneClear(); //Clears all nodes in front of the background
         
         //Ables the second button to travel to the moon if the planet has one
-        if (this.game.getMoonId(planet) != null) {
+        if (this.game.getMoonId(planetUuid) != null) {
             dialogueButton2.setText("To the moon!");
             dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -291,8 +290,8 @@ public class FXMLDocumentController implements Initializable {
                     npcChoices.clear();
                     dialogueButton2.setText(null);
 
-                    UUID moonUuid = game.getMoonId(planet);
-                    planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
+                    UUID moonUuid = game.getMoonId(planetUuid);
+                    planetHandle(moonUuid);
                 }            
             });
         }
@@ -308,14 +307,15 @@ public class FXMLDocumentController implements Initializable {
         
         //Uses warpfuel if warp is activated
         if (warpRB.isSelected()) {
-            this.game.processWarp(planet);
+            this.game.processWarp(planetUuid);
         } else {
-            this.game.travelToPlanet(planet);
+            this.game.travelToPlanet(planetUuid);
         } 
+        this.updateStats();
         
         //Updates the NPC choicebox for the planet
         this.npcChoices.clear();
-        for (UUID npc : npcs) {
+        for (UUID npc : this.game.getAvailableNpcs(planetUuid)) {
             this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
         }        
         this.npcCB.setItems(npcChoices);
@@ -361,7 +361,7 @@ public class FXMLDocumentController implements Initializable {
         this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
         this.realTimeTimer();
         this.updateStats();
-        this.planetHandle(this.game.getPlayerPosition(), this.game.getAvailableNpcs(this.game.getPlayerPosition()));
+        this.planetHandle(this.game.getPlayerPosition());
     }
     
     /**
@@ -379,6 +379,10 @@ public class FXMLDocumentController implements Initializable {
      * Updates player's stats: Fuel, warpfuel, reputation and ingame time.
      */
     public void updateStats() {
+        if(this.game.isDead()) {
+            this.showHighscore();
+        }
+        
         fuelTA.setText("Fuel: "+this.game.getFuel());
         if(this.game.canWarp()) {
             warpTA.setText("WarpFuel: "+this.game.getWarpFuel());
@@ -441,7 +445,7 @@ public class FXMLDocumentController implements Initializable {
                     UUID moonUuid = game.getMoonId(currentPlanetUuid);
                     npcChoices.clear();
                     dialogueButton2.setText(null);                    
-                    planetHandle(moonUuid, game.getAvailableNpcs(moonUuid));
+                    planetHandle(moonUuid);
                 }            
             });
             }
@@ -497,6 +501,7 @@ public class FXMLDocumentController implements Initializable {
     public void dropItems(ActionEvent dropButton) {
         this.game.dropItem((UUID)((Button) dropButton.getSource()).getUserData());
         this.updateInv();
+        this.updateStats();
     }
     
     /**
@@ -558,10 +563,18 @@ public class FXMLDocumentController implements Initializable {
      */
     public void updateItemInfo() {
         int i = 0;
-        for (UUID item : this.game.getInventory()) {
+        for (UUID itemUuid : this.game.getInventory()) {
+            String itemPapers = "incorrect";
+            if(this.game.getItemPapers(itemUuid)) {
+                itemPapers = "correct";
+            }
+            
             this.itemInfo.get(i).setText(
-                    this.game.getDeliveryPlanet(item) + 
-                    "\n" + this.game.getDeliveryNpc(item));
+                    this.game.getDeliveryPlanet(itemUuid) + 
+                    "\n" + this.game.getDeliveryNpc(itemUuid) +
+                    "\nDue time: " + this.game.getItemDeliveryTime(itemUuid) +
+                    "\nPaper work status: " + itemPapers
+            );
             i++;
         }
     }

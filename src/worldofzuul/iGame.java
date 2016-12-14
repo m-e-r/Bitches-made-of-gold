@@ -72,4 +72,10 @@ public interface iGame {
     public abstract boolean isWar(UUID uuid);
 
     public abstract ArrayList<String> quitGame();
+    
+    public abstract boolean isDead();
+    
+    public abstract int getItemDeliveryTime(UUID itemUuid);
+    
+    public abstract boolean getItemPapers(UUID itemUuid);
 }

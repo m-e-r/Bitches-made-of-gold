@@ -1,0 +1,29 @@
+*** Buying warp fuel ***
+Hello, are you interested in having more time to deliver your packages?
+2
+
+yes
+Alright!
+-1
+checkExtraDeliveryTime:1;2
+
+no
+Alright, come back when you want to!
+-1
+
+____ 1:
+It's a bit shady, so don't ask me how I do it, and don't tell people about me!
+1
+
+alright
+It should be handled now!
+-1
+getExtraDeliveryTime
+_____ 2:
+Sorry, I can't help you at the current moment, come back later!
+1
+
+alright
+Bye!
+-1
+

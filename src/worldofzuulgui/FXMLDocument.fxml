@@ -177,17 +177,17 @@
                               <Button fx:id="dropItem2" mnemonicParsing="false" onAction="#dropItems" prefHeight="31.0" prefWidth="69.0" text="Drop" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                               <TextArea fx:id="item0TA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="130.0" wrapText="true" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="7.0" />
+                                    <Font size="10.0" />
                                  </font>
                               </TextArea>
                               <TextArea fx:id="item1TA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="130.0" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="7.0" />
+                                    <Font size="10.0" />
                                  </font>
                               </TextArea>
                               <TextArea fx:id="item2TA" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="130.0" wrapText="true" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="7.0" />
+                                    <Font size="10.0" />
                                  </font>
                               </TextArea>
                            </children>

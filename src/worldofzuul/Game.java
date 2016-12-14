@@ -22,6 +22,7 @@ public class Game implements iGame {
     private Scenario scenario;
     private HashMap<UUID, Scenario> possibleScenarios;
     private Calendar startTime;
+    private boolean isDead;
 
     private HighScore currentPlayerScore;
     private ArrayList<HighScore> highScores;
@@ -62,7 +63,6 @@ public class Game implements iGame {
     public Game() {
         this.possibleScenarios = new HashMap<>();
         this.startTime = new GregorianCalendar();
-        this.startTime.setTimeInMillis(System.currentTimeMillis());
         this.planets = new HashMap<>();
         this.moons = new HashMap<>();
         this.npcs = new HashMap<>();
@@ -72,7 +72,9 @@ public class Game implements iGame {
         this.movementCalculator = new MovementCalculator();
         this.fileHandler = new FileHandler();
         this.timerCounts = new HashMap<>();
-        this.timerCounts.put("warTimer", 50);
+        this.timerCounts.put("warTimer", 300);
+        this.timerCounts.put("tryNpcMovement", 100);
+        this.timerCounts.put("extraDeliveryTime", 0);
         this.highScores = new ArrayList<>();
         this.dashboard = new Dashboard(); // Creates a new object of the type Dashboard. 
 
@@ -89,6 +91,7 @@ public class Game implements iGame {
         this.createNpcs();
         this.createItems();
         this.time = 0;
+        this.startTime.setTimeInMillis(System.currentTimeMillis());
 
         this.createHighscores();
 
@@ -139,14 +142,13 @@ public class Game implements iGame {
             if (!hasAllPapers) {
                 //Perhaps we should just issue a warning at first, that you need all the papers to enter this planet, because it has war
                 // or you need to wait until the war ends.
+                this.isDead = true;
                 return true;
             }
         }
 
         if (this.movementCalculator.isReachable(currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1], characterToTravel.getFuel())) {
             characterToTravel.setCurrentPlanet(nextPositionUuid);
-
-            tryNpcMovement();
 
             this.player.setFuel(this.player.getMaxFuel());
 
@@ -270,6 +272,8 @@ public class Game implements iGame {
         allExecutions = executionLine.split(",");
         for (String eachExecution : allExecutions) {
             String[] executionSplit = eachExecution.split(":");
+            //Depending on which string executionSplit[0] contains, the program will choose one of the following cases.
+            //If not, the default case will be used, which does nothing, thus spelling errors in the conversation files is ignored.
             switch (executionSplit[0]) {
                 case "deliverPackage":
                     this.deliverPackage(npcId);
@@ -304,12 +308,20 @@ public class Game implements iGame {
                     } catch (NumberFormatException e) {
 
                     }
+                    if(this.player.getReputation() < 1) {
+                        this.isDead = true;
+                    }
                     break;
 
                 case "getPapers":
                     this.getPapers();
                     break;
 
+                case "checkExtraDeliveryTime":
+                    this.checkExtraDeliveryTime(executionSplit[1]);
+                    changedQuestion = true;
+                    break;
+                    
                 case "getExtraDeliveryTime":
                     this.getExtraDeliveryTime();
                     break;
@@ -359,6 +371,9 @@ public class Game implements iGame {
         if (!item.getPapers()) {
             this.dashboard.print("Since you did not have the papers for " + item.getDescription() + " you lost some reputation. Go see the Headquarter for papers on your packages!");
             this.player.setReputation(this.player.getReputation() - (item.getReputationWorth() * 3));
+        }
+        if(this.player.getReputation() < 1) {
+            this.isDead = true;
         }
     }
 
@@ -453,6 +468,30 @@ public class Game implements iGame {
     }
 
     /**
+     * Check whether or not it is possible to get more time for delivering the player's items.
+     * 
+     * @param executionSplit the string that contains the next question numbers
+     */
+    public void checkExtraDeliveryTime(String executionSplit) {
+        String[] whichQuestion = executionSplit.split(";");
+        int[] questionNumbers = new int[2];
+        try {
+            questionNumbers[0] = Integer.parseInt(whichQuestion[0]);
+            questionNumbers[1] = Integer.parseInt(whichQuestion[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Something is wrong with the conversation files, please contact the developers!");
+        }
+
+        if(this.time > this.timerCounts.get("extraDeliveryTime")) {
+            this.currentConversation.setNextQuestion(questionNumbers[0]);
+            this.timerCounts.put("extraDeliveryTime", this.time + 500);
+            return;
+        }
+
+        this.currentConversation.setNextQuestion(questionNumbers[1]);
+    }
+    
+    /**
      * This method is used to execute executionlines from Conversation. This
      * takes all of the players items and adds extra time to their delivery time
      * to the items.
@@ -460,8 +499,12 @@ public class Game implements iGame {
     public void getExtraDeliveryTime() {
         for (UUID uuid : this.player.getInventoryUuids()) {
             Item item = this.items.get(uuid);
-            item.setDeliveryTime(item.getDeliveryTime() + 50);
+            item.setDeliveryTime(item.getDeliveryTime() + 200);
         }
+        this.dashboard.print("Dashboard: I just received a bunch of messages! Most of them spam, but some of them state that the delivery time for each of your packages has been pushed to a later point.");
+        this.dashboard.print("Dashboard: I guess it is time for a coffee break then!");
+        this.dashboard.print("Dashboard: ....");
+        this.dashboard.print("Dashboard: Wait... I don't drink coffee...");
     }
 
     /**
@@ -667,6 +710,7 @@ public class Game implements iGame {
         NPCHolder[] planets = new NPCHolder[holdersList.size()];
         holdersList.toArray(planets);
         for (NPC npc : hasNoPid) {
+            System.out.println("NPC placement loop");
             //If the NPC already has a planet, skip placing them. (Should hopefully not be needed)
             if (npc.getPlanetId() != null) {
                 continue;
@@ -768,7 +812,12 @@ public class Game implements iGame {
                 itemsWithIid.put(item.getIid(), item);
                 item.setPapersTrue();
             } else {
-                item.setPapersFalse();
+                if(Math.random() > 0.5) {
+                    item.setPapersFalse();
+                } else {
+                    item.setPapersTrue();
+                }
+                
             }
         }
         //END: Filling the lists and hashmaps for items
@@ -831,6 +880,7 @@ public class Game implements iGame {
                 continue;
             }
             while (true) {
+                System.out.println("Items loop");
                 int randomItemIndex = (int) (Math.random() * itemsHaveNoPickup.size());
                 Item item = itemsHaveNoPickup.get(randomItemIndex);
 
@@ -974,8 +1024,14 @@ public class Game implements iGame {
 
         //War timer check
         if (this.timerCounts.get("warTimer") <= this.time) {
-            tryStartWars(0.1, 20);
-            this.timerCounts.put("warTimer", this.timerCounts.get("warTimer") + 50);
+            tryStartWars(0.1, 100);
+            this.timerCounts.put("warTimer", this.timerCounts.get("warTimer") + 150);
+        }
+        
+        //Try NPC movement timer check
+        if (this.timerCounts.get("tryNpcMovement") <= this.time) {
+            tryNpcMovement();
+            this.timerCounts.put("tryNpcMovement", this.timerCounts.get("tryNpcMovement") + 100);
         }
     }
 
@@ -1266,6 +1322,9 @@ public class Game implements iGame {
             if (itemId == uuid) {
                 this.player.removeItem(itemId, this.items.get(itemId).getWeight());
                 this.player.setReputation(this.player.getReputation() - this.items.get(itemId).getReputationWorth());
+                if(this.player.getReputation() < 1) {
+                    this.isDead = true;
+                }
                 return;
             }
         }
@@ -1360,7 +1419,7 @@ public class Game implements iGame {
     @Override
     public void startGame(UUID scenario, String playerName) {
         this.scenario = this.possibleScenarios.get(scenario);
-        this.player = new Player(playerName, 10000, 220);
+        this.player = new Player(playerName, 10000, 1);
         this.play();
     }
 
@@ -1423,5 +1482,24 @@ public class Game implements iGame {
             returnArray.add(hs.toString());
         }
         return returnArray;
+    }
+    
+    /**
+     * A getter method for whether the player is dead.
+     * @return a boolean, true if dead
+     */
+    @Override
+    public boolean isDead() {
+        return this.isDead;
+    }
+
+    @Override
+    public int getItemDeliveryTime(UUID itemUuid) {
+        return this.items.get(itemUuid).getDeliveryTime();
+    }
+
+    @Override
+    public boolean getItemPapers(UUID itemUuid) {
+        return this.items.get(itemUuid).getPapers();
     }
 }
