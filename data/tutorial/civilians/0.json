@@ -1,0 +1,10 @@
+{
+    "name": "Queen Margrethe",
+    "description": "she is your freaking boss",
+    "rid": -1,
+	"pid" : 0,
+	"iid" : 2,
+	"chanceToMove" : 0,
+	"conversationId" : 10,
+	"imagePath":"npcs/NPC10.png"
+}

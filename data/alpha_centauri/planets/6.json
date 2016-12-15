@@ -1,7 +1,7 @@
 {
     "pid" : 6,
-	"name" : "planet6",
-	"description" : "planet1",
+	"name" : "Otulp",
+	"description" : "Peolpe are still uncertain of whether to call this a planet or not",
 	"x" : 150,
 	"y" : 800,
 	"imagePath" : "planets/planet7.png"

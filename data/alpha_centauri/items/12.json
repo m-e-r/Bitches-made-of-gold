@@ -1,8 +1,8 @@
 {
-    "rid": -1,
+    "rid": 12,
     "weight": 6,
     "description": "Lukes lightsaber",
-	"iid" : -1,
+	"iid" : 12,
 	"reputationWorth" : 2,
 	"imagePath" : "items/lightsaber.png"
 }

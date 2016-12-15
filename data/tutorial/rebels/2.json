@@ -1,0 +1,10 @@
+{
+    "name": "Kasper H. Christensen",
+    "description": "the master of beerpong!",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPCbg1.png"
+}

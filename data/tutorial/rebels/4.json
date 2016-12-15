@@ -1,0 +1,10 @@
+{
+    "name": "Emil Boegh Harder",
+    "description": "this guy is a awesome designer and a good friend of mine",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC3.png"
+}

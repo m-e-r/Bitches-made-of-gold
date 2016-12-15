@@ -1,9 +1,9 @@
 {
     "name": "An old man",
     "description": "His face is hidden, he looks shady, yet friendly",
-    "rid": -1,
+    "rid": 13,
 	"pid" : -1,
-	"iid" : -1,
+	"iid" : 13,
 	"chanceToMove" : 5,
 	"conversationId" : 5,
 	"imagePath" : "npcs/NPC2.png"

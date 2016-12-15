@@ -1,6 +1,6 @@
 {
-    "pid" : -1,
-	"name" : "planet1",
-	"description" : "planet1",
-	"imagePath" : "moons/moon1.png"
+    "pid" : 4,
+	"name" : "Norebo",
+	"description" : "A bigger grayish moon",
+	"imagePath" : "moons/moon3.png"
 }

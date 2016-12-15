@@ -1,0 +1,10 @@
+{
+    "name": "Martin Luther King",
+    "description": "this guy is an American Baptist minister and civil rights activist. Haaaaleluja!",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC2.png"
+}

@@ -1,0 +1,10 @@
+{
+    "name": "Chuck Norris",
+    "description": "No words can explain him. He is badass!",
+    "rid": 2,
+	"pid" : 1,
+	"iid" : 1,
+	"chanceToMove" : 0,
+	"conversationId" : 12,
+	"imagePath":"npcs/NPC5.png"
+}

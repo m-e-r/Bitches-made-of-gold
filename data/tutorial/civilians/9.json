@@ -1,0 +1,10 @@
+{
+    "name": "Abraham Lincoln",
+    "description": "the 16 president of the USA. Awesome dude!",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC3.png"
+}

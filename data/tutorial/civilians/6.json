@@ -1,0 +1,10 @@
+{
+    "name": "Bill Gates",
+    "description": "what a geek",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC10.png"
+}

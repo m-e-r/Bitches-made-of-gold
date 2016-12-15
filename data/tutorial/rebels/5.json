@@ -1,0 +1,10 @@
+{
+    "name": "Daniel Skjold Toft ",
+    "description": "this guy is like the hardcore of the hardcore programmers",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC4.png"
+}

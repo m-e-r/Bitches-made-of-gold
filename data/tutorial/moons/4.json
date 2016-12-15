@@ -1,0 +1,6 @@
+{
+    "pid" : 1,
+	"name" : "Chama",
+	"description" : "A moon full with ice",
+	"imagePath":"moons/moon4.png"
+}

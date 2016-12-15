@@ -1,0 +1,10 @@
+{
+    "name": "Peter Tank Nellemann",
+    "description": "a Pokemon go Leela loving freaking awesome adviser for the group 17!",
+    "rid": 3,
+	"pid" : 2,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 17,
+	"imagePath":"npcs/NPC6.png"
+}

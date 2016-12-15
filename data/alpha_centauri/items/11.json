@@ -1,8 +1,8 @@
 {
-    "rid": -1,
+    "rid": 11,
     "weight": 4,
     "description": "Benders booze",
-	"iid" : -1,
+	"iid" : 11,
 	"reputationWorth" : 2,
 	"imagePath" : "items/bendersbooze.png"
 }

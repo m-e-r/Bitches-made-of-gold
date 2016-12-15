@@ -1,0 +1,8 @@
+{
+    "pid" : 5,
+	"name" : "Kochav",
+	"description" : "A freaking rainbow of a planet!",
+	"x" : 500,
+	"y" : 750,
+	"imagePath":"planets/planet7.png"
+}

@@ -1,0 +1,24 @@
+*** Initial conversation ***
+Hello Postman Per! I'm Margrethe, the queen of Denmark and your awesome boss. Do you wanna go to the next level of mailing?
+1
+
+yes
+Alright, let's get you signed up!
+1
+
+_____
+Alright! Welcome to the big leagues! You are now a space mailman, you are freaking awesome dude! 
+1
+
+awesome
+Now you can head to your spaceship and deliver the first package.
+2
+
+_____
+I've already loaded the package! Let me teach you how it's done! You have a dashboard, try to use it! Just type " help "
+1
+
+thanks
+I know the first package need to be delivered at Yareach, at the coordinates of 20;72. Use the "scan possible" and "go" command to get there! When you are then, use "scan npcs" to find him!
+-1
+pickupPackage,nextConvoId:1

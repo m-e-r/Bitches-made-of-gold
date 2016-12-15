@@ -1,9 +1,9 @@
 {
     "name": "Shipment company secretary",
     "description": "A secretary for the shipment company at the shipment planet Htrae",
-    "rid": -1,
+    "rid": 12,
 	"pid" : 0,
-	"iid" : -1,
+	"iid" : 12,
 	"chanceToMove" : 0,
 	"conversationId" : 4,
 	"imagePath" : "npcs/NPC10.png"

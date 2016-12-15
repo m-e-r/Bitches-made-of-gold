@@ -1,0 +1,8 @@
+{
+    "pid" : 6,
+	"name" : "Chama",
+	"description" : "A planet full of fire and the air is almost toxic ",
+	"x" : 750,
+	"y" : 750,
+	"imagePath":"planets/planet4.png"
+}

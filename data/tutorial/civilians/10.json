@@ -1,0 +1,10 @@
+{
+    "name": "Marilyn Monroe",
+    "description": "an american actress and model. Yumi!",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC4.png"
+}

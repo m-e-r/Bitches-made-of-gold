@@ -1,0 +1,10 @@
+{
+    "name": "Donna Paulsen",
+    "description": "a secretary for the shipment company",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 4,
+	"imagePath":"npcs/NPC5.png"
+}

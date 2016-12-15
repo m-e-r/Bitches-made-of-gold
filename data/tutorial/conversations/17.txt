@@ -1,0 +1,48 @@
+***** Talk with Peter Tank Nellemann *****
+Hello, I am Peter Tank Nellemann! I really love Leela! She is really a babe! Wow!
+1
+
+wtf
+She and I ones kissed! best day of my life! Do you play Pokemon GO? I am Team Instinct but only lvl 5. GO INSTINCT!
+-1
+checkPackage:1;5
+_____ 1:
+Ohh! I see you have a package for me?
+1
+
+yes
+Awesome! Now i can go hunt all the pokemons! because you have delivered me this package, I will give you this!
+2
+deliverPackage,setAllowWarp
+_____ 2:
+It is a Warp drive that you can use within this system.
+1
+
+wow
+If you buy fuel at the station right over there *points to the right of him*, you can warp around within this system, which will cost you no time. LISTEN!!! If you fly to a planet with war without papers and warp, you are dead son! So if there is war at a planet! Either warp to the planet or get your papers done!
+3
+
+_____ 3:
+But, buying warp fuel costs you reputation, people don't like people that are warping around, so be use the fuel wisely! 
+1
+
+alright
+Great! Here you go! *HINT* If you don't have papers on your item.  You can get it on your homeplanet & Donna Paulsen who is a secretary for the shipment company that is flying around.
+4
+
+_____ 4:
+That is all for me now. You are actually done with the tutorial! You can choose to quit or you can just play around and pickup and deliver packages and train hard gain hard!
+1
+
+bye
+Bye bye mate! Best of luck!
+-1
+nextConvoId:1
+_____ 5:
+You got no package you man! Wtf! Hitler over at Ma'adim told me you had a package! Go get it!
+1
+
+bye
+Bye bye mate! Best of luck!
+-1
+

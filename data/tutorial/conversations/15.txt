@@ -1,0 +1,69 @@
+*** Initial with Adolf Hitler conversation ***
+Hello! I'm Adolf Hitler.
+1
+
+hello
+
+1
+checkPackage:1;2
+____ 1:
+I hear from Chuck Norris that you have a package for me.
+1
+
+yes
+Thank you for the gift!
+3
+deliverPackage
+_____ 2:
+Chuck Norris told me you would have a package for me, but that you took off before picking it up. So, you should probably go back to him and then get back here.
+1
+
+alright
+Chuck Norris should be at Yareach at 20;72
+-1
+
+_____ 3:
+I hope you are enjoying this tutorial and are getting the sense of the game! As this is the tutorial, it's really simple ehh?
+1
+
+well
+ohh it's not? You are a mailman. Your job is to deliver mail from planet to planet! Not taking over europa.
+4
+
+_____ 4:
+I was ones a great cheif of the entire german! But those americans and people from England destroyed my entire kingdom!
+1
+
+awesome
+do you think? you little!
+5
+
+_____ 5:
+No worries. We are cool! You just started your job and Chuck is one of my dear friends! I trust him!
+1
+
+good
+I've got a package, do you wanna help me out mate?
+6
+checkPickup:6;7
+_____ 6:
+ofc you do! I have a package for one of these Pokemon Go loving creatures at the moon of this planet, it's called Sobohp, he is called Peter Tank Nellemann. Do you want to deliver it for me?
+2
+
+yes
+Great! Here you go! You can travel to him bye using: "Scan possible". *HINT!* Moons are always 0.
+7
+pickupPackage
+
+no
+You got no other choice mate!!!
+6
+
+_____ 7:
+That is all for me now.
+1
+
+bye
+Bye bye!
+-1
+nextConvoId:1

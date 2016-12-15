@@ -1,0 +1,8 @@
+{
+    "pid" : 0,
+	"name" : "Nogah",
+	"description" : "A planet similiar to the planet Earth in the Solar system",
+	"x" : 600,
+	"y" : 210,
+	"imagePath":"planets/planet1.png"
+}

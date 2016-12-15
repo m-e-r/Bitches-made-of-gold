@@ -23,6 +23,7 @@ public class Game implements iGame {
     private HashMap<UUID, Scenario> possibleScenarios;
     private Calendar startTime;
     private boolean isDead;
+    private AudioPlayer audioPlayer;
 
     private HighScore currentPlayerScore;
     private ArrayList<HighScore> highScores;
@@ -77,6 +78,7 @@ public class Game implements iGame {
         this.timerCounts.put("extraDeliveryTime", 0);
         this.highScores = new ArrayList<>();
         this.dashboard = new Dashboard(); // Creates a new object of the type Dashboard. 
+        this.audioPlayer = new AudioPlayer();
 
         this.createScenarios();
     }
@@ -86,7 +88,7 @@ public class Game implements iGame {
      * the welcome message, and then it loops, taking your commands, until the
      * game ends.
      */
-    public void play() {
+    private void play() {
         this.startingPlanet = this.createPlanets();
         this.createNpcs();
         this.createItems();
@@ -96,6 +98,8 @@ public class Game implements iGame {
         this.createHighscores();
 
         this.player.setCurrentPlanet(this.startingPlanet);
+        
+        this.audioPlayer.playMusic();
     }
 
     /**
@@ -108,7 +112,7 @@ public class Game implements iGame {
      * @param currentFuel the amount of fuel that can be expended
      * @return a list of planets that are possible to travel to
      */
-    public ArrayList<UUID> getPossiblePlanets(int startX, int startY, int currentFuel) {
+    private ArrayList<UUID> getPossiblePlanets(int startX, int startY, int currentFuel) {
         ArrayList<UUID> reachablePlanets = new ArrayList<>();
         for (Planet planet : this.planets.values()) {
             if (this.movementCalculator.isReachable(startX, startY, planet.getx(), planet.gety(), currentFuel)) {
@@ -124,7 +128,7 @@ public class Game implements iGame {
      * @param characterToTravel which character to move
      * @param planetId which planet to move to
      */
-    public boolean travelToPlanet(Player characterToTravel, UUID nextPositionUuid) {
+    private boolean travelToPlanet(Player characterToTravel, UUID nextPositionUuid) {
         int[] currentPosition = getPositionCoordinates(this.player.getPlanetId());
         int[] nextPosition = getPositionCoordinates(nextPositionUuid);
         NPCHolder nextNpcHolder = getNPCHolderFromUuid(nextPositionUuid);
@@ -149,6 +153,7 @@ public class Game implements iGame {
 
         if (this.movementCalculator.isReachable(currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1], characterToTravel.getFuel())) {
             characterToTravel.setCurrentPlanet(nextPositionUuid);
+            this.audioPlayer.playFly();
 
             this.player.setFuel(this.player.getMaxFuel());
 
@@ -170,13 +175,14 @@ public class Game implements iGame {
      * @param characterToTravel which character that should be moved
      * @param nextPositionUuid which planet or moon that is the intended target.
      */
-    public void processWarp(Player characterToTravel, UUID nextPositionUuid) {
+    private void processWarp(Player characterToTravel, UUID nextPositionUuid) {
         int[] currentPosition = getPositionCoordinates(this.player.getPlanetId());
         int[] nextPosition = getPositionCoordinates(nextPositionUuid);
         NPCHolder nextNpcHolder = getNPCHolderFromUuid(nextPositionUuid);
 
         if (this.movementCalculator.isWarpReachable(currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1], characterToTravel.getWarpfuel())) {
             characterToTravel.setCurrentPlanet(nextPositionUuid);
+            this.audioPlayer.playWarp();
             characterToTravel.setWarpfuel(characterToTravel.getWarpfuel() - this.movementCalculator.calculateWarpFuelUsage(currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1]));
         }
     }
@@ -266,7 +272,7 @@ public class Game implements iGame {
      * @return whether or not the conversation's question was changed during the
      * execution commands
      */
-    public boolean processExecution(String executionLine, UUID npcId) {
+    private boolean processExecution(String executionLine, UUID npcId) {
         boolean changedQuestion = false;
         String[] allExecutions;
         allExecutions = executionLine.split(",");
@@ -357,7 +363,7 @@ public class Game implements iGame {
      *
      * @param npcId the npc which has to receive the package
      */
-    public void deliverPackage(UUID npcId) {
+    private void deliverPackage(UUID npcId) {
         Item item = this.items.get(this.npcs.get(npcId).getPackageId());
         this.player.setReputation(this.player.getReputation() + item.getReputationWorth());
         this.player.removeItem(item.getId(), item.getWeight());
@@ -385,7 +391,7 @@ public class Game implements iGame {
      * @param npcId the npc that the user picks up packages from
      * @return whether you succeeded or not to pick up all the packages
      */
-    public boolean pickupPackage(UUID npcId) {
+    private boolean pickupPackage(UUID npcId) {
         incrementTime(1);
         for (UUID itemUuid : this.npcs.get(npcId).getInventoryUuids()) {
             if (this.player.addItem(itemUuid, this.items.get(itemUuid).getWeight())) {
@@ -408,7 +414,7 @@ public class Game implements iGame {
      * @param executionSplit used to get the two different question numbers that
      * you have to proceed to
      */
-    public void checkPackage(UUID npcId, String executionSplit) {
+    private void checkPackage(UUID npcId, String executionSplit) {
         String[] whichQuestion = executionSplit.split(";");
         int[] questionNumbers = new int[2];
         try {
@@ -436,7 +442,7 @@ public class Game implements iGame {
      * @param npcId the npc to check whether it has items to pickup or not
      * @param executionSplit used to extract which question to head to next
      */
-    public void checkPickup(UUID npcId, String executionSplit) {
+    private void checkPickup(UUID npcId, String executionSplit) {
         String[] whichQuestion = executionSplit.split(";");
         int[] questionNumbers = new int[2];
         try {
@@ -461,7 +467,7 @@ public class Game implements iGame {
      * This method is used to execute executionlines from Conversation. This
      * takes all of the players items and adds papers to them.
      */
-    public void getPapers() {
+    private void getPapers() {
         for (UUID uuid : this.player.getInventoryUuids()) {
             this.items.get(uuid).setPapersTrue();
         }
@@ -472,7 +478,7 @@ public class Game implements iGame {
      * 
      * @param executionSplit the string that contains the next question numbers
      */
-    public void checkExtraDeliveryTime(String executionSplit) {
+    private void checkExtraDeliveryTime(String executionSplit) {
         String[] whichQuestion = executionSplit.split(";");
         int[] questionNumbers = new int[2];
         try {
@@ -496,7 +502,7 @@ public class Game implements iGame {
      * takes all of the players items and adds extra time to their delivery time
      * to the items.
      */
-    public void getExtraDeliveryTime() {
+    private void getExtraDeliveryTime() {
         for (UUID uuid : this.player.getInventoryUuids()) {
             Item item = this.items.get(uuid);
             item.setDeliveryTime(item.getDeliveryTime() + 200);
@@ -514,7 +520,7 @@ public class Game implements iGame {
      * @param executionSplit which contains the question numbers for the next
      * questions
      */
-    public void checkBuyWarpFuel(String executionSplit) {
+    private void checkBuyWarpFuel(String executionSplit) {
         String[] whichQuestion = executionSplit.split(";");
         int[] questionNumbers = new int[2];
         try {
@@ -537,7 +543,7 @@ public class Game implements iGame {
      *
      * @return what UUID the player should be starting on
      */
-    public UUID createPlanets() {
+    private UUID createPlanets() {
 
         UUID returnUuid = null;
         //Creating the items list
@@ -565,7 +571,7 @@ public class Game implements iGame {
      * their PID. This method assumes that every Moon has a PID that will match
      * a planet's PID.
      */
-    public void createMoons() {
+    private void createMoons() {
 
         int i = 0;
         while (true) {
@@ -593,7 +599,7 @@ public class Game implements iGame {
     /**
      * Creates the NPCs
      */
-    public void createNpcs() {
+    private void createNpcs() {
         int i = 0;
         while (true) {
             if (!this.fileHandler.doesFileExist("data/" + this.scenario.getPath() + "/civilians/" + i + ".json")) {
@@ -655,7 +661,7 @@ public class Game implements iGame {
      * Planets and Moons. NPCHolder holds the information and behaviour that
      * handles NPCs at planets/moons.
      */
-    public void placeNpcs(Collection<NPC> npcList, ArrayList<NPCHolder> holdersList) {
+    private void placeNpcs(Collection<NPC> npcList, ArrayList<NPCHolder> holdersList) {
         //An array list that holds the planets/moons without an NPC.
         //By the start all planets/moons are a part of this list.
         //The planets/moons are removed from this list when they get an NPC.
@@ -734,7 +740,7 @@ public class Game implements iGame {
      * adding receivers that have no RIDs 4a. Finding and placing items at the
      * right NPCs based on PIDs 4b. Finding and placing items without PIDs
      */
-    public void createItems() {
+    private void createItems() {
         //There is more JSON files with items, than there actually has to be used in game.
         //This list holds all the items currently in use
         ArrayList<Item> itemsUsed = new ArrayList<>();
@@ -903,7 +909,7 @@ public class Game implements iGame {
      * @param positionUuid a planet or moon UUID
      * @return the NPCHolder object
      */
-    public NPCHolder getNPCHolderFromUuid(UUID positionUuid) {
+    private NPCHolder getNPCHolderFromUuid(UUID positionUuid) {
         if (this.planets.containsKey(positionUuid)) {
             return this.planets.get(positionUuid);
         } else {
@@ -937,7 +943,7 @@ public class Game implements iGame {
      * This method prepares and calls the method that does the actual
      * calculation for whether the NPC should move or not.
      */
-    public void tryNpcMovement() {
+    private void tryNpcMovement() {
         ArrayList<NPCHolder> npcHolders = new ArrayList<>();
         for (Moon moon : this.moons.values()) {
             npcHolders.add(moon);
@@ -958,7 +964,7 @@ public class Game implements iGame {
      * @param npcList The NPCs that has to be placed
      * @param holdersList The places the NPCs can be placed
      */
-    public void tryNpcMovementCalculations(Collection<NPC> npcList, ArrayList<NPCHolder> holdersList) {
+    private void tryNpcMovementCalculations(Collection<NPC> npcList, ArrayList<NPCHolder> holdersList) {
         for (NPC npc : npcList) {
             NPCHolder[] npcHolders = new NPCHolder[holdersList.size()];
             holdersList.toArray(npcHolders);
@@ -988,7 +994,7 @@ public class Game implements iGame {
      * than the one fetched from the JSON file, save the current player's
      * highscore as the highest.
      */
-    public void saveHighScore() {
+    private void saveHighScore() {
         this.currentPlayerScore.setRep(this.player.getReputation());
         this.currentPlayerScore.setTime(this.time);
         Collections.sort(this.highScores);
@@ -1000,7 +1006,7 @@ public class Game implements iGame {
     /**
      * A method for reading all of the highscore JSON files and storing them.
      */
-    public void createHighscores() {
+    private void createHighscores() {
         for (int i = 0; i < 10; i++) {
             if (!this.fileHandler.doesFileExist("data/" + this.scenario.getPath() + "/highscores/" + i + ".json")) {
                 break;
@@ -1019,7 +1025,7 @@ public class Game implements iGame {
      *
      * @param i the amount to increment the time with
      */
-    public void incrementTime(int i) {
+    private void incrementTime(int i) {
         this.time += i;
 
         //War timer check
@@ -1042,7 +1048,7 @@ public class Game implements iGame {
      * the closer to 1, then bigger the chance
      * @param length the length in the time unit
      */
-    public void tryStartWars(double chance, int length) {
+    private void tryStartWars(double chance, int length) {
         //What if the planet already has a war? Fine! It will just extend it!
 
         for (Planet planet : this.planets.values()) {
@@ -1063,7 +1069,7 @@ public class Game implements iGame {
      * located in the root of the data folder. It saves these possible scenarios
      * in the hashmap.
      */
-    public void createScenarios() {
+    private void createScenarios() {
         if (!this.fileHandler.doesFileExist("data/scenarios.txt")) {
             System.out.println("The scenarios file is broken!");
         }
@@ -1439,7 +1445,7 @@ public class Game implements iGame {
         if (this.planets.containsKey(deliveryNpcHolderUuid)) {
             return "Location: " + this.planets.get(deliveryNpcHolderUuid).getName();
         } else {
-            return "Location: " + this.moons.get(deliveryNpcHolderUuid).getName();
+            return "Location: moon of " + this.planets.get(this.moons.get(deliveryNpcHolderUuid).getParentPlanetUuid()).getName();
         }
     }
 
@@ -1477,6 +1483,7 @@ public class Game implements iGame {
     @Override
     public ArrayList<String> quitGame() {
         this.saveHighScore();
+        this.audioPlayer.playThanks();
         ArrayList<String> returnArray = new ArrayList();
         for (HighScore hs : this.highScores) {
             returnArray.add(hs.toString());

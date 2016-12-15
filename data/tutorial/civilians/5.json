@@ -1,0 +1,10 @@
+{
+    "name": "Albert Einstein",
+    "description": "a german theoretical physicist with a comprehensive and groundbreaking scientific production. Smarter than anyone!",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC2.png"
+}

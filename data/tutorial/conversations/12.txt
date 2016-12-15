@@ -1,0 +1,74 @@
+*** Initial with Chuck Norris conversation ***
+Hello! I'm Chuck Norris from the Republic of Awesome.
+1
+
+hello
+
+1
+checkPackage:1;2
+____ 1:
+I hear from Queen Margrethe that you have the fags.
+1
+
+yes
+Thank you for the fags!
+3
+deliverPackage,nextConvoId:12
+_____ 2:
+Queen Margrethe told me you would have a package for me, but that you took off before picking it up. So, you should probably go back to him and then get back here.
+1
+
+alright
+Queen Margrethe should be at Nogah at 120;210
+-1
+
+_____ 3:
+Do you know everyone of the commands you can use? no? Let me tell you!
+1
+
+cool
+The commands are: "Drop" is for when you wanna drop an item...   "help" is when you are fucked and need help...   "print" is for printing inventory, stats and position...   "greet" is for talking to people...
+4
+
+_____ 4:
+"go" is for flying places...   "scan" is for scanning for npcs, possible planets ect...   "quit" is for quitting the game... "say" is for talking to people...   "warp" is for warping to any planet... Got it? 
+2
+
+yes
+Thats awesome! Then you are almost ready to play the game!
+5
+
+
+no
+Try talk to me again then and i will explain it again!
+3
+nextConvoId:12
+_____ 5:
+I hope that you are gonna have a lot of fun playing the game! Remember this is just the tutorial!
+1
+
+ofc
+Sounds good man! I love you already!
+-1
+checkPickup:6;7
+_____ 6:
+Maybe you could bring Adolf Hitler a package for me?
+2
+
+yes
+Great! He should be at Ma'adim.
+7
+pickupPackage
+
+no
+You really need to do this for me!
+6
+
+_____ 7:
+That is all for me at the moment, but I'll probably see you around again!
+1
+
+bye
+Bye bye!
+-1
+nextConvoId:1

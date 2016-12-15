@@ -1,0 +1,10 @@
+{
+    "name": "Malte Engelsted oellebroed Rasmussen",
+    "description": "have you seen him in a kichen with a wok?",
+    "rid": -1,
+	"pid" : -1,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 1,
+	"imagePath":"npcs/NPC2.png"
+}
