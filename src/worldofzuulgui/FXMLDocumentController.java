@@ -308,9 +308,17 @@ public class FXMLDocumentController implements Initializable {
         
         //Uses warpfuel if warp is activated
         if (warpRB.isSelected()) {
+<<<<<<< Updated upstream
             this.game.processWarp(planet);
         } else {
             this.game.travelToPlanet(planet);
+=======
+            this.warpRB.setText("Warp Activated");
+            this.game.processWarp(planetUuid);
+        } else {
+            this.warpRB.setText("Warp Deactivated");
+            this.game.travelToPlanet(planetUuid);
+>>>>>>> Stashed changes
         } 
         
         //Updates the NPC choicebox for the planet
@@ -361,7 +369,22 @@ public class FXMLDocumentController implements Initializable {
         this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
         this.realTimeTimer();
         this.updateStats();
+<<<<<<< Updated upstream
         this.planetHandle(this.game.getPlayerPosition(), this.game.getAvailableNpcs(this.game.getPlayerPosition()));
+=======
+        this.planetHandle(this.game.getPlayerPosition());
+       
+        //Starts the 
+        this.npcCB.setValue(this.npcChoices.get(0));        
+        Button npcButton = new Button();
+        npcButton.setMaxSize(100, 50);
+        sceneGrid.add(npcButton, 1, 3, 1, 3);
+        npcButton.setStyle("-fx-background-color: transparent;");
+        Image npcImage = new Image(game.getImgPath((((CheatList) npcCB.getValue()).getNpc())));
+        npcButton.setGraphic( new ImageView(npcImage));
+        this.game.startConversation(((CheatList) npcCB.getValue()).getNpc());
+        this.updateConversationText();
+>>>>>>> Stashed changes
     }
     
     /**

@@ -8,7 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< Updated upstream
     <jar href="WorldofZuulGUI.jar" size="8898987" download="eager" />
+=======
+    <jar href="WorldofZuulGUI.jar" size="25961697" download="eager" />
+>>>>>>> Stashed changes
     <jar href="lib/jackson-all-1.9.0.jar" size="1105958" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="WorldofZuulGUI" >
