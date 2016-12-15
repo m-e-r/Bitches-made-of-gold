@@ -49,6 +49,7 @@ public class Game implements iGame {
     private HashMap<UUID, NPC> npcs;
     private HashMap<UUID, NPC> civilians;
     private HashMap<UUID, NPC> rebels;
+    private UUID startNpc;
 
     private HashMap<UUID, Item> items;
     private MovementCalculator movementCalculator;
@@ -608,6 +609,10 @@ public class Game implements iGame {
             NPC newNpc = this.fileHandler.getJSON("data/" + this.scenario.getPath() + "/civilians/" + i + ".json", NPC.class);
             this.npcs.put(newNpc.getId(), newNpc);
             this.civilians.put(newNpc.getId(), newNpc);
+            
+            if(i == 0) {
+                this.startNpc = newNpc.getId();
+            }
             i++;
         }
 
@@ -1516,5 +1521,10 @@ public class Game implements iGame {
     @Override
     public boolean getItemPapers(UUID itemUuid) {
         return this.items.get(itemUuid).getPapers();
+    }
+    
+    @Override
+    public UUID getStartNpc() {
+        return this.startNpc;
     }
 }

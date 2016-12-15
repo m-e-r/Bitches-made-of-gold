@@ -78,4 +78,6 @@ public interface iGame {
     public abstract int getItemDeliveryTime(UUID itemUuid);
     
     public abstract boolean getItemPapers(UUID itemUuid);
+    
+    public abstract UUID getStartNpc();
 }

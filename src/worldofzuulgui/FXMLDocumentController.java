@@ -405,15 +405,14 @@ public class FXMLDocumentController implements Initializable {
             this.updateStats();
             this.planetHandle(this.game.getPlayerPosition());
 
-            //Starts the initial conversation
-            this.npcCB.setValue(this.npcChoices.get(0));        
+            //Starts the initial conversation       
             Button npcButton = new Button();
             npcButton.setMaxSize(100, 50);
             sceneGrid.add(npcButton, 1, 3, 1, 3);
             npcButton.setStyle("-fx-background-color: transparent;");
-            Image npcImage = new Image(game.getImgPath((((CheatList) npcCB.getValue()).getNpc())));
+            Image npcImage = new Image(game.getImgPath(this.game.getStartNpc()));
             npcButton.setGraphic( new ImageView(npcImage));
-            this.game.startConversation(((CheatList) npcCB.getValue()).getNpc());
+            this.game.startConversation(this.game.getStartNpc());
             this.updateConversationText();
         }
     }
