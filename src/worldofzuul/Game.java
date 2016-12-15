@@ -178,14 +178,12 @@ public class Game implements iGame {
      * @param nextPositionUuid which planet or moon that is the intended target.
      */
     private void processWarp(Player characterToTravel, UUID nextPositionUuid) {
-        int[] currentPosition = getPositionCoordinates(this.player.getPlanetId());
-        int[] nextPosition = getPositionCoordinates(nextPositionUuid);
-        NPCHolder nextNpcHolder = getNPCHolderFromUuid(nextPositionUuid);
 
-        if (this.movementCalculator.isWarpReachable(currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1], characterToTravel.getWarpfuel())) {
+        if (characterToTravel.getWarpfuel() > 9) {
             characterToTravel.setCurrentPlanet(nextPositionUuid);
             this.audioPlayer.playWarp();
-            characterToTravel.setWarpfuel(characterToTravel.getWarpfuel() - this.movementCalculator.calculateWarpFuelUsage(currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1]));
+            characterToTravel.setWarpfuel(characterToTravel.getWarpfuel() - 10);
+            this.incrementTime(1);
         }
     }
 

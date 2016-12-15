@@ -41,37 +41,4 @@ public class MovementCalculator {
             return false;
         }
     }
-
-    /**
-     * Is it possible to reach a coordinate set from a coordinate set using the
-     * warp.
-     *
-     * @param startX a coordinate in the first coordinate set
-     * @param startY a coordinate in the first coordinate set
-     * @param toX a coordinate in the last coordinate set
-     * @param toY a coordinate in the last coordinate set
-     * @param currentFuel the current amount of fuel
-     * @return whether it is possible to reach the coordinate or not
-     */
-    public boolean isWarpReachable(int startX, int startY, int toX, int toY, int currentFuel) {
-        if (currentFuel >= (this.calculateDistance(startX, startY, toX, toY) / 10)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Calculate the amount of warp fuel used from a coordinate to another
-     * coordinate.
-     *
-     * @param startX a coordinate in the first coordinate set
-     * @param startY a coordinate in the first coordinate set
-     * @param toX a coordinate in the last coordinate set
-     * @param toY a coordinate in the last coordinate set
-     * @return the amount of warp fuel used
-     */
-    public int calculateWarpFuelUsage(int startX, int startY, int toX, int toY) {
-        return this.calculateDistance(startX, startY, toX, toY) / 10;
-    }
 }
