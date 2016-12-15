@@ -47,9 +47,9 @@ HEY! You can finish my mission, since you have nothing to lose, they can't hurt 
 Never
 Well, do it anyway.
 -1
-pickupPackage,nextConvoId
+pickupPackage
 
 Sure
 Then take this note from Leela The True Leader Of Our Solar System, it will help you get to the rebellion camp on Meilleur's moon.
 -1
-pickupPackage,nextConvoId
+pickupPackage

@@ -120,6 +120,11 @@ public class Game implements iGame {
                 reachablePlanets.add(planet.getId());
             }
         }
+        if(this.planets.containsKey(this.player.getPlanetId())) {
+            if(this.planets.get(this.player.getPlanetId()).hasMoon()) {
+                reachablePlanets.add(this.planets.get(this.player.getPlanetId()).getMoonUuid());
+            }
+        }
         return reachablePlanets;
     }
 
@@ -721,7 +726,6 @@ public class Game implements iGame {
         NPCHolder[] planets = new NPCHolder[holdersList.size()];
         holdersList.toArray(planets);
         for (NPC npc : hasNoPid) {
-            System.out.println("NPC placement loop");
             //If the NPC already has a planet, skip placing them. (Should hopefully not be needed)
             if (npc.getPlanetId() != null) {
                 continue;
@@ -798,7 +802,7 @@ public class Game implements iGame {
         //As long as the size of items used is smaller than the list of NPCs
         while (itemsUsed.size() < this.npcs.size()) {
             while (true) {
-                int randomIndex = (int) (Math.random() * this.items.size());
+                int randomIndex = (int) (Math.random() * allItems.size());
 
                 //If the random picked item is already stated as being used,
                 // it will skip the rest of the while(true) and generate a new random index.
@@ -891,11 +895,22 @@ public class Game implements iGame {
                 continue;
             }
             while (true) {
-                System.out.println("Items loop");
                 int randomItemIndex = (int) (Math.random() * itemsHaveNoPickup.size());
                 Item item = itemsHaveNoPickup.get(randomItemIndex);
 
-                if (npc.getPackageId() == item.getId()) {
+                if (npc.getPackageId().equals(item.getId())) {
+                    if(itemsHaveNoPickup.size() == 1) {
+                        UUID tempItemUuid = itemsHaveNoPickup.get(0).getId();
+                        UUID tempNpcUuid = this.items.get(tempItemUuid).getNpcId();
+                        System.out.println("Deleted NPC: " + this.npcs.get(tempNpcUuid));
+                        this.npcs.remove(tempNpcUuid);
+                        if(this.civilians.containsKey(tempNpcUuid)) {
+                            this.civilians.remove(tempNpcUuid);
+                        } else if(this.rebels.containsKey(tempNpcUuid)) {
+                            this.rebels.remove(tempNpcUuid);
+                        }
+                        break;
+                    }
                     continue;
                 }
 

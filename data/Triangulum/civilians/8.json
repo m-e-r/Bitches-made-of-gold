@@ -1,0 +1,10 @@
+{
+    "name": "Renhrew nov Nuarb",
+    "description": "A scientist from the Republic of China",
+    "rid": -1,
+	"pid" : 5,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 90000,
+	"imagePath" : "npcs/NPC2.png"
+}

@@ -15,10 +15,10 @@ Now you can head to your spaceship and deliver the first package.
 2
 
 _____
-I've already loaded the package! Let me teach you how it's done! You have a dashboard, try to use it! Just type " help "
+I've already loaded the package! Let me teach you how it's done! You have a dashboard. On the top right site, press "Help"
 1
 
 thanks
-I know the first package need to be delivered at Yareach, at the coordinates of 20;72. Use the "scan possible" and "go" command to get there! When you are then, use "scan npcs" to find him!
+I know the first package need to be delivered at Yareach, at the coordinates of 20;72. You can find him by pressing the buttom "Display planets" and place the mouse over the planets.
 -1
 pickupPackage,nextConvoId:1

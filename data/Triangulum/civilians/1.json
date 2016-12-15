@@ -2,7 +2,7 @@
 	"name": "Empêtant",
 	"description": "An undercover citizen, living amongst the brainwashed",
 	"rid": 0,
-	"pid": 3,
+	"pid": 2,
 	"iid": 1,
 	"chanceToMove": 0,
 	"conversationId": 90101,

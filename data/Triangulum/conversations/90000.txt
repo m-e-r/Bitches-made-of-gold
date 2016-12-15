@@ -1,0 +1,29 @@
+
+Hello!
+1
+
+Hi
+Welcome to our planet
+-1
+checkPickup:1;2
+___________
+Hi, do you have a package for me?
+2
+
+Yes
+Thank you
+3
+deliverPackage,checkPickup:2;-1
+
+No
+Well, then go get my package!
+3
+checkPickup:2;-1
+____________
+I have a package for you...
+1
+
+Okay... Can i have it?
+Yea' sure.
+-1
+pickupPackage

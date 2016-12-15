@@ -1,0 +1,10 @@
+{
+    "name": "Warp fueler",
+    "description": "An NPC where you can purchase some warp fuel",
+    "rid": -1,
+	"pid" : 0,
+	"iid" : -1,
+	"chanceToMove" : 0,
+	"conversationId" : 90000,
+	"imagePath" : "npcs/NPC5.png"
+}

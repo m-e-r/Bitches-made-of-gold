@@ -23,15 +23,15 @@ Queen Margrethe should be at Nogah at 120;210
 -1
 
 _____ 3:
-Do you know everyone of the commands you can use? no? Let me tell you!
+Do you know how to play the game? No? Let me tell you!
 1
 
 cool
-The commands are: "Drop" is for when you wanna drop an item...   "help" is when you are fucked and need help...   "print" is for printing inventory, stats and position...   "greet" is for talking to people...
+You can "drop" items by clicken on the drop buttom of each item you have...   If you are fucked and need help, press the "help" buttom on the top right...   When you need to talk to a dude, just click the buttom on the top right in the picture and pick the guy og lady!
 4
 
 _____ 4:
-"go" is for flying places...   "scan" is for scanning for npcs, possible planets ect...   "quit" is for quitting the game... "say" is for talking to people...   "warp" is for warping to any planet... Got it? 
+When you wanna fly to a planet, you can just go in "Display planets" and pres the planet you want to fly to...  It's not all planets you can reach! If you hold the mouse over the planet, you can see if it's reachable!...   Don't wanna play this awesome game anymore? Just click Quit... When you got warp activated you can "warp" to any planet... Got it? 
 2
 
 yes

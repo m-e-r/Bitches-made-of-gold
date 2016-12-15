@@ -13,7 +13,7 @@ I don't know if i can trust you, do you have a message from her?
 Yes
 Great, let me check.
 2
-checkPackage:3;-1
+checkPackage:2;-1,deliverPackage
 
 No
 Then i can't hand it to you.

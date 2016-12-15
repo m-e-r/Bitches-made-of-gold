@@ -51,7 +51,7 @@ ofc you do! I have a package for one of these Pokemon Go loving creatures at the
 2
 
 yes
-Great! Here you go! You can travel to him bye using: "Scan possible". *HINT!* Moons are always 0.
+Great! Here you go! You can travel to him by clicking the "To the moon!" buttom!  Cheers!
 7
 pickupPackage
 

@@ -30,7 +30,7 @@ deliverPackage
 No. I will keep this.
 You will have to do it.
 3
-[]
+deliverPackage
 -------------------------4
 Now go do your job.
 1
@@ -38,4 +38,4 @@ Now go do your job.
 I will
 Great
 -1
-[]
+pickupPackage

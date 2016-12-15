@@ -29,7 +29,7 @@ But you will have to promise to only deliver packages to the "True" Council.
 Okay, we're good?
 Yea' we're good.
 -1
-[]
+pickupPackage
 
 I can't make that promise.
 Well then,
