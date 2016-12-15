@@ -241,6 +241,8 @@
                   </TextArea>
                   <Label fx:id="nameErrorLabel" layoutX="621.0" layoutY="175.0" prefHeight="17.0" prefWidth="178.0" textFill="RED" />
                   <Label fx:id="scenarioErrorLabel" layoutX="50.0" layoutY="175.0" prefHeight="17.0" prefWidth="167.0" textFill="RED" />
+                  <Label layoutX="63.0" layoutY="95.0" text="Please choose a scenario" />
+                  <Label layoutX="638.0" layoutY="95.0" text="Please type your name" />
                </children>
             </AnchorPane>
         </items>
