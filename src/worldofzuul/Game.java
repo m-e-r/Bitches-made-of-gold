@@ -1126,6 +1126,8 @@ public class Game implements iGame {
             printAble = this.items.get(uuid);
         } else if (this.planets.containsKey(uuid) || this.moons.containsKey(uuid)) {
             printAble = this.getNPCHolderFromUuid(uuid);
+        } else if (this.possibleScenarios.containsKey(uuid)) {
+            printAble = this.possibleScenarios.get(uuid);
         } else {
             return null;
         }
@@ -1419,7 +1421,7 @@ public class Game implements iGame {
     @Override
     public void startGame(UUID scenario, String playerName) {
         this.scenario = this.possibleScenarios.get(scenario);
-        this.player = new Player(playerName, 10000, 1);
+        this.player = new Player(playerName, 600, 10);
         this.play();
     }
 

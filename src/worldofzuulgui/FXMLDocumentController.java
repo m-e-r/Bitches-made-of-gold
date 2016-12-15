@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SplitPane;
@@ -34,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -175,6 +177,14 @@ public class FXMLDocumentController implements Initializable {
     
     //Sorted map for displaying help topics and text
     private TreeMap<String, String> helps = new TreeMap();
+    @FXML
+    private HBox helpHBox;
+    @FXML
+    private TextArea scenarioDescTA;
+    @FXML
+    private Label nameErrorLabel;
+    @FXML
+    private Label scenarioErrorLabel;
 
     
     /**
@@ -182,6 +192,7 @@ public class FXMLDocumentController implements Initializable {
      * This includes creating and placing buttons for each planet and
      * adding style and functionality to these.
      */
+    @FXML
     public void setSolarsystem() {        
         this.sceneClear(); //Removes all nodes from the scene gridpane
         
@@ -292,72 +303,79 @@ public class FXMLDocumentController implements Initializable {
      * @param planetUuid UUID of the planet which is travlled to
      */
     public void planetHandle(UUID planetUuid) {
-        Image planetImg = new Image(this.game.getImgPath(planetUuid));
-        sceneImage.setImage(planetImg);
-        this.sceneClear(); //Clears all nodes in front of the background
-        
-        //Ables the second button to travel to the moon if the planet has one
-        if (this.game.getMoonId(planetUuid) != null) {
-            dialogueButton2.setText("To the moon!");
-            dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    npcChoices.clear();
-                    dialogueButton2.setText(null);
+        //First check if planet is reachable
+        if (this.game.getPossiblePlanets().contains(planetUuid)) {
+            Image planetImg = new Image(this.game.getImgPath(planetUuid));
+            sceneImage.setImage(planetImg);
+            this.sceneClear(); //Clears all nodes in front of the background
 
-                    UUID moonUuid = game.getMoonId(planetUuid);
-                    planetHandle(moonUuid);
-                }            
-            });
-        }
-        
-        //Ables the third button to display the solar system
-        dialogueButton3.setText("Display Planets");
-        dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                setSolarsystem();
-            }    
-        });
-        
-        //Uses warpfuel if warp is activated
-        if (warpRB.isSelected()) {
-            this.game.processWarp(planetUuid);
-        } else {
-            this.game.travelToPlanet(planetUuid);
-        } 
-        this.updateStats();
-        
-        //Updates the NPC choicebox for the planet
-        this.npcChoices.clear();
-        for (UUID npc : this.game.getAvailableNpcs(planetUuid)) {
-            this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
-        }        
-        this.npcCB.setItems(npcChoices);
-        
-        //Sets the selected NPC on screen and ready for conversation
-        Button npcButton = new Button();
-        this.npcCB.setOnAction( new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (npcCB.getValue() == null) {
-                    return;
-                }
-                sceneClear();
-                npcButton.setMaxSize(100, 50);
-                sceneGrid.add(npcButton, 1, 3, 1, 3);
-                npcButton.setStyle("-fx-background-color: transparent;");
-                Image npcImage = new Image(game.getImgPath((((CheatList) npcCB.getValue()).getNpc())));
-                npcButton.setGraphic( new ImageView(npcImage));
-                npcButton.setOnAction(new EventHandler<ActionEvent>(){
+            //Ables the second button to travel to the moon if the planet has one
+            if (this.game.getMoonId(planetUuid) != null) {
+                dialogueButton2.setText("To the moon!");
+                dialogueButton2.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        game.startConversation(((CheatList) npcCB.getValue()).getNpc());
-                        updateConversationText();
-                    }
+                        npcChoices.clear();
+                        dialogueButton2.setText(null);
+
+                        UUID moonUuid = game.getMoonId(planetUuid);
+                        planetHandle(moonUuid);
+                    }            
                 });
             }
-        });
+
+            //Ables the third button to display the solar system
+            dialogueButton3.setText("Display Planets");
+            dialogueButton3.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    setSolarsystem();
+                }    
+            });
+
+            //Uses warpfuel if warp is activated
+            if (warpRB.isSelected()) {
+                this.warpRB.setText("Warp Activated");
+                this.game.processWarp(planetUuid);
+            } else {
+                this.warpRB.setText("Warp Deactivated");
+                this.game.travelToPlanet(planetUuid);
+            } 
+            this.updateStats();
+
+            //Updates the NPC choicebox for the planet
+            this.npcChoices.clear();
+            for (UUID npc : this.game.getAvailableNpcs(planetUuid)) {
+                this.npcChoices.add(new CheatList(npc, this.game.getName(npc)));
+            }        
+            this.npcCB.setItems(npcChoices);
+
+            //Sets the selected NPC on screen and ready for conversation
+            Button npcButton = new Button();
+            this.npcCB.setOnAction( new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (npcCB.getValue() == null) {
+                        return;
+                    }
+                    sceneClear();
+                    npcButton.setMaxSize(100, 50);
+                    sceneGrid.add(npcButton, 1, 3, 1, 3);
+                    npcButton.setStyle("-fx-background-color: transparent;");
+                    Image npcImage = new Image(game.getImgPath((((CheatList) npcCB.getValue()).getNpc())));
+                    npcButton.setGraphic( new ImageView(npcImage));
+                    npcButton.setOnAction(new EventHandler<ActionEvent>(){
+                        @Override
+                        public void handle(ActionEvent event) {
+                            game.startConversation(((CheatList) npcCB.getValue()).getNpc());
+                            updateConversationText();
+                        }
+                    });
+                }
+            });
+        } else {
+            this.dialogueTA.appendText("You don't have enough fuel\n");
+        }
     }
     
     /**
@@ -369,14 +387,35 @@ public class FXMLDocumentController implements Initializable {
      */
     @FXML
     public void handleStart(ActionEvent event) {
-       // this.game.setScenario(this.scenariosCB.getValue().getNpc());
-        mainAnchor.getChildren().remove(startSP);
-        mainAnchor.getChildren().remove(helpAnchor);
-        mainAnchor.getChildren().remove(hsAnchor);
-        this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
-        this.realTimeTimer();
-        this.updateStats();
-        this.planetHandle(this.game.getPlayerPosition());
+        
+        //First check if user has chosen scenario and name
+        if (this.scenariosCB.getValue() == null) {
+            this.scenarioErrorLabel.setText("Please choose a scenario");
+        } else if (this.nameTF.getText().trim().isEmpty()) {
+            this.scenarioErrorLabel.setText("");
+            this.nameErrorLabel.setText("Please type you name");
+        }
+        //Then start the game
+        else {
+            mainAnchor.getChildren().remove(startSP);
+            mainAnchor.getChildren().remove(helpAnchor);
+            mainAnchor.getChildren().remove(hsAnchor);
+            this.game.startGame(scenariosCB.getValue().getNpc(), this.nameTF.getText());
+            this.realTimeTimer();
+            this.updateStats();
+            this.planetHandle(this.game.getPlayerPosition());
+
+            //Starts the initial conversation
+            this.npcCB.setValue(this.npcChoices.get(0));        
+            Button npcButton = new Button();
+            npcButton.setMaxSize(100, 50);
+            sceneGrid.add(npcButton, 1, 3, 1, 3);
+            npcButton.setStyle("-fx-background-color: transparent;");
+            Image npcImage = new Image(game.getImgPath((((CheatList) npcCB.getValue()).getNpc())));
+            npcButton.setGraphic( new ImageView(npcImage));
+            this.game.startConversation(((CheatList) npcCB.getValue()).getNpc());
+            this.updateConversationText();
+        }
     }
     
     /**
@@ -700,10 +739,16 @@ public class FXMLDocumentController implements Initializable {
         this.readyHelpText();
         this.helpTopics.addAll(helps.keySet());
         
+        //Load scenarios into the choicebox
         for (UUID scenario : this.game.getPossibleScenarios()) {
             this.scenarios.add(new CheatList(scenario, this.game.getName(scenario)));
         }
         this.scenariosCB.setItems(scenarios);
+        
+        //Display information for selected scenario
+        this.scenariosCB.getSelectionModel().selectedItemProperty().addListener(
+        (observableValue, oldValue, newValue) ->
+        scenarioDescTA.setText(this.game.getDescription(this.scenariosCB.getValue().getNpc())));
     }
 
     @FXML

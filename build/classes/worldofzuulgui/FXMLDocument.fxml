@@ -96,7 +96,7 @@
                   </AnchorPane>
                   <AnchorPane fx:id="dialogueAnchor" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="162.0" prefWidth="396.0" GridPane.columnSpan="5" GridPane.rowIndex="2">
                      <children>
-                        <TextArea fx:id="dialogueTA" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="159.0" prefWidth="532.0" />
+                        <TextArea fx:id="dialogueTA" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="159.0" prefWidth="532.0" wrapText="true" />
                      </children>
                      <GridPane.margin>
                         <Insets />
@@ -231,9 +231,16 @@
             </AnchorPane>
           <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="388.0" prefWidth="830.0">
                <children>
-                  <TextField fx:id="nameTF" layoutX="332.0" layoutY="130.0" />
-                  <ChoiceBox fx:id="scenariosCB" layoutX="341.0" layoutY="230.0" prefWidth="150.0" />
-                  <Button fx:id="startButton" layoutX="386.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleStart" text="Start" />
+                  <TextField fx:id="nameTF" layoutX="624.0" layoutY="140.0" />
+                  <ChoiceBox fx:id="scenariosCB" layoutX="63.0" layoutY="140.0" prefWidth="150.0" />
+                  <Button fx:id="startButton" layoutX="391.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleStart" text="Start" />
+                  <TextArea fx:id="scenarioDescTA" editable="false" layoutX="236.0" layoutY="68.0" prefHeight="199.0" prefWidth="358.0" wrapText="true">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </TextArea>
+                  <Label fx:id="nameErrorLabel" layoutX="621.0" layoutY="175.0" prefHeight="17.0" prefWidth="178.0" textFill="RED" />
+                  <Label fx:id="scenarioErrorLabel" layoutX="50.0" layoutY="175.0" prefHeight="17.0" prefWidth="167.0" textFill="RED" />
                </children>
             </AnchorPane>
         </items>
