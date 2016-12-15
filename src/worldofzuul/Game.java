@@ -1425,7 +1425,7 @@ public class Game implements iGame {
     @Override
     public void startGame(UUID scenario, String playerName) {
         this.scenario = this.possibleScenarios.get(scenario);
-        this.player = new Player(playerName, 10000, 1);
+        this.player = new Player(playerName, 600, 1);
         this.play();
     }
 
