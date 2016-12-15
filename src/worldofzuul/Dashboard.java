@@ -13,7 +13,29 @@ public class Dashboard {
      * @param toPrint what to print
      */
     public void print(String toPrint) {
-        this.savedString += toPrint + "\n";
+        String returnString = "";
+        String[] splittedString = toPrint.split(" ");
+        boolean firstCut = false;
+        int lastCut = 0;
+        while(lastCut < splittedString.length) {
+            if(!firstCut) {
+                firstCut = true;
+            } else {
+                returnString += "\t";
+            }
+
+            int cuttedSize = 0;
+            while(lastCut < splittedString.length) {
+                cuttedSize += splittedString[lastCut].length();
+                if(cuttedSize > 75) {
+                    returnString += "\n";
+                    break;
+                }
+                returnString += splittedString[lastCut] + " ";
+                lastCut++;
+            }
+        }
+        this.savedString += returnString + "\n";
     }
 
     /**

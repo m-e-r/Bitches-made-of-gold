@@ -159,6 +159,8 @@ public class Game implements iGame {
 
             int travelTime = 10;
             incrementTime(this.movementCalculator.calculateDistance(currentPosition[0], currentPosition[1], nextPosition[0], nextPosition[1]) / travelTime);
+            incrementTime(20); //Adds some extra time used, because of when starting and breaking it costs extra time.
+            return true;
         }
         return false;
     }
@@ -874,7 +876,7 @@ public class Game implements iGame {
                 break;
             }
             if (itemsHaveNoPickup.size() == 2) {
-                if (itemsHaveNoPickup.get(0).getId() == npc.getPackageId()) {
+                if (itemsHaveNoPickup.get(0).getId().equals(npc.getPackageId())) {
                     itemsHaveNoPickup.get(1).setNpcId(npc.getId());
                     npc.addItem(itemsHaveNoPickup.get(1).getId(), itemsHaveNoPickup.get(1).getWeight());
                     itemsHaveNoPickup.remove(1);
@@ -966,6 +968,12 @@ public class Game implements iGame {
      */
     private void tryNpcMovementCalculations(Collection<NPC> npcList, ArrayList<NPCHolder> holdersList) {
         for (NPC npc : npcList) {
+            if(this.currentConversation != null) {
+                if(this.currentConversation.getNpcId().equals(npc.getId())) {
+                    continue;
+                }
+            }
+            
             NPCHolder[] npcHolders = new NPCHolder[holdersList.size()];
             holdersList.toArray(npcHolders);
 
