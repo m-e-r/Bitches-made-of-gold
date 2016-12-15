@@ -44,7 +44,7 @@ import javafx.stage.Stage;
  */
 public class FXMLDocumentController implements Initializable {
     
-    //Defines controllers   
+    //Containers
     @FXML
     private AnchorPane mainAnchor; //The back most anchorpane
     @FXML
@@ -57,6 +57,8 @@ public class FXMLDocumentController implements Initializable {
     private AnchorPane helpAnchor; //Pane for the help area
     @FXML
     private AnchorPane hsAnchor; //Pane for the highscore area
+    @FXML
+    private HBox helpHBox; //Holds controllers on help screen
     @FXML
     private AnchorPane dialogueAnchor; //Pane for the dialoguearea
     @FXML
@@ -82,6 +84,22 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private GridPane buttonGrid; 
     @FXML
+    private ImageView sceneImage; //Imageview for displaying backgrounds
+    @FXML
+    private ImageView itemIV0; //Imageview for displaying the first item
+    @FXML
+    private ImageView itemIV1; //Imageview for displaying the second item
+    @FXML
+    private ImageView itemIV2; //Imageview for displaying the third item
+    
+    //Controllers
+    @FXML
+    private TextArea scenarioDescTA; //Displays scenario information
+    @FXML
+    private Label nameErrorLabel; //Displays error message for name input
+    @FXML
+    private Label scenarioErrorLabel; //Error message for user scenario choice
+    @FXML
     private TextArea fuelTA; //Textarea for displaying fuel
     @FXML
     private TextArea titleTA; //Textarea for showing title in beginning
@@ -93,14 +111,7 @@ public class FXMLDocumentController implements Initializable {
     private TextArea timeTA;
     @FXML
     private TextArea dialogueTA; //Textarea for displaying the dialogue
-    @FXML
-    private ImageView sceneImage; //Imageview for displaying backgrounds
-    @FXML
-    private ImageView itemIV0; //Imageview for displaying the first item
-    @FXML
-    private ImageView itemIV1; //Imageview for displaying the second item
-    @FXML
-    private ImageView itemIV2; //Imageview for displaying the third item
+
     
     //The three buttons used for answering during conversation, and for displaying
     //the solar system or going the a moon when on a planet, but no in conversation
@@ -177,14 +188,6 @@ public class FXMLDocumentController implements Initializable {
     
     //Sorted map for displaying help topics and text
     private TreeMap<String, String> helps = new TreeMap();
-    @FXML
-    private HBox helpHBox;
-    @FXML
-    private TextArea scenarioDescTA;
-    @FXML
-    private Label nameErrorLabel;
-    @FXML
-    private Label scenarioErrorLabel;
 
     
     /**
